@@ -6,10 +6,10 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
 @endpush
 
 @section('content')
@@ -97,9 +97,16 @@
                                                     <div>
                                                         <h4 class="box-title">{{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
                                                         <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a>
+                                                        
+                                                        @foreach ($schedules->route->bus->facilities as $i)
                                                         <div class="amenities">
-                                                            {{ $schedules->route->bus->facilities->random()->facility_name }}
+                                                             &nbsp - {{ $i->facility_name }} 
                                                         </div>
+                                                        @endforeach
+                                                        
+                                                        
+                                                            {{-- {{ $schedules->route->bus->facilities->random()->facility_name }} --}}
+                                                        
                                                     </div>
                                                     <div>
                                                         <span class="price"><small>Harga/Orang</small>Rp. {{ number_format($schedules->price) }}</span>
@@ -146,11 +153,11 @@
 
 @push('addon-script')
 <!-- load FlexSlider scripts -->
-<script type="text/javascript" src="/components/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="{{ asset('/components/flexslider/jquery.flexslider-min.js') }}"></script>
     
 <!-- Google Map Api -->
 <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
-<script type="text/javascript" src="/js/gmap3.min.js"></script>
+<script type="text/javascript" src="{{ asset('/js/gmap3.min.js') }}"></script>
     <script type="text/javascript">
         tjq(document).ready(function() {
             tjq("#price-range").slider({

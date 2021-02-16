@@ -20,7 +20,7 @@
         <div class="container">
             <h1 class="navbar-brand">
                 <a href="{{ route('home') }}" title="dipassB2C - Home">
-                    <img src="/images/logo.png"alt="dipass Logo" />
+                    <img src="{{ asset('/images/logo.png') }}"alt="dipass Logo" />
                 </a>
             </h1>
 

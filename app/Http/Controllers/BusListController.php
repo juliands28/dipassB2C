@@ -61,8 +61,10 @@ class BusListController extends Controller
             'route.bus.facilities',
             'route.departure',
             'route.company',
-
+ 
         ])->findOrFail($id);
+
+        
         return view('pages.bus_detail',[
             'item' => $item
         ]);

@@ -84,7 +84,7 @@
         <div class="container">
             <div class="pull-left">
                 <a href="index.html" title="Travelo - home">
-                    <img src="/images/logo.png" alt="Travelo HTML5 Template" />
+                    <img src="{{ asset('/images/logo.png') }}" alt="Travelo HTML5 Template" />
                 </a>
             </div>
             <div class="pull-right">

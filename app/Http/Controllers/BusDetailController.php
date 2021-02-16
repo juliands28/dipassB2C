@@ -11,7 +11,7 @@ class BusDetailController extends Controller
 {
     public function index(Request $request, $id)
     {
-        $bus = Bus::all();
+        $facility = Bus::all();
         // $facility = BusFacility::with('facility');
         // dd($facility);
         $item = Schedule::with([
@@ -25,6 +25,8 @@ class BusDetailController extends Controller
             'route.departure',
             'route.company',])
             ->findOrFail($id);
+
+            // return $item;
             // dd($item);
         return view('pages.bus_detail',[
             'item' => $item,

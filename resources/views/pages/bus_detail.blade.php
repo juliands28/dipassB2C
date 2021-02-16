@@ -6,10 +6,10 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/jquery.steps.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/steps.css') }}">
 
@@ -136,11 +136,11 @@
                                                 {{ $travel_package->title }}
                                             </option>
                                         @endforeach --}}
-                                        {{-- @foreach ($item as $i)
+                                        @foreach ($item->route->bus->facilities as $i)
                                             <li class="col-md-4 col-sm-6">
-                                                <div class="icon-box style1"><i class="soap-icon-wifi"></i>{{ $i->route->bus->facilities->pivot->facility_name }}</div>
+                                                <div class="icon-box style1"><i class="soap-icon-wifi"></i>{{ $i->facility_name }}</div>
                                             </li>
-                                        @endforeach --}}
+                                        @endforeach
                                         
                                         
                                     </ul>
@@ -154,7 +154,13 @@
                                             
                                             <div class="details">
                                                 <h4 class="box-title">pilih bangku</h4>
-                                                {{ $item->route->bus  }} 
+                                                @foreach ($item->route->bus->layout['component'] as $key => $val)
+                                                   @if($val['type'] === 'seat')
+                                                        {{ $val['seat_number'] }}
+                                                   @else 
+                                                        {{ $val['type'] }}
+                                                   @endif
+                                                @endforeach
                                                 
                                             </div>
                                         </article>
@@ -218,9 +224,9 @@
         });
     </script> --}}
 {{-- calendar --}}
-<script type="text/javascript" src="/js/calendar.js"></script>
+<script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->
-<script type="text/javascript" src="/components/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="{{ asset('/components/flexslider/jquery.flexslider-min.js') }}"></script>
     
     <script type="text/javascript">
         tjq(document).ready(function() {

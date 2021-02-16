@@ -6,10 +6,10 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
 @endpush
 
 @section('content')
@@ -125,8 +125,8 @@
 
 @push('addon-script')
 {{-- calendar --}}
-<script type="text/javascript" src="/js/calendar.js"></script>
+<script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->
-<script type="text/javascript" src="/components/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="{{ asset('/components/flexslider/jquery.flexslider-min.js') }}"></script>
     
 @endpush
