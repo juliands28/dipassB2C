@@ -80,7 +80,7 @@
                                     <div class="form-group">
                                         <label>Dari</label>
                                         <select class="full-width" data-placeholder="Pilih Asal Keberangkatan " name='departure_city' data-init-plugin="select2" required>
-                                            @foreach ($schedule->service->pickup->city as $item)
+                                            @foreach ($kota as $item)
                                                 <option value="{{$item->id}}">{{$item->city_name}}</option>
                                             @endforeach
                                       </select>
@@ -88,7 +88,7 @@
                                     <div class="form-group">
                                         <label>Pergi ke</label>
                                         <select class="full-width" data-placeholder="Pilih tujuan Keberangkatan " name='arrival_city' data-init-plugin="select2" required>
-                                            @foreach ($schedule->service->pickup->city as $item)
+                                            @foreach ($kota as $item)
                                                 <option value="{{$item->id}}">{{$item->city_name}}</option>
                                             @endforeach
                                       </select>

@@ -20,13 +20,14 @@ Route::get('/', function () {
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/search', 'HomeController@search')->name('search-home');
+Route::get('/', 'HomeController@search')->name('home');
+// Route::get('/search', 'HomeController@search')->name('search-home');
 
 Route::get('/bus-list', 'BusListController@index')->name('bus-list');
 // Route::post('/bus-list', 'BusListController@search')->name('search');
 Route::get('/view-bus', 'BusDetailController@index')->name('view-bus');
-Route::get('/view-bus/search', 'BusListController@search')->name('search-bus');
+// Route::post('/view-bus/search1', 'BusListController@search')->name('view-bus-search');
+Route::post('/list-bus/search', 'BusListController@search')->name('search-bus');
 Route::get('/view-bus/{id}', 'BusDetailController@index')->name('bus-detail');
 
 // Route::get('/bus-detail/{$id}', 'BusListController@detail')->name('bus-details');

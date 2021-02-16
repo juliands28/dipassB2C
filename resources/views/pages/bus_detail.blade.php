@@ -106,6 +106,7 @@
                                                                     <label>Tiba</label>
                                                                     <span>{{ $item->date->format('d/m/Y') }} - {{ $item->route->board_points->last()->time }}                                                                                                                                           </span>
                                                                 </div>
+                                                                
                                                             </div>
                                                             {{-- <label class="layover">Layover : 1h, 40m</label> --}}
                                                         </div>
@@ -153,14 +154,41 @@
                                         <article class="box" id="seat_container">
                                             
                                             <div class="details">
-                                                <h4 class="box-title">pilih bangku</h4>
+                                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            @foreach ($item->route->bus->layout['component'] as $key => $val)
+                                                            <td>
+                                                                @if($val['type'] === 'seat')
+                                                                        {{ $val['seat_number'] }}
+                                                                @else 
+                                                                        {{ $val['type'] }}
+                                                                @endif
+                                                            </td>
+                                                            @endforeach 
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                {{-- <h4 class="box-title">pilih bangku</h4>
                                                 @foreach ($item->route->bus->layout['component'] as $key => $val)
                                                    @if($val['type'] === 'seat')
                                                         {{ $val['seat_number'] }}
                                                    @else 
                                                         {{ $val['type'] }}
                                                    @endif
-                                                @endforeach
+                                                   br
+                                                @endforeach --}}
                                                 
                                             </div>
                                         </article>

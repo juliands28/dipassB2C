@@ -44,28 +44,13 @@ class HomeController extends Controller
         ]);
     }
 
-    public function search(Request $request)
+    public function search()
     {
-        $schedule = Schedule::with([
-            'services'
-            ,
-            
-            'services.pickup', 
-            'services.dropping', 
-            'route.departure', 
-            'route.arrival', 
-            'route.points', 
-            'route.bus', 
-            'route.bus', 
-            'route.bus'
-        ])
-        // ->where('date', '=', date('Y-m-d', strtotime($request->date)))
-        ->get();
-        
-        dd($schedule);
+        $kota = City::all();
+
         
         return view('pages.home-search',[
-                'schedule' => $schedule
+                'kota' => $kota
             ]);
     }
 }

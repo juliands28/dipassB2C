@@ -6,7 +6,7 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
@@ -37,28 +37,28 @@
                                     </h4>
                                     <div id="modify-search-panel" class="panel-collapse collapse">
                                         <div class="panel-content">
-                                            <form action="{{ route('search') }}" method="POST"
+                                            <form action="{{ route('search-bus') }}" method="POST">
                                                 <div class="form-group">
                                                     <label>Berangkat dari</label>
                                                     <select class="full-width" data-placeholder="Pilih Asal Keberangkatan " name='departure_city' data-init-plugin="select2" required>
-                                                        @foreach ($kota as $item)
-                                                            <option value="{{$item->id}}"
-                                                            @if($from == $item->id)
+                                                        @foreach ($kota as $i)
+                                                            <option value="{{$i->id}}"
+                                                            @if($departure_city == $i->id)
                                                             selected
                                                             @endif
-                                                            >{{$item->city_name}}</option>
+                                                            >{{$i->city_name}}</option>
                                                         @endforeach
                                                         </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Sampai</label>
                                                     <select class="full-width" data-placeholder="Pilih Tujuan  " name='arrival_city' data-init-plugin="select2" required>
-                                                        @foreach ($kota as $item)
-                                                            <option value="{{$item->id}}"
-                                                            @if($to == $item->id)
+                                                        @foreach ($kota as $i)
+                                                            <option value="{{$i->id}}"
+                                                            @if($arrival_city == $i->id)
                                                             selected
                                                             @endif
-                                                            >{{$item->city_name}}</option>
+                                                            >{{$i->city_name}}</option>
                                                         @endforeach
                                                         </select>
                                                 </div>
@@ -86,37 +86,47 @@
                                 </ul>
                             </div> --}}
                             <div class="flight-list listing-style3 flight">
-                                 @foreach ($schedules as $schedules)
+                                 @foreach ($schedule as $schedules)
                                     <article class="box">
                                         <figure class="col-xs-3 col-sm-2">
-                                            <span><img alt="" src="/images/list1.png"></span>
+                                            <span><img alt="" src="http://api-dipass-provider.test/file/bus/{{ $schedules->route->bus->photo }}"></span>
                                         </figure>
                                         <div class="details col-xs-9 col-sm-10">
                                             <div class="details-wrapper">
                                                 <div class="first-row">
                                                     <div>
-                                                        <h4 class="box-title">{{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
-                                                        <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a>
-                                                        <div class="amenities">
-                                                            {{ $schedules->route->bus->facilities->random()->facility_name }}
-                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 pl-2">
+                                                                <h4 class="box-title">{{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
+                                                                <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
+                                                             </div>
+                                                            <div class="col-6">
+                                                                @foreach ($schedules->route->bus->facilities as $i)
+                                                                <div class="amenities push-right">
+                                                                    <a class="button btn-mini purple text-white mr-1">{{ $i->facility_name }} </a>
+                                                                    {{-- &nbsp -  --}}
+                                                                </div>
+                                                                @endforeach 
+                                                            </div>  
+                                                        </div>                                                      
                                                     </div>
                                                     <div>
                                                         <span class="price"><small>Harga/Orang</small>Rp. {{ number_format($schedules->price) }}</span>
                                                     </div>
+                                                    
                                                 </div>
                                                 <div class="second-row">
                                                     <div class="time">
-                                                        <div class="take-off col-sm-4">
-                                                            <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
+                                                        <div class="col-sm-4">
+                                                            <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-on-bus.png"/></div>
                                                             <div>
-                                                                <span class="skin-color">Berangkat <br></span>{{ $schedules->route->arrival->city_name }}<br />{{ $schedules->date->format('d/m/Y') }} <br>{{ $schedules->route->board_points->first()->time }} - hari ke {{ $schedules->route->board_points->first()->day }} 
+                                                                <span class="skin-color">Berangkat <br></span>{{ $schedules->route->points->first()->point_name }}<br />{{ $schedules->date->format('d/m/Y') }} <br>{{ $schedules->route->board_points->first()->time }} - hari ke {{ $schedules->route->board_points->first()->day }} 
                                                             </div>
                                                         </div>
-                                                        <div class="landing col-sm-4">
-                                                            <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
+                                                        <div class="col-sm-4">
+                                                            <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-off-bus.png"/></div>
                                                             <div>
-                                                                <span class="skin-color">Tiba <br></span>{{ $schedules->route->departure->city_name }}<br />{{ $schedules->date->format('d/m/Y') }} <br>{{ $schedules->route->board_points->last()->time }} - hari ke {{ $schedules->route->board_points->last()->day }} 
+                                                                <span class="skin-color">Tiba <br></span>{{ $schedules->route->points ->last()->point_name }}<br />{{ $schedules->date->format('d/m/Y') }} <br>{{ $schedules->route->board_points->last()->time }} - hari ke {{ $schedules->route->board_points->last()->day }} 
                                                             </div>
                                                         </div>
                                                         <div class="total-time col-sm-4">

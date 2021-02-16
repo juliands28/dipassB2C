@@ -6,7 +6,7 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
@@ -89,28 +89,31 @@
                                  @foreach ($schedules as $schedules)
                                     <article class="box">
                                         <figure class="col-xs-3 col-sm-2">
-                                            <span><img alt="" src="/images/list1.png"></span>
+                                            <span><img alt="" src="http://api-dipass-provider.test/file/bus/{{ $schedules->route->bus->photo }}"></span>
                                         </figure>
                                         <div class="details col-xs-9 col-sm-10">
                                             <div class="details-wrapper">
                                                 <div class="first-row">
                                                     <div>
-                                                        <h4 class="box-title">{{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
-                                                        <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a>
-                                                        
-                                                        @foreach ($schedules->route->bus->facilities as $i)
-                                                        <div class="amenities">
-                                                             &nbsp - {{ $i->facility_name }} 
-                                                        </div>
-                                                        @endforeach
-                                                        
-                                                        
-                                                            {{-- {{ $schedules->route->bus->facilities->random()->facility_name }} --}}
-                                                        
+                                                        <div class="row">
+                                                            <div class="col-6 pl-2">
+                                                                <h4 class="box-title">{{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
+                                                                <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
+                                                             </div>
+                                                            <div class="col-6">
+                                                                @foreach ($schedules->route->bus->facilities as $i)
+                                                                <div class="amenities push-right">
+                                                                    <a class="button btn-mini purple text-white mr-1">{{ $i->facility_name }} </a>
+                                                                    {{-- &nbsp -  --}}
+                                                                </div>
+                                                                @endforeach 
+                                                            </div>  
+                                                        </div>                                                      
                                                     </div>
                                                     <div>
                                                         <span class="price"><small>Harga/Orang</small>Rp. {{ number_format($schedules->price) }}</span>
                                                     </div>
+                                                    
                                                 </div>
                                                 <div class="second-row">
                                                     <div class="time">
