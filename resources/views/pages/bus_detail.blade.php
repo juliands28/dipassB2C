@@ -139,7 +139,7 @@
                                         @endforeach --}}
                                         @foreach ($item->route->bus->facilities as $i)
                                             <li class="col-md-4 col-sm-6">
-                                                <div class="icon-box style1"><i class="soap-icon-wifi"></i>{{ $i->facility_name }}</div>
+                                                <div class="icon-box style1"><i class="soap-icon-check-1"></i>{{ $i->facility_name }}</div>
                                             </li>
                                         @endforeach
                                         

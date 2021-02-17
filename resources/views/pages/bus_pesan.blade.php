@@ -10,6 +10,22 @@
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
+    <!--favicon-->
+    <link rel="icon" href="{{ asset('/assets/images/favicon.ico') }}" type="image/x-icon">
+    <!-- jquery steps CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/plugins/jquery.steps/css/jquery.steps.css') }}">
+    <!-- simplebar CSS-->
+    <link href="{{ asset('/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="{{ asset('/assets/css/animate.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="{{ asset('/assets/css/sidebar-menu.css') }}" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="{{ asset('/assets/css/app-style.css') }}" rel="stylesheet"/>
 @endpush
 
 @section('content')
@@ -24,47 +40,82 @@
                 </ul>
             </div>
         </div>
+        
         <section id="content" class="gray-area">
             <div class="container">
                 <div class="row">
                     <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                         <div class="booking-section travelo-box">
                             
-                            <form class="booking-form">
-                                <div class="person-information">
-                                    <h2>Informasi Data Diri</h2>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 col-md-5">
-                                            <label>Nama Depan</label>
-                                            <input type="text" class="input-text full-width" value="Julian" placeholder="masukan nama Depan" />
+                            <form class="booking-form" id="wizard-validation-form" action="#">
+                                <div>
+                                    <h3>Step 1</h3>
+                                    <section>
+                                        <div class="form-group">
+                                            <label for="userName2">User name </label>
+                                            <input class="required form-control" id="userName2" name="userName" type="text">
                                         </div>
-                                        <div class="col-sm-6 col-md-5">
-                                            <label>Nama Belakang</label>
-                                            <input type="text" class="input-text full-width" value="Dini" placeholder="masukan Nama belakang" />
+                                        <div class="form-group">
+                                            <label for="password2"> Password *</label>
+                                            <input id="password2" name="password" type="text" class="required form-control">
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 col-md-5">
-                                            <label>Alamat Email</label>
-                                            <input type="email" class="input-text full-width" value="dini@gmail.com" placeholder="masukan email anda" />
+            
+                                        <div class="form-group">
+                                            <label for="confirm2">Confirm Password *</label>
+                                            <input id="confirm2" name="confirm" type="text" class="required form-control">
                                         </div>
-                                        <div class="col-sm-6 col-md-5">
-                                            <label>konfirmasi Alamat Email</label>
-                                            <input type="text" class="input-text full-width" value="dini@gmail.com" placeholder="konfirmasi kembali email anda" />
+                                        <div class="form-group">
+                                            <label class="col-lg-12 control-label">(*) Mandatory</label>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 col-md-5">
-                                            <label>Nomor Telpon</label>
-                                            <input type="number" class="input-text full-width" value="085696634334" placeholder="masukan nomor telpon anda" />
+                                    </section>
+                                    <h3>Step 2</h3>
+                                    <section>
+            
+                                        <div class="form-group">
+                                            <label for="name2"> First name *</label>
+                                                <input id="name2" name="name" type="text" class="required form-control">
                                         </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group row">
-                                    <div class="col-sm-6 col-md-5">
-                                        <a href="{{ route('pesan-sukses') }}" type="submit" class="btn btn-success full-width btn-large">KONFIRMASI PESANAN</a>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="surname2"> Last name *</label>
+                                                <input id="surname2" name="surname" type="text" class="required form-control">
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="email2">Email *</label>
+                                            <input id="email2" name="email" type="text" class="required email form-control">
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="address2">Address </label>
+                                            <input id="address2" name="address" type="text" class="form-control">
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label class="col-lg-12 control-label">(*) Mandatory</label>
+                                        </div>
+                                    </section>
+                                    <h3>Step 3</h3>
+                                    <section>
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <ul class="list-unstyled w-list">
+                                                    <li>First Name : Jonathan </li>
+                                                    <li>Last Name : Smith </li>
+                                                    <li>Emial: jonathan@example.com</li>
+                                                    <li>Address: 123 Your City, Cityname. </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <h3>Step Final</h3>
+                                    <section>
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <input id="acceptTerms-2" name="acceptTerms2" type="checkbox" class="required">
+                                                <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
                             </form>
                         </div>
@@ -124,9 +175,15 @@
 @endsection
 
 @push('addon-script')
-{{-- calendar --}}
-<script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
-<!-- load FlexSlider scripts -->
-<script type="text/javascript" src="{{ asset('/components/flexslider/jquery.flexslider-min.js') }}"></script>
-    
+    {{-- calendar --}}
+    <script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
+    <!-- load FlexSlider scripts -->
+    <script type="text/javascript" src="{{ asset('/components/flexslider/jquery.flexslider-min.js') }}"></script>
+
+    <!--Form Wizard-->
+    <script src="{{ asset('/assets/plugins/jquery.steps/js/jquery.steps.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <!--wizard initialization-->
+    <script src="{{ asset('/assets/plugins/jquery.steps/js/jquery.wizard-init.js') }}" type="text/javascript"></script>
+
 @endpush
