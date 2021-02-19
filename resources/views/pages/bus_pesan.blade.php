@@ -47,22 +47,22 @@
                     <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                         <div class="booking-section travelo-box">
                             
-                            <form class="booking-form" id="wizard-validation-form" action="#">
+                            <form class="booking-form" id="wizard-validation-form" action="{{ route('order', $schedule->id) }}">
                                 <div>
                                     <h3>Step 1</h3>
                                     <section>
                                         <div class="form-group">
-                                            <label for="userName2">User name </label>
-                                            <input class="required form-control" id="userName2" name="userName" type="text">
+                                            <label for="userName2">Nama</label>
+                                            <input class="required form-control" id="name" name="name" type="text" value="dini">
                                         </div>
                                         <div class="form-group">
-                                            <label for="password2"> Password *</label>
-                                            <input id="password2" name="password" type="text" class="required form-control">
+                                            <label for="password2">phone</label>
+                                            <input id="phone" name="phone" type="text" class="required form-control" value="06442353464">
                                         </div>
             
                                         <div class="form-group">
-                                            <label for="confirm2">Confirm Password *</label>
-                                            <input id="confirm2" name="confirm" type="text" class="required form-control">
+                                            <label for="confirm2">Email</label>
+                                            <input id="email" name="email" type="email" class=" email required form-control" value="dini@gmail.com">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-12 control-label">(*) Mandatory</label>
@@ -72,22 +72,28 @@
                                     <section>
             
                                         <div class="form-group">
-                                            <label for="name2"> First name *</label>
-                                                <input id="name2" name="name" type="text" class="required form-control">
+                                            <label for="name2">Nama</label>
+                                                <input id="passenger_name" name="passenger_name" type="text" class="required form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="surname2"> Last name *</label>
-                                                <input id="surname2" name="surname" type="text" class="required form-control">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="email2">Email *</label>
-                                            <input id="email2" name="email" type="text" class="required email form-control">
+                                            <label for="surname2">NIK</label>
+                                                <input id="passenger_nik" name="passenger_nik" type="text" class="required form-control">
                                         </div>
             
                                         <div class="form-group">
-                                            <label for="address2">Address </label>
-                                            <input id="address2" name="address" type="text" class="form-control">
+                                            <label for="email2">Umur</label>
+                                            <input id="passenger_age" name="passenger_age" type="number" class="required form-control">
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="address2">Jenis Kelamin </label>
+                                            <div class="selector">
+                                                <select name="passenger_gender" class="full-width">
+                                                    <option>Laki-Laki</option>
+                                                    <option>Perempuan</option>
+                                                </select>
+                                            </div>
+                                            {{-- <input id="passenger_gender"  type="text" class="form-control"> --}}
                                         </div>
             
                                         <div class="form-group">
@@ -112,10 +118,27 @@
                                         <div class="form-group">
                                             <div class="col-lg-12">
                                                 <input id="acceptTerms-2" name="acceptTerms2" type="checkbox" class="required">
-                                                <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                                                <label for="acceptTerms-2">Dengan memilih Lanjut ke Pembayaran, Anda menyetujui Syarat & Ketentuan serta Kebijakan Privasi DIPASS Provider.</label>
                                             </div>
                                         </div>
                                     </section>
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <p>
+                                        @php $totalPrice = 0 @endphp
+                                        <input type="hidden" name="route_id" id="route_id" value="{{ $schedule->route->route_id }}">
+                                        <input type="hidden" name="schedule_id" id="schedule_id" value="{{ $schedule->id }}">
+                                        <input type="hidden" name="departure_city" id="departure_city" value="{{ $schedule->route->departure_id }}">
+                                        <input type="hidden" name="departure_point" id="departure_point" value="{{$schedule->route->points->first()->point_id}}">
+                                        <input type="hidden" name="departure_date" id="departure_date" value="{{ $schedule->date->format('d/m/Y') }}">
+                                        <input type="hidden" name="departure_time" id="departure_time" value="{{ $schedule->route->board_points->first()->time }}">
+                                        <input type="hidden" name="arrival_city" id="arrival_city" value="{{ $schedule->route->arrival_id }}">
+                                        <input type="hidden" name="arrival_point" id="arrival_point" value="{{ $schedule->route->points ->last()->point_id }}">
+                                        <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $schedule->date->format('d/m/Y') }}">
+                                        <input type="hidden" name="arrival_time" id="arrival_time" value="{{ $schedule->route->board_points->last()->time }}">
+                                        @php $totalPrice += $schedule->price @endphp
+                                        <input type="hidden" name="total_price" id="total_price" value="{{ $schedule->price }}">                                        
+                                    </p>
                                 </div>
                             </form>
                         </div>
@@ -125,17 +148,17 @@
                             <h4>Detail Pemesanan</h4>
                             <article class="flight-booking-details">
                                 <figure class="clearfix">
-                                    <a title="" href="flight-detailed.html" class="middle-block"><img class="middle-item" alt="" src="/images/list1.png""></a>
+                                    <a title="" href="flight-detailed.html" class="middle-block"><img class="middle-schedule" alt="" src="/images/list1.png""></a>
                                     <div class="travel-title">
-                                        <h5 class="box-title">Ngawi ke Solo<small>satu Perjalanan</small></h5>
-                                        <a href="flight-detailed.html" class="button">UBAH</a>
+                                        <h5 class="box-title">{{ $schedule->route->title }}<small>satu Perjalanan</small></h5>
+                                        {{-- <a href="flight-detailed.html" class="button">UBAH</a> --}}
                                     </div>
                                 </figure>
                                 <div class="details">
                                     <div class="constant-column-3 timing clearfix">
                                         <div class="check-in">
                                             <label>Berangkat</label>
-                                            <span>Rabu 27 Feb<br />7:50 am</span>
+                                            <span>{{ $schedule->route->points->first()->point_name }} <br><br />{{ $schedule->date->format('d/m/Y') }} <br>{{ $schedule->route->board_points->first()->time }} - hari ke {{ $schedule->route->board_points->first()->day }} </span>
                                         </div>
                                         <div class="duration text-center">
                                             <i class="soap-icon-clock"></i>
@@ -143,7 +166,7 @@
                                         </div>
                                         <div class="check-out">
                                             <label>Tiba</label>
-                                            <span>Rabu 27 Feb<br />9:20 am</span>
+                                            <span>{{ $schedule->route->points ->last()->point_name }} <br><br />{{ $schedule->date->format('d/m/Y') }} <br>{{ $schedule->route->board_points->last()->time }} - hari ke {{ $schedule->route->board_points->last()->day }} </span>
                                         </div>
                                     </div>
                                 </div>
@@ -151,11 +174,15 @@
                             
                             <h4>Other Details</h4>
                             <dl class="other-details">
-                                <dt class="feature">Nama Bus:</dt><dd class="value">Budiman</dd>
-                                <dt class="feature">Tipe Bus:</dt><dd class="value">Ekonomi</dd>
-                                {{-- <dt class="feature">base fare:</dt><dd class="value">$320</dd> --}}
-                                {{-- <dt class="feature">taxes and fees:</dt><dd class="value">$300</dd> --}}
-                                <dt class="total-price">Total Harga</dt><dd class="total-price-value">Rp. 309.000</dd>
+                                <dt class="feature">Nama Bus:</dt><dd class="value">{{ $schedule->route->bus->bus_name }}</dd>
+                                <dt class="feature">kelas/Tipe Bus:</dt><dd class="value">{{ $schedule->route->bus->class->class_name }} / {{ $schedule->route->bus->category->category_name }}</dd>
+                                <dt class="feature">Nomor Bus:</dt><dd class="value">{{ $schedule->bus_number }}</dd>
+                                <dt class="feature">Fasilitas dalam Bus:</dt><dd class="value">
+                                    @foreach ($schedule->route->bus->facilities as $fasilitas)
+                                    {{ $fasilitas->facility_name }},
+                                    @endforeach
+                                </dd>
+                                <dt class="total-price">Total Harga</dt><dd class="total-price-value">Rp. {{ number_format($schedule->price) }}</dd>
                             </dl>
                         </div>
                         

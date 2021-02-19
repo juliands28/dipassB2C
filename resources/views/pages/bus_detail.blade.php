@@ -6,10 +6,10 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}"> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/jquery.steps.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/steps.css') }}">
 
@@ -68,7 +68,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="flight-details">
                                     <div class="intro table-wrapper full-width hidden-table-sm box">
-                                        <div class="col-md-4 table-cell travelo-box">
+                                        <div class="col-md-4 col-sm-5 table-cell travelo-box">
                                             <dl class="term-description">
                                                 <dt>Nama Bus:</dt><dd>{{ $item->route->bus->bus_name }}</dd>
                                                 <dt>kategori Bus:</dt><dd>{{ $item->route->bus->category->category_name }}</dd>
@@ -80,7 +80,7 @@
                                                 <dt>total Harga:</dt><dd>Rp. {{ number_format($item->price) }}</dd>
                                             </dl>
                                         </div>
-                                        <div class="col-md-8 table-cell">
+                                        <div class="col-md-8 col-sm-7 table-cell">
                                             <div class="detailed-features booking-details">
                                                 <div class="travelo-box">
                                                     <a href="#" class="button btn-mini yellow pull-right">Kursi: {{ $item->route->bus->seat_count }}</a>
@@ -219,7 +219,7 @@
                                 </div> --}}
                                 
                                 <p class="text-justify description">{!!  $item->route->description !!}</p>
-                                <a href="{{ route('bus-pesan') }}" class="button green full-width uppercase btn-medium">Pesan Sekarang</a>
+                                <a href="{{ route('bus-pesanan', $item->id) }}" class="button green full-width uppercase btn-medium">Pesan Sekarang</a>
                             </div>
                         </article>
                         <div class="travelo-box contact-box">
