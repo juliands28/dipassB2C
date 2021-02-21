@@ -40,3 +40,13 @@ Route::get('/bus-pesan', 'BusPesanController@index')->name('bus-pesan');
 Route::get('/pesan-sukses', 'BusPesanController@sukses')->name('pesan-sukses');
 
 // Auth::routes();
+
+// test checout
+Route::post('/checkout/{id}', 'BusPesanController@process')
+    ->name('checkout_process');
+
+Route::get('/checkout/{id}', 'BusPesanController@index')
+    ->name('checkout');
+
+Route::post('/checkout/confirm/{id}', 'BusPesanController@success')
+    ->name('checkout-success');

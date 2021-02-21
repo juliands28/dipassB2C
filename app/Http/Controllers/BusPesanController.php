@@ -6,6 +6,9 @@ use App\Order;
 use App\Schedule;
 use Illuminate\Http\Request;
 use App\Helpers\CodeHelper;
+use App\Http\Requests\OrderRequest;
+use App\OrderDetail;
+use App\OrderPassenger;
 use Illuminate\Support\Facades\Validator;
 
 class BusPesanController extends Controller
@@ -29,29 +32,39 @@ class BusPesanController extends Controller
             'schedule' => $schedule
         ]);
     }
-    public function order(Request $request, $id)
+    public function order(OrderRequest $request, $id)
     {
-        // $order = Order::findOrFail($id);
+         // $travel_package = TravelPackage::findOrFail($id);
 
-        $order = [
+        // $transaction = Transaction::create([
+        //     'travel_packages_id' => $id,
+        //     'users_id' => Auth::user()->id,
+        //     'additional_visa' => 0,
+        //     'transaction_total' => $travel_package->price,
+        //     'transaction_status' => 'IN_CART'
+        // ]);
+
+        $schedule = Schedule::findOrFail($id); 
+
+        $order = Order::create([
                 'schedule_id' => $id,
-                'route_id' => $request->route_id,
+                'route_id' => $schedule->route_id,
                 'order_no' => CodeHelper::dateCode('ORD', 'orders', 'order_no'),
-                'departure_city' => $request->departure_city,
-                'departure_point' => $request->departure_point,
-                'departure_date' => $request->departure_date,
-                'departure_time' => $request->departure_time,
-                'arrival_city' => $request->arrival_city,
-                'arrival_point' => $request->arrival_point,
-                'arrival_date' => $request->arrival_date,
-                'arrival_time' => $request->arrival_time,
+                'departure_city' => $schedule->route->departure_id,
+                'departure_point' => $schedule->route->points->first()->point_id,
+                'departure_date' => $schedule->date->format('d/m/Y'),
+                'departure_time' => $schedule->route->board_points->first()->time,
+                'arrival_city' => $schedule->route->arrival_id,
+                'arrival_point' => $schedule->route->points ->last()->point_id,
+                'arrival_date' => $schedule->date->format('d/m/Y'),
+                'arrival_time' => $schedule->route->board_points->last()->time,
                 'date' => date('Y-m-d H:i:s'),
                 'expired_date' => date("Y-m-d H:i:s", strtotime("+2 hours")),
                 'total_price' => $request->total_price,
                 'status' => 'Pending',
-        ];
+        ]);
 
-        Order::create($order);
+        // Order::create($order);
 
                 // $order->detail()->insert([
                 //     [
@@ -61,17 +74,6 @@ class BusPesanController extends Controller
                 //         'email' => $request->email
                 //     ]
                 // ]);
-                // // foreach ($carts as $cart) {
-                // //     $trx = 'TRX-' . mt_rand(0000,9999);
-        
-                // //     TransactionDetail::create([
-                // //         'transactions_id' => $transaction->id,
-                // //         'products_id' => $cart->product->id,
-                // //         'price' => $cart->product->price,
-                // //         'shipping_status' => 'PENDING',
-                // //         'resi' => '',
-                // //         'code' => $trx
-                // //     ]);
 
                 // foreach($request['passenger_name'] as $key => $val) {
                 //     $passengers[] = [
@@ -88,10 +90,109 @@ class BusPesanController extends Controller
                 // $order->passengers()->insert($passengers);
                     return $order;
                 // return redirect()->route('pesan-sukses', $order->id);
+                // return redirect()->route('checkout', $order->id);
     }
     
     public function sukses()
     {
         return view('pages.pesan_sukses');
+    }
+
+    public function index1(Request $request, $id)
+    {
+        // $item = Transaction::with(['details','travel_package','user'])->findOrFail($id);
+
+        // return view('pages.checkout',[
+        //     'item' => $item
+        // ]);
+    }
+
+    public function process(Request $request, $id)
+    {
+        $schedule = Schedule::findOrFail($id); 
+
+        $order = Order::create([
+                'schedule_id' => $id,
+                'route_id' => $schedule->route_id,
+                'order_no' => CodeHelper::dateCode('ORD', 'orders', 'order_no'),
+                'departure_city' => $schedule->route->departure_id,
+                'departure_point' => $schedule->route->points->first()->id,
+                'departure_date' => $schedule->date,
+                'departure_time' => $schedule->route->board_points->first()->time,
+                'arrival_city' => $schedule->route->arrival_id,
+                'arrival_point' => $schedule->route->points->last()->id,
+                'arrival_date' => $schedule->date,
+                'arrival_time' => $schedule->route->board_points->last()->time,
+                'date' => date('Y-m-d H:i:s'),
+                'expired_date' => date("Y-m-d H:i:s", strtotime("+2 hours")),
+                'total_price' => $schedule->price,
+                'status' => 'Pending',
+        ]);
+        return $order;
+        
+        OrderDetail::create([
+            [
+                'order_id' => $order->id, 
+                'name' =>  ucwords($request->name), 
+                'phone' => $request->phone, 
+                'email' => $request->email
+            ]
+        ]);
+
+        OrderPassenger::create([
+            [
+                'order_id' => $order->id, 
+                'name' => ucwords($request->phonepassenger_name),
+                'nik' => $request->phonepassenger_nik,
+                'seat_number' => $request->phonepassenger_seat_number,
+                'age' => $request->phonepassenger_age,
+                'pax_price' => $request->phonepassenger_pax_price,
+                'gender' => $request->phonepassenger_gender,
+            ]
+        ]);
+        $order->save();
+
+        
+        
+            return redirect()->route('checkout-success', $order->id);
+        // $travel_package = TravelPackage::findOrFail($id);
+
+        // $transaction = Transaction::create([
+        //     'travel_packages_id' => $id,
+        //     'users_id' => Auth::user()->id,
+        //     'additional_visa' => 0,
+        //     'transaction_total' => $travel_package->price,
+        //     'transaction_status' => 'IN_CART'
+        // ]);
+
+        // TransactionDetail::create([
+        //     'transactions_id' => $transaction->id,
+        //     'username' => Auth::user()->username,
+        //     'nationality' => 'ID',
+        //     'is_visa' => false,
+        //     'doe_passport' => Carbon::now()->addYears(5)
+        // ]);
+
+        // return redirect()->route('checkout', $transaction->id);
+    }
+
+    public function remove(Request $request, $detail_id)
+    {
+        //
+    }
+
+    public function create(Request $request, $id)
+    {
+        //
+    }
+
+    public function success(Request $request, $id)
+    {
+        
+        
+
+        return view('pages.pesan_sukses');
+
+
     }
 }

@@ -23,6 +23,6 @@ class OrderDetail extends Model
 
     public function order()
     {
-        $this->belongsTo('App\Order');
+        $this->belongsTo(Order::class,'order_id', 'id');
     }
 }

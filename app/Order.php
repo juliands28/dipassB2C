@@ -26,6 +26,7 @@ class Order extends Model
         'date',
         'expired_date',
         'status',
+        'total_price',
     ];
 
     protected $hidden = [

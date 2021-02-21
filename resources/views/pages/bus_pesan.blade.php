@@ -47,7 +47,10 @@
                     <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                         <div class="booking-section travelo-box">
                             
-                            <form class="booking-form" id="wizard-validation-form" action="{{ route('order', $schedule->id) }}">
+                            <form class="booking-form" 
+                            {{-- id="wizard-validation-form"  --}}
+                            action="{{ route('checkout-success', $schedule->id) }}" method="POST">
+                                @csrf
                                 <div>
                                     <h3>Step 1</h3>
                                     <section>
@@ -123,7 +126,10 @@
                                         </div>
                                     </section>
                                 </div>
-                                <div class="col-md-12 mb-2">
+                            <button class="btn btn-block btn-join-now mt-3 py-2" type="submit">
+                                Join Now
+                            </button>
+                                {{-- <div class="col-md-12 mb-2">
                                     <p>
                                         @php $totalPrice = 0 @endphp
                                         <input type="hidden" name="route_id" id="route_id" value="{{ $schedule->route->route_id }}">
@@ -139,7 +145,7 @@
                                         @php $totalPrice += $schedule->price @endphp
                                         <input type="hidden" name="total_price" id="total_price" value="{{ $schedule->price }}">                                        
                                     </p>
-                                </div>
+                                </div> --}}
                             </form>
                         </div>
                     </div>
