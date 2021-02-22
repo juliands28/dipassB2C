@@ -68,19 +68,16 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="flight-details">
                                     <div class="intro table-wrapper full-width hidden-table-sm box">
-                                        <div class="col-md-4 table-cell travelo-box">
+                                        <div class="col-sm-5 col-md-4 table-cell travelo-box">
                                             <dl class="term-description">
                                                 <dt>Nama Bus:</dt><dd>{{ $item->route->bus->bus_name }}</dd>
                                                 <dt>kategori Bus:</dt><dd>{{ $item->route->bus->category->category_name }}</dd>
                                                 <dt>kelas Bus:</dt><dd>{{ $item->route->bus->class->class_name }}</dd>
                                                 <dt>Nomor Bus:</dt><dd>{{ $item->bus_number }}</dd>
-                                                <dt>Fasilitas dalam Bus:</dt><dd>{{ $item->route->bus->facilities->random()->facility_name }}</dd>
-                                                {{-- <dt>Base fare:</dt><dd>$320.00</dd>
-                                                <dt>Taxes &amp; Fees:</dt><dd>$300.00</dd> --}}
                                                 <dt>total Harga:</dt><dd>Rp. {{ number_format($item->price) }}</dd>
                                             </dl>
                                         </div>
-                                        <div class="col-md-8 table-cell">
+                                        <div class="col-sm-7 col-md-8 table-cell">
                                             <div class="detailed-features booking-details">
                                                 <div class="travelo-box">
                                                     <a href="#" class="button btn-mini yellow pull-right">Kursi: {{ $item->route->bus->seat_count }}</a>
@@ -154,7 +151,7 @@
                                         <article class="box" id="seat_container">
                                             
                                             <div class="details">
-                                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                                <table class="table table-bordered table-rensponsif" width="100%" cellspacing="0">
                                                     <thead>
                                                     <tr>
                                                         <th></th>

@@ -44,70 +44,81 @@
         <section id="content" class="gray-area">
             <div class="container">
                 <div class="row">
-                    <div id="main" class="col-sms-6 col-sm-8 col-md-9">
+                    <div id="main" class="col-sms-6 col-sm-8 col-md-8 col-lg-9">
                         <div class="booking-section travelo-box">
                             
                             <form class="booking-form" id="wizard-validation-form" action="#">
                                 <div>
-                                    <h3>Step 1</h3>
+                                    <h3>Data Diri</h3>
                                     <section>
                                         <div class="form-group">
-                                            <label for="userName2">User name </label>
-                                            <input class="required form-control" id="userName2" name="userName" type="text">
+                                            <label for="userName2">Nama</label>
+                                            <input class="required form-control" id="name" name="name" type="text" value="dini">
                                         </div>
                                         <div class="form-group">
-                                            <label for="password2"> Password *</label>
-                                            <input id="password2" name="password" type="text" class="required form-control">
+                                            <label for="password2">Email</label>
+                                            <input id="email" name="email" type="email" class="required email form-control" value="dini@gmail.com">
                                         </div>
             
                                         <div class="form-group">
-                                            <label for="confirm2">Confirm Password *</label>
-                                            <input id="confirm2" name="confirm" type="text" class="required form-control">
+                                            <label for="confirm2">Nomor Telpon</label>
+                                            <input id="phone" name="phone" type="number" class="required form-control" value="0856564532">
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-12 control-label"><span class="text-danger">(*)NOTE</span> <br> Nama : Isilah sesuai nama KTP <br> Email : Isilah dengan email anda yang aktif <br> Nomor Telepon: Isilah dengan nomor telpon anda yang aktif</label>
+                                        </div>
+                                    </section>
+                                    <h3>Data Penumpang</h3>
+                                    <section>
+            
+                                        <div class="form-group">
+                                            <label for="name2">Nama</label>
+                                                <input id="name" name="name" type="text" class="required form-control" value="dini">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="surname2">Umur</label>
+                                                <input id="age" name="age" type="number" class="required form-control" value="21">
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label>Jenis Kelamin</label>
+                                            <div class="constant-column-2">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option selected>Laki-Laki</option>
+                                                        <option>Perempuan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="address2">NIK / Paspor</label>
+                                            <input id="nik" name="nik" type="text" class="form-control" value="98876645678967">
+                                        </div>
+            
                                         <div class="form-group">
                                             <label class="col-lg-12 control-label">(*) Mandatory</label>
                                         </div>
                                     </section>
-                                    <h3>Step 2</h3>
-                                    <section>
-            
-                                        <div class="form-group">
-                                            <label for="name2"> First name *</label>
-                                                <input id="name2" name="name" type="text" class="required form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="surname2"> Last name *</label>
-                                                <input id="surname2" name="surname" type="text" class="required form-control">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="email2">Email *</label>
-                                            <input id="email2" name="email" type="text" class="required email form-control">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="address2">Address </label>
-                                            <input id="address2" name="address" type="text" class="form-control">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label class="col-lg-12 control-label">(*) Mandatory</label>
-                                        </div>
-                                    </section>
-                                    <h3>Step 3</h3>
+                                    <h3>Pickup & Drop Point</h3>
                                     <section>
                                         <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <ul class="list-unstyled w-list">
-                                                    <li>First Name : Jonathan </li>
-                                                    <li>Last Name : Smith </li>
-                                                    <li>Emial: jonathan@example.com</li>
-                                                    <li>Address: 123 Your City, Cityname. </li>
-                                                </ul>
+                                            <div class="col-lg-6">
+                                                <div class="checkbox">
+                                                    <input type="checkbox" checked id="warning" class="required" />
+                                                    <label for="warning">Terminal 1</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="checkbox">
+                                                    <input type="checkbox" checked id="warning" class="required" />
+                                                    <label for="warning">Terminal 2</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </section>
-                                    <h3>Step Final</h3>
+                                    <h3>Total</h3>
                                     <section>
                                         <div class="form-group">
                                             <div class="col-lg-12">
@@ -120,7 +131,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="sidebar col-sms-6 col-sm-4 col-md-3">
+                    <div class="sidebar col-sms-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="booking-details travelo-box">
                             <h4>Detail Pemesanan</h4>
                             <article class="flight-booking-details">

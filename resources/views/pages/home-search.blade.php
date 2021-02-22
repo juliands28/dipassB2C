@@ -4,7 +4,17 @@
     dipass B2C Homepage
 @endsection
 
-
+@push('addon-style')
+      <!--multi select-->
+  <link href="{{ asset('assets/plugins/jquery-multi-select/multi-select.css') }}" rel="stylesheet" type="text/css">
+  <!--Select Plugins-->
+  <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
+  <!--inputtags-->
+  <link href="{{ asset('assets/plugins/inputtags/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+  <!--Bootstrap Datepicker-->
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+  
+@endpush
 @section('content')
 <!-- Javascript Page Loader -->
 <script type="text/javascript" src="{{ asset('/js/pace.min.js') }}" data-pace-options='{ "ajax": false }'></script>
@@ -79,7 +89,7 @@
                                     <h4 class="title">Mau Kemana?</h4>
                                     <div class="form-group">
                                         <label>Dari</label>
-                                        <select class="full-width" data-placeholder="Pilih Asal Keberangkatan " name='departure_city' data-init-plugin="select2" required>
+                                        <select class="form-control single-select" data-placeholder="Pilih Asal Keberangkatan " name='departure_city' data-init-plugin="select2" required>
                                             @foreach ($kota as $item)
                                                 <option value="{{$item->id}}">{{$item->city_name}}</option>
                                             @endforeach
@@ -87,7 +97,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Pergi ke</label>
-                                        <select class="full-width" data-placeholder="Pilih tujuan Keberangkatan " name='arrival_city' data-init-plugin="select2" required>
+                                        <select class="form-control single-select" data-placeholder="Pilih tujuan Keberangkatan " name='arrival_city' data-init-plugin="select2" required>
                                             @foreach ($kota as $item)
                                                 <option value="{{$item->id}}">{{$item->city_name}}</option>
                                             @endforeach
@@ -101,7 +111,7 @@
                                     <div class="form-group row">
                                         <div class="col-xs-12">
                                             <div class="datepicker-wrap">
-                                                <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
+                                                <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -131,4 +141,77 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   <!--Inputtags Js-->
+   <script src="{{ asset('assets/plugins/inputtags/js/bootstrap-tagsinput.js') }}"></script>
+    <!--Select Plugins Js-->
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+       <!--Bootstrap Datepicker Js-->
+       <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+       <script>
+         $('#autoclose-datepicker').datepicker({
+           autoclose: true,
+           todayHighlight: true
+         });
+       </script>
+         <script>
+            $(document).ready(function() {
+                $('.single-select').select2();
+          
+                $('.multiple-select').select2();
+    
+            //multiselect start
+    
+                $('#my_multi_select1').multiSelect();
+                $('#my_multi_select2').multiSelect({
+                    selectableOptgroup: true
+                });
+    
+                $('#my_multi_select3').multiSelect({
+                    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+                    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+                    afterInit: function (ms) {
+                        var that = this,
+                            $selectableSearch = that.$selectableUl.prev(),
+                            $selectionSearch = that.$selectionUl.prev(),
+                            selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                            selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+    
+                        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                            .on('keydown', function (e) {
+                                if (e.which === 40) {
+                                    that.$selectableUl.focus();
+                                    return false;
+                                }
+                            });
+    
+                        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                            .on('keydown', function (e) {
+                                if (e.which == 40) {
+                                    that.$selectionUl.focus();
+                                    return false;
+                                }
+                            });
+                    },
+                    afterSelect: function () {
+                        this.qs1.cache();
+                        this.qs2.cache();
+                    },
+                    afterDeselect: function () {
+                        this.qs1.cache();
+                        this.qs2.cache();
+                    }
+                });
+    
+             $('.custom-header').multiSelect({
+                  selectableHeader: "<div class='custom-header'>Selectable items</div>",
+                  selectionHeader: "<div class='custom-header'>Selection items</div>",
+                  selectableFooter: "<div class='custom-header'>Selectable footer</div>",
+                  selectionFooter: "<div class='custom-header'>Selection footer</div>"
+                });
+    
+    
+    
+              });
+    
+        </script>
 @endpush
