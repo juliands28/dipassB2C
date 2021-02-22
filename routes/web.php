@@ -29,6 +29,8 @@ Route::get('/view-bus', 'BusDetailController@index')->name('view-bus');
 // Route::post('/view-bus/search1', 'BusListController@search')->name('view-bus-search');
 Route::post('/list-bus/search', 'BusListController@search')->name('search-bus');
 Route::get('/view-bus/{id}', 'BusDetailController@index')->name('bus-detail');
+Route::get('/view-bus/pesanan/{id}', 'BusPesanController@index')->name('bus-pesanan');
+Route::post('/view-bus/pesanan/order', 'BusPesanController@search')->name('order');
 
 // Route::get('/bus-detail/{$id}', 'BusListController@detail')->name('bus-details');
 
@@ -38,3 +40,13 @@ Route::get('/bus-pesan', 'BusPesanController@index')->name('bus-pesan');
 Route::get('/pesan-sukses', 'BusPesanController@sukses')->name('pesan-sukses');
 
 // Auth::routes();
+
+// test checout
+Route::post('/checkout/{id}', 'BusPesanController@process')
+    ->name('checkout_process');
+
+Route::get('/checkout/{id}', 'BusPesanController@index')
+    ->name('checkout');
+
+Route::post('/checkout/confirm/{id}', 'BusPesanController@success')
+    ->name('checkout-success');

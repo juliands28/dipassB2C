@@ -26,6 +26,10 @@ class Order extends Model
         'date',
         'expired_date',
         'status',
+<<<<<<< HEAD
+=======
+        'total_price',
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
     ];
 
     protected $hidden = [
@@ -44,6 +48,7 @@ class Order extends Model
         'updated_at' => 'datetime:d-m-Y H:i:s'
     ];
 
+<<<<<<< HEAD
     public static function boot() {
         parent::boot();
 
@@ -61,6 +66,25 @@ class Order extends Model
             $table->updated_by = auth()->user()->id;
         });
     }
+=======
+    // public static function boot() {
+    //     parent::boot();
+
+    //     static::updating(function($table)  {
+    //         $table->updated_by = auth()->user()->id;
+    //     });
+
+    //     static::deleting(function($table) {
+    //         $table->deleted_by = auth()->user()->id;
+    //         $table->save();
+    //     });
+
+    //     static::saving(function($table)  {
+    //         $table->created_by = auth()->user()->id;
+    //         $table->updated_by = auth()->user()->id;
+    //     });
+    // }
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
 
     public function created_by_user()
     {
@@ -89,17 +113,29 @@ class Order extends Model
 
     public function detail()
     {
+<<<<<<< HEAD
         return $this->hasOne(OrderDetail::class,);
+=======
+        return $this->hasOne(OrderDetail::class);
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
     }
 
     public function payment()
     {
+<<<<<<< HEAD
         return $this->hasOne(Payment::class,);
+=======
+        return $this->hasOne(Payment::class);
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
     }
 
     public function passengers()
     {
+<<<<<<< HEAD
         return $this->hasMany(OrderPassenger::class, 'order_id', 'id');
+=======
+        return $this->hasMany(OrderPassenger::class);
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
     }
 
     public function agents()

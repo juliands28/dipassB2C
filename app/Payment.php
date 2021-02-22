@@ -69,11 +69,19 @@ class Payment extends Model
 
     public function cash()
     {
+<<<<<<< HEAD
         $this->hasOne(PaymentCash::class);
+=======
+        $this->hasOne('App\PaymentCash');
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
     }
 
     public function card()
     {
+<<<<<<< HEAD
         $this->hasOne(PaymentCard::class);
+=======
+        $this->hasOne('App\PaymentCard');
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
     }
 }

@@ -6,10 +6,10 @@
 
 @push('prepend-style')
     <!-- Theme Styles -->
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}"> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/jquery.steps.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/steps.css') }}">
 
@@ -68,7 +68,11 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="flight-details">
                                     <div class="intro table-wrapper full-width hidden-table-sm box">
+<<<<<<< HEAD
                                         <div class="col-sm-5 col-md-4 table-cell travelo-box">
+=======
+                                        <div class="col-md-4 col-sm-5 table-cell travelo-box">
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
                                             <dl class="term-description">
                                                 <dt>Nama Bus:</dt><dd>{{ $item->route->bus->bus_name }}</dd>
                                                 <dt>kategori Bus:</dt><dd>{{ $item->route->bus->category->category_name }}</dd>
@@ -77,7 +81,11 @@
                                                 <dt>total Harga:</dt><dd>Rp. {{ number_format($item->price) }}</dd>
                                             </dl>
                                         </div>
+<<<<<<< HEAD
                                         <div class="col-sm-7 col-md-8 table-cell">
+=======
+                                        <div class="col-md-8 col-sm-7 table-cell">
+>>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
                                             <div class="detailed-features booking-details">
                                                 <div class="travelo-box">
                                                     <a href="#" class="button btn-mini yellow pull-right">Kursi: {{ $item->route->bus->seat_count }}</a>
@@ -146,7 +154,23 @@
                                 <div class="tab-pane fade" id="flgiht-seat-selection">
                                     <h2>Select your Seats</h2>
                                     <p>Would you like a window seat or treat yourself to more comfort? Select your seats online in advance with our easy-to-use seat map.  You can choose and change your seat until 48 hours before departure, when booking on Travelo.com. Also you can choose and change your seats at a self-service machine at the airport.</p>
-                                    <hr>
+                                    <hr><div class="col-md-12 mb-2">
+                                        <p>
+                                            @php $totalPrice = 0 @endphp
+                                            <input type="" name="route_id" id="route_id" value="{{ $item->route_id }}">
+                                            <input type="" name="schedule_id" id="schedule_id" value="{{ $item->id }}">
+                                            <input type="" name="departure_city" id="departure_city" value="{{ $item->route->departure_id }}">
+                                            <input type="" name="departure_point" id="departure_point" value="{{$item->route->points->first()->id}}">
+                                            <input type="" name="departure_date" id="departure_date" value="{{ $item->date->format('d/m/Y') }}">
+                                            <input type="" name="departure_time" id="departure_time" value="{{ $item->route->board_points->first()->time }}">
+                                            <input type="" name="arrival_city" id="arrival_city" value="{{ $item->route->arrival_id }}">
+                                            <input type="" name="arrival_point" id="arrival_point" value="{{ $item->route->points ->last()->id }}">
+                                            <input type="" name="arrival_date" id="arrival_date" value="{{ $item->date->format('d/m/Y') }}">
+                                            <input type="" name="arrival_time" id="arrival_time" value="{{ $item->route->board_points->last()->time }}">
+                                            @php $totalPrice += $item->price @endphp
+                                            <input type="" name="total_price" id="total_price" value="{{ $item->price }}">                                        
+                                        </p>
+                                    </div>
                                     <div class="image-box style12">
                                         <article class="box" id="seat_container">
                                             
@@ -216,7 +240,11 @@
                                 </div> --}}
                                 
                                 <p class="text-justify description">{!!  $item->route->description !!}</p>
-                                <a href="{{ route('bus-pesan') }}" class="button green full-width uppercase btn-medium">Pesan Sekarang</a>
+                                <form action="{{ route('checkout', $item->id)}}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-block purple full-width uppercase btn-medium">Pesan Sekarang</button>                            
+                            </form> 
+                                
                             </div>
                         </article>
                         <div class="travelo-box contact-box">
