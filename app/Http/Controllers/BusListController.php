@@ -76,7 +76,6 @@ class BusListController extends Controller
         $arrival_city = $request->arrival_city;
         $date = $request->date;
 
-
         $kota = City::all();
         $schedule = Schedule::with([
             'services' => function($query) use($request) {

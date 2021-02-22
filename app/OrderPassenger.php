@@ -33,110 +33,59 @@ class OrderPassenger extends Model
         return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 
-<<<<<<< HEAD
     public function getRefundPriceAttribute()
     {
-        $company = Company::all();
-            $setting = $company->setting;
+        // if(auth()->guard('admin')->check()){
+        //     $auth = auth()->guard('admin')->user()->load('admin.company.setting');
+        //     $setting = $auth->admin->company->setting;
+        // }
 
-        if($setting->refundable === '1'){
-            $datetime = new DateTime(date('Y-m-d H:i:s.u'));
-            $results = 100;
+        // if(auth()->guard('agent')->check()){
+        //     $auth = auth()->guard('agent')->user()->load('agent.company.setting');
+        //     $setting = $auth->agent[0]->company->setting;
+        // }
 
-            $departure_date = $this->order->departure_date;
-            $departure_time = $this->order->departure_time;
-            $departure_datetime = new DateTime(date('Y-m-d H:i:s.u', strtotime("$departure_date $departure_time")));
+        // if($setting->refundable === '1'){
+        //     $datetime = new DateTime(date('Y-m-d H:i:s.u'));
+        //     $results = 100;
 
-            $interval = $datetime->diff($departure_datetime);
+        //     $departure_date = $this->order->departure_date;
+        //     $departure_time = $this->order->departure_time;
+        //     $departure_datetime = new DateTime(date('Y-m-d H:i:s.u', strtotime("$departure_date $departure_time")));
 
-            $total_days = $interval->days * 24 * 60 * 60 * 1000;
-            $total_hours = $interval->h * 60 * 60 * 1000;
-            $total_minuets = $interval->i * 60 * 1000;
-            $total_seconds =$interval->s * 1000;
+        //     $interval = $datetime->diff($departure_datetime);
 
-            $diff = $total_days + $total_hours + $total_minuets + $total_seconds;
+        //     $total_days = $interval->days * 24 * 60 * 60 * 1000;
+        //     $total_hours = $interval->h * 60 * 60 * 1000;
+        //     $total_minuets = $interval->i * 60 * 1000;
+        //     $total_seconds =$interval->s * 1000;
 
-            foreach($setting->refund_setting as $key){
-                $greater_than = $key['greater_than'] !== null ? $key['greater_than'] * 60 * 60 * 1000 : 'INF';
-                $lower_than = $key['lower_than'] !== null ? $key['lower_than'] * 60 * 60 * 1000 : 'INF';
+        //     $diff = $total_days + $total_hours + $total_minuets + $total_seconds;
 
-                if($greater_than !== 'INF' && $lower_than !== 'INF'){
-                    if(($diff >= $greater_than) && ($diff < $lower_than)){
-                        $results = $key['percentage'];
-                    }
-                } else if ($greater_than === 'INF' && $lower_than !== 'INF') {
-                    if(($diff < $lower_than)){
-                        $results = $key['percentage'];
-                    }
-                } else if($greater_than !== 'INF' && $lower_than === 'INF') {
-                    if(($diff >= $greater_than)){
-                        $results = $key['percentage'];
-                    }
-                } else {
-                    $results = 100;
-                }
-            }
+        //     foreach($setting->refund_setting as $key){
+        //         $greater_than = $key['greater_than'] !== null ? $key['greater_than'] * 60 * 60 * 1000 : 'INF';
+        //         $lower_than = $key['lower_than'] !== null ? $key['lower_than'] * 60 * 60 * 1000 : 'INF';
 
-            return ($this->attributes['pax_price'] * $results) / 100;
-        } else {
-            return null;
-        }
+        //         if($greater_than !== 'INF' && $lower_than !== 'INF'){
+        //             if(($diff >= $greater_than) && ($diff < $lower_than)){
+        //                 $results = $key['percentage'];
+        //             }
+        //         } else if ($greater_than === 'INF' && $lower_than !== 'INF') {
+        //             if(($diff < $lower_than)){
+        //                 $results = $key['percentage'];
+        //             }
+        //         } else if($greater_than !== 'INF' && $lower_than === 'INF') {
+        //             if(($diff >= $greater_than)){
+        //                 $results = $key['percentage'];
+        //             }
+        //         } else {
+        //             $results = 100;
+        //         }
+        //     }
+
+        //     return ($this->attributes['pax_price'] * $results) / 100;
+        // } else {
+        //     return null;
+        // }
     }
-=======
-    // public function getRefundPriceAttribute()
-    // {
-    //     if(auth()->guard('admin')->check()){
-    //         $auth = auth()->guard('admin')->user()->load('admin.company.setting');
-    //         $setting = $auth->admin->company->setting;
-    //     }
-
-    //     if(auth()->guard('agent')->check()){
-    //         $auth = auth()->guard('agent')->user()->load('agent.company.setting');
-    //         $setting = $auth->agent[0]->company->setting;
-    //     }
-
-    //     if($setting->refundable === '1'){
-    //         $datetime = new DateTime(date('Y-m-d H:i:s.u'));
-    //         $results = 100;
-
-    //         $departure_date = $this->order->departure_date;
-    //         $departure_time = $this->order->departure_time;
-    //         $departure_datetime = new DateTime(date('Y-m-d H:i:s.u', strtotime("$departure_date $departure_time")));
-
-    //         $interval = $datetime->diff($departure_datetime);
-
-    //         $total_days = $interval->days * 24 * 60 * 60 * 1000;
-    //         $total_hours = $interval->h * 60 * 60 * 1000;
-    //         $total_minuets = $interval->i * 60 * 1000;
-    //         $total_seconds =$interval->s * 1000;
-
-    //         $diff = $total_days + $total_hours + $total_minuets + $total_seconds;
-
-    //         foreach($setting->refund_setting as $key){
-    //             $greater_than = $key['greater_than'] !== null ? $key['greater_than'] * 60 * 60 * 1000 : 'INF';
-    //             $lower_than = $key['lower_than'] !== null ? $key['lower_than'] * 60 * 60 * 1000 : 'INF';
-
-    //             if($greater_than !== 'INF' && $lower_than !== 'INF'){
-    //                 if(($diff >= $greater_than) && ($diff < $lower_than)){
-    //                     $results = $key['percentage'];
-    //                 }
-    //             } else if ($greater_than === 'INF' && $lower_than !== 'INF') {
-    //                 if(($diff < $lower_than)){
-    //                     $results = $key['percentage'];
-    //                 }
-    //             } else if($greater_than !== 'INF' && $lower_than === 'INF') {
-    //                 if(($diff >= $greater_than)){
-    //                     $results = $key['percentage'];
-    //                 }
-    //             } else {
-    //                 $results = 100;
-    //             }
-    //         }
-
-    //         return ($this->attributes['pax_price'] * $results) / 100;
-    //     } else {
-    //         return null;
-    //     }
-    // }
->>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
 }

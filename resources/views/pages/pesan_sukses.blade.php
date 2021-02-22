@@ -43,14 +43,14 @@
                     <hr />
                     <h2>Informasi Pesanan</h2>
                     <dl class="term-description">
-                        <dt>Booking number:</dt><dd>5784-BD245</dd>
-                        <dt>Nama Depan:</dt><dd>Dini</dd>
-                        <dt>Nama Belakang:</dt><dd>Juli</dd>
-                        <dt>Alamat Email:</dt><dd>Info@dini.com</dd>
-                        <dt>Alamat:</dt><dd>Jl.cahaya titis</dd>
-                        <dt>Kota / Provinsi:</dt><dd>Depok, Jawa Barat</dd>
-                        <dt>Kode Pos:</dt><dd>085695667157</dd>
-                        <dt>Negara:</dt><dd>Indonesia</dd>
+                        <dt>Booking number:</dt><dd>{{ $order->order_no }}</dd>
+                        <dt>Nama Penumpang:</dt><dd>{{ $order->passengers[0]->name }}</dd>
+                        <dt>NIK:</dt><dd>{{ $order->passengers[0]->nik }}</dd>
+                        <dt>Usia:</dt><dd>{{ $order->passengers[0]->age }}, ({{ $order->passengers[0]->gender }})</dd>
+                        <dt>Kursi:</dt><dd>{{ $order->passengers[0]->seat_number }}</dd>
+                        <dt>Berangkat:</dt><dd>{{ $order->departurePoint->point_name }}, {{ $order->departureCity->city_name }} <br>{{ $order->departure_date }}, {{ $order->departure_time }}</dd>
+                        <dt>Tiba:</dt><dd>{{ $order->arrivalPoint->point_name }}, {{ $order->arrivalCity->city_name }} <br>{{ $order->arrival_date }}, {{ $order->arrival_time }}</dd>
+                        <dt>Total Harga:</dt><dd><h3>Rp. {{ number_format($order->total_price) }}</h3></dd>
                     </dl>
                     <hr />
                     <h2>Pembayaran</h2>

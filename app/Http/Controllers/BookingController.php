@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use App\Helpers\CodeHelper;
 
 class BookingController extends Controller
 {
@@ -13,7 +14,7 @@ class BookingController extends Controller
 
         $order->schedule_id = $request->schedule_id;
         $order->route_id = $request->route_id;
-        $order->order_no = CodeHelp::dateCode('ORD', 'orders', 'order_no');
+        $order->order_no = CodeHelper::dateCode('ORD', 'orders', 'order_no');
         $order->departure_city = $request->departure_city;
         $order->departure_point = $request->departure_point;
         $order->departure_date = $request->departure_date;

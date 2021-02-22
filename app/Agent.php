@@ -3,12 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< HEAD
-
-class Agent extends Model
-{
-    //
-=======
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Agent extends Model
@@ -101,5 +95,4 @@ class Agent extends Model
     {
         return $this->belongsToMany('App\AgentUser', 'user_agents');
     }
->>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
 }

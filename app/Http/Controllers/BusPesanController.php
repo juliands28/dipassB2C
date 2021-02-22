@@ -128,9 +128,9 @@ class BusPesanController extends Controller
                 'total_price' => $schedule->price,
                 'status' => 'Pending',
         ]);
-        return $order;
+        // return $order;
         
-        OrderDetail::create([
+        $order->detail()->insert([
             [
                 'order_id' => $order->id, 
                 'name' =>  ucwords($request->name), 
@@ -139,15 +139,15 @@ class BusPesanController extends Controller
             ]
         ]);
 
-        OrderPassenger::create([
+        $order->passengers()->insert([
             [
                 'order_id' => $order->id, 
-                'name' => ucwords($request->phonepassenger_name),
-                'nik' => $request->phonepassenger_nik,
-                'seat_number' => $request->phonepassenger_seat_number,
-                'age' => $request->phonepassenger_age,
-                'pax_price' => $request->phonepassenger_pax_price,
-                'gender' => $request->phonepassenger_gender,
+                'name' => ucwords($request->passenger_name),
+                'nik' => $request->passenger_nik,
+                'seat_number' => $request->passenger_seat_number,
+                'age' => $request->passenger_age,
+                'pax_price' => $schedule->price,
+                'gender' => $request->passenger_gender,
             ]
         ]);
         $order->save();
@@ -189,9 +189,23 @@ class BusPesanController extends Controller
     public function success(Request $request, $id)
     {
         
-        
+        $order = Order::with([
+            'schedule', 
+            'route', 
+            'detail', 
+            'payment', 
+            'passengers', 
+            'departureCity', 
+            'departurePoint',
+            'arrivalCity',
+            'arrivalPoint',
+        ])->findOrFail($id);
 
-        return view('pages.pesan_sukses');
+        // dd($order->passengers[0]);
+
+        return view('pages.pesan_sukses',[
+            'order' => $order
+        ]);
 
 
     }

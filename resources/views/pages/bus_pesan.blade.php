@@ -49,7 +49,7 @@
                             
                             <form class="booking-form" 
                             {{-- id="wizard-validation-form"  --}}
-                            action="{{ route('checkout-success', $schedule->id) }}" method="POST">
+                            action="{{ route('checkout_process', $schedule->id) }}" method="POST">
                                 @csrf
                                 <div>
                                     <h3>Data Diri</h3>
@@ -59,15 +59,6 @@
                                             <input class="required form-control" id="name" name="name" type="text" value="dini">
                                         </div>
                                         <div class="form-group">
-<<<<<<< HEAD
-                                            <label for="password2">Email</label>
-                                            <input id="email" name="email" type="email" class="required email form-control" value="dini@gmail.com">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="confirm2">Nomor Telpon</label>
-                                            <input id="phone" name="phone" type="number" class="required form-control" value="0856564532">
-=======
                                             <label for="password2">phone</label>
                                             <input id="phone" name="phone" type="text" class="required form-control" value="06442353464">
                                         </div>
@@ -75,7 +66,6 @@
                                         <div class="form-group">
                                             <label for="confirm2">Email</label>
                                             <input id="email" name="email" type="email" class=" email required form-control" value="dini@gmail.com">
->>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-12 control-label"><span class="text-danger">(*)NOTE</span> <br> Nama : Isilah sesuai nama KTP <br> Email : Isilah dengan email anda yang aktif <br> Nomor Telepon: Isilah dengan nomor telpon anda yang aktif</label>
@@ -86,30 +76,6 @@
             
                                         <div class="form-group">
                                             <label for="name2">Nama</label>
-<<<<<<< HEAD
-                                                <input id="name" name="name" type="text" class="required form-control" value="dini">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="surname2">Umur</label>
-                                                <input id="age" name="age" type="number" class="required form-control" value="21">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label>Jenis Kelamin</label>
-                                            <div class="constant-column-2">
-                                                <div class="selector">
-                                                    <select class="full-width">
-                                                        <option selected>Laki-Laki</option>
-                                                        <option>Perempuan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="address2">NIK / Paspor</label>
-                                            <input id="nik" name="nik" type="text" class="form-control" value="98876645678967">
-=======
                                                 <input id="passenger_name" name="passenger_name" type="text" class="required form-control">
                                         </div>
                                         <div class="form-group">
@@ -118,20 +84,36 @@
                                         </div>
             
                                         <div class="form-group">
-                                            <label for="email2">Umur</label>
+                                            <label for="email2">umur</label>
                                             <input id="passenger_age" name="passenger_age" type="number" class="required form-control">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="seat">Kursi</label>
+                                            @foreach ($schedule->route->bus->layout['component'] as $key => $val)
+                                            @if($val['type'] === 'seat')
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="passenger_seat_number" id="inlineRadio2" value="{{ $val['seat_number'] }}">
+                                                <label class="form-check-label" for="inlineRadio2">{{ $val['seat_number'] }}</label>
+                                              </div>
+                                              @else 
+                                              <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="hidden" name="inlineRadioOptions" id="inlineRadio3" value="{{ $val['type'] }}" disabled>
+                                                <label class="form-check-label" for="inlineRadio3">{{ $val['type'] }}</label>
+                                              </div>
+                                              @endif
+                                              @endforeach 
+
                                         </div>
             
                                         <div class="form-group">
                                             <label for="address2">Jenis Kelamin </label>
                                             <div class="selector">
                                                 <select name="passenger_gender" class="full-width">
-                                                    <option>Laki-Laki</option>
-                                                    <option>Perempuan</option>
+                                                    <option value="Male">Laki-Laki</option>
+                                                    <option value="Female">Perempuan</option>
                                                 </select>
                                             </div>
-                                            {{-- <input id="passenger_gender"  type="text" class="form-control"> --}}
->>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
                                         </div>
             
                                         <div class="form-group">
@@ -140,51 +122,32 @@
                                     </section>
                                     <h3>Pickup & Drop Point</h3>
                                     <section>
-                                        <div class="form-group">
-                                            <div class="col-lg-6">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" checked id="warning" class="required" />
-                                                    <label for="warning">Terminal 1</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" checked id="warning" class="required" />
-                                                    <label for="warning">Terminal 2</label>
-                                                </div>
+                                        <div class="col-md-6 col-sm-4 col-xs-6 demo-col">
+                                            <div class="icheck-primary">
+                                                <input type="radio" id="primary2" name="primary" required />
+                                                <label for="primary2">{{ $schedule->route->points->first()->point_name }}</label>
                                             </div>
                                         </div>
-                                    </section>
-                                    <h3>Total</h3>
-                                    <section>
+                                        <div class="col-md-6 col-sm-4 col-xs-6 demo-col">
+                                            <div class="icheck-success">
+                                                <input type="radio" id="success1" name="success" required/>
+                                                <label for="success1">{{ $schedule->route->points ->last()->point_name }}</label>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="col-lg-12">
-                                                <input id="acceptTerms-2" name="acceptTerms2" type="checkbox" class="required">
-                                                <label for="acceptTerms-2">Dengan memilih Lanjut ke Pembayaran, Anda menyetujui Syarat & Ketentuan serta Kebijakan Privasi DIPASS Provider.</label>
+                                                <div class="icheck-primary">
+                                                    <input type="checkbox" class="required" id="primary"  required/>
+                                                    <label for="primary">Dengan memilih Lanjut ke Pembayaran, Anda menyetujui Syarat & Ketentuan serta Kebijakan Privasi DIPASS Provider. </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </section>
                                 </div>
+                                <br>
                             <button class="btn btn-block btn-join-now mt-3 py-2" type="submit">
-                                Join Now
+                                Pesan Sekarang
                             </button>
-                                {{-- <div class="col-md-12 mb-2">
-                                    <p>
-                                        @php $totalPrice = 0 @endphp
-                                        <input type="hidden" name="route_id" id="route_id" value="{{ $schedule->route->route_id }}">
-                                        <input type="hidden" name="schedule_id" id="schedule_id" value="{{ $schedule->id }}">
-                                        <input type="hidden" name="departure_city" id="departure_city" value="{{ $schedule->route->departure_id }}">
-                                        <input type="hidden" name="departure_point" id="departure_point" value="{{$schedule->route->points->first()->point_id}}">
-                                        <input type="hidden" name="departure_date" id="departure_date" value="{{ $schedule->date->format('d/m/Y') }}">
-                                        <input type="hidden" name="departure_time" id="departure_time" value="{{ $schedule->route->board_points->first()->time }}">
-                                        <input type="hidden" name="arrival_city" id="arrival_city" value="{{ $schedule->route->arrival_id }}">
-                                        <input type="hidden" name="arrival_point" id="arrival_point" value="{{ $schedule->route->points ->last()->point_id }}">
-                                        <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $schedule->date->format('d/m/Y') }}">
-                                        <input type="hidden" name="arrival_time" id="arrival_time" value="{{ $schedule->route->board_points->last()->time }}">
-                                        @php $totalPrice += $schedule->price @endphp
-                                        <input type="hidden" name="total_price" id="total_price" value="{{ $schedule->price }}">                                        
-                                    </p>
-                                </div> --}}
                             </form>
                         </div>
                     </div>

@@ -4,30 +4,6 @@
     Bus Detail - dipass-B2C
 @endsection
 
-@push('prepend-style')
-    <!-- Theme Styles -->
-    {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/jquery.steps.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/jquery-steps/steps.css') }}">
-
-    <style>
-        #seat_container .check-seat {
-            box-sizing: border-box !important;
-            display: none !important;
-        }
-
-        .pessenger-border {
-            border: 1px solid #d3d3d3;
-            border-radius: 4px;
-            padding: 15px;
-        }
-    </style> --}}
-@endpush
-
-
 
 @section('content')
     <div class="page-title-container">
@@ -62,17 +38,13 @@
                             <ul class="tabs">
                                 <li class="active"><a href="#flight-details" data-toggle="tab">Bus Details</a></li>
                                 <li><a href="#inflight-features" data-toggle="tab">Fasilitas Bus</a></li>
-                                <li><a href="#flgiht-seat-selection" data-toggle="tab">Pilih Bangku</a></li>
+                                {{-- <li><a href="#flgiht-seat-selection" data-toggle="tab">Pilih Bangku</a></li> --}}
                                 {{-- <li><a href="#flight-fare-rules" data-toggle="tab">Fare Rules</a></li> --}}
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="flight-details">
                                     <div class="intro table-wrapper full-width hidden-table-sm box">
-<<<<<<< HEAD
-                                        <div class="col-sm-5 col-md-4 table-cell travelo-box">
-=======
                                         <div class="col-md-4 col-sm-5 table-cell travelo-box">
->>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
                                             <dl class="term-description">
                                                 <dt>Nama Bus:</dt><dd>{{ $item->route->bus->bus_name }}</dd>
                                                 <dt>kategori Bus:</dt><dd>{{ $item->route->bus->category->category_name }}</dd>
@@ -81,11 +53,7 @@
                                                 <dt>total Harga:</dt><dd>Rp. {{ number_format($item->price) }}</dd>
                                             </dl>
                                         </div>
-<<<<<<< HEAD
-                                        <div class="col-sm-7 col-md-8 table-cell">
-=======
                                         <div class="col-md-8 col-sm-7 table-cell">
->>>>>>> 8952b1958a4d2d00925f9193ea092fa5adc1f1f3
                                             <div class="detailed-features booking-details">
                                                 <div class="travelo-box">
                                                     <a href="#" class="button btn-mini yellow pull-right">Kursi: {{ $item->route->bus->seat_count }}</a>
@@ -111,37 +79,17 @@
                                                                     <label>Tiba</label>
                                                                     <span>{{ $item->date->format('d/m/Y') }} - {{ $item->route->board_points->last()->time }}                                                                                                                                           </span>
                                                                 </div>
-                                                                
                                                             </div>
-                                                            {{-- <label class="layover">Layover : 1h, 40m</label> --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="long-description">
-                                        <h2>Tentang Bus Budiman</h2>
-                                        <p class="text-justify">
-                                            Saleh Budiman dilahirkan dalam keluarga yang sederhana. Awalnya, ia hanyalah seorang pedagang kecil di Tasikmalaya. Mimpinya sejak kecil adalah menjadi orang kaya, namun tetap dalam kesederhanaan.
-
-                                            Ia mulai berusaha untuk mewujudkan mimpinya dengan membuat kas atau celengan dari kayu. Setiap hari, celengan itu diisi dengan uang 100 Rupiah. Beberapa saat kemudian, tabungannya telah terkumpul hingga 80 ribu Rupiah. Dengan uang hasil tabungannya tadi, ia membeli mobil bekas dengan cara berkongsi dengan pengusaha dari Banjaran, Bandung. Usahanya terus berkembang hingga memiliki truk sebanyak 20 unit dan mengubah usahanya menjadi usaha angkutan bis dengan nama "Budiman".
-                                            <br /><br />
-                                            Bermodal empat unit bus bersasis Mercedes–Benz OF 1113 sebagai armada awal, keempatnya diberi nomor sesuai urutan OF 001, OF 002, OF 003, OF 004 dan melayani lokal Priangan Timur saja seperti Tasikmalaya dan Ciamis. Pada masa itu, Budiman yang masih seumur jagung harus berhadapan dengan para senior yang sudah menguasai jalur tersebut, seperti Merdeka Group. Namun dengan tekad yang kuat serta berani, Budiman berhasil bersaing dengan lawan-lawannya tersebut, meskipun munculnya paling belakangan. Saat ini, keempat unit bus "Babat Alas" tersebut masih dipertahankan oleh pihak Budiman, sebagai tanda bahwa bus-bus tersebut memiliki kiprah yang besar dalam perkembangan PO Budiman hingga saat ini.
-                                            <br /><br />
-                                            Beberapa tahun kemudian, Budiman mulai memperluas jangkauan trayeknya menuju Jabodetabek, Wonosobo, Yogyakarta, Cirebon, Semarang, dan kota-kota lain di Jawa Tengah, Jawa Timur dan Jawa Barat.
-                                        </p>
-                                    </div> --}}
                                 </div>
                                 <div class="tab-pane fade" id="inflight-features">
                                     <h2>Fasilitas Bus {{ $item->route->bus->bus_name }}</h2>
                                     <ul class="amenities clearfix style1 box">
-
-                                        {{-- @foreach($item as $facility)
-                                            <option value="{{ {{ $item->route->bus->facilities->facility_name }} }}">
-                                                {{ $travel_package->title }}
-                                            </option>
-                                        @endforeach --}}
                                         @foreach ($item->route->bus->facilities as $i)
                                             <li class="col-md-4 col-sm-6">
                                                 <div class="icon-box style1"><i class="soap-icon-check-1"></i>{{ $i->facility_name }}</div>
@@ -157,21 +105,21 @@
                                     <hr><div class="col-md-12 mb-2">
                                         <p>
                                             @php $totalPrice = 0 @endphp
-                                            <input type="" name="route_id" id="route_id" value="{{ $item->route_id }}">
-                                            <input type="" name="schedule_id" id="schedule_id" value="{{ $item->id }}">
-                                            <input type="" name="departure_city" id="departure_city" value="{{ $item->route->departure_id }}">
-                                            <input type="" name="departure_point" id="departure_point" value="{{$item->route->points->first()->id}}">
-                                            <input type="" name="departure_date" id="departure_date" value="{{ $item->date->format('d/m/Y') }}">
-                                            <input type="" name="departure_time" id="departure_time" value="{{ $item->route->board_points->first()->time }}">
-                                            <input type="" name="arrival_city" id="arrival_city" value="{{ $item->route->arrival_id }}">
-                                            <input type="" name="arrival_point" id="arrival_point" value="{{ $item->route->points ->last()->id }}">
-                                            <input type="" name="arrival_date" id="arrival_date" value="{{ $item->date->format('d/m/Y') }}">
-                                            <input type="" name="arrival_time" id="arrival_time" value="{{ $item->route->board_points->last()->time }}">
+                                            <input type="hidden" name="route_id" id="route_id" value="{{ $item->route_id }}">
+                                            <input type="hidden" name="schedule_id" id="schedule_id" value="{{ $item->id }}">
+                                            <input type="hidden" name="departure_city" id="departure_city" value="{{ $item->route->departure_id }}">
+                                            <input type="hidden" name="departure_point" id="departure_point" value="{{$item->route->points->first()->id}}">
+                                            <input type="hidden" name="departure_date" id="departure_date" value="{{ $item->date->format('d/m/Y') }}">
+                                            <input type="hidden" name="departure_time" id="departure_time" value="{{ $item->route->board_points->first()->time }}">
+                                            <input type="hidden" name="arrival_city" id="arrival_city" value="{{ $item->route->arrival_id }}">
+                                            <input type="hidden" name="arrival_point" id="arrival_point" value="{{ $item->route->points ->last()->id }}">
+                                            <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $item->date->format('d/m/Y') }}">
+                                            <input type="hidden" name="arrival_time" id="arrival_time" value="{{ $item->route->board_points->last()->time }}">
                                             @php $totalPrice += $item->price @endphp
-                                            <input type="" name="total_price" id="total_price" value="{{ $item->price }}">                                        
+                                            <input type="hidden" name="total_price" id="total_price" value="{{ $item->price }}">                                        
                                         </p>
                                     </div>
-                                    <div class="image-box style12">
+                                    {{-- <div class="image-box style12">
                                         <article class="box" id="seat_container">
                                             
                                             <div class="details">
@@ -209,12 +157,11 @@
                                                         {{ $val['type'] }}
                                                    @endif
                                                    br
-                                                @endforeach --}}
-                                                
+                                                @endforeach 
                                             </div>
                                         </article>
                                         <hr>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -229,22 +176,11 @@
                                 <span class="price clearfix">
                                     <small class="pull-left">Harga/Orang</small>
                                     <span class="pull-right">Rp. {{ number_format($item->price) }}</span>
-                                </span>
-                                
-                                {{-- <div class="duration">
-                                    <i class="soap-icon-clock"></i>
-                                    <dl>
-                                        <dt class="skin-color">Waktu Tempuh:</dt>
-                                        <dd>3 Jam, 40 Menit</dd>
-                                    </dl>
-                                </div> --}}
-                                
+                                </span>                                
                                 <p class="text-justify description">{!!  $item->route->description !!}</p>
-                                <form action="{{ route('checkout', $item->id)}}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-block purple full-width uppercase btn-medium">Pesan Sekarang</button>                            
-                            </form> 
-                                
+                                <div class="action">
+                                    <a href="{{ route('checkout', $item->id) }}" class="btn btn-success btn-small full-width">Pilih Sekarang</a>
+                              </div>                                
                             </div>
                         </article>
                         <div class="travelo-box contact-box">
@@ -264,18 +200,6 @@
 @endsection
 
 @push('addon-script')
-{{-- seat booking --}}
-    {{-- <script src="{{ asset('assets/libs/jquery-steps/build/jquery.steps.min.js') }}"></script>
-    <script src="{{ asset('src/booking.js') }}"></script> --}}
-    {{-- <script>
-        BookingController.order('{{ Session::get('admin-auth.token') }}', {
-            id: {{ $id }},
-            departure: {{ $departure }},
-            pickup: {{ $pickup }},
-            arrival: {{ $arrival }},
-            drop: {{ $drop }},
-        });
-    </script> --}}
 {{-- calendar --}}
 <script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->
