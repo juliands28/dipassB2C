@@ -50,3 +50,17 @@ Route::get('/checkout/{id}', 'BusPesanController@index')
 
 Route::get('/checkout/confirm/{id}', 'BusPesanController@success')
     ->name('checkout-success');
+
+// Payment
+Route::get('/checkout/payment/{id}', 'PaymentUploadController@index')
+    ->name('payment-checkout');
+
+Route::post('/checkout/payment/{id}', 'PaymentUploadController@process')
+    ->name('payment-process');
+
+
+
+    Route::post('/checkout/payment/upload', 'PaymentUploadController@uploadGallery')
+    ->name('payment-upload');
+Route::get('/checkout/payment/upload/{id}', 'PaymentUploadController@deleteGallery')
+    ->name('payment-delete');

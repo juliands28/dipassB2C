@@ -13,6 +13,7 @@ class Payment extends Model
 
     protected $fillable = [
         'order_id', 
+        'payment_no', 
         'payment_number', 
         'payment_amount', 
         'method',
@@ -34,23 +35,23 @@ class Payment extends Model
         'deleted_at' => 'datetime:d-m-Y H:i:s',
     ];
 
-    public static function boot() {
-        parent::boot();
+    // public static function boot() {
+    //     parent::boot();
 
-        static::updating(function($table)  {
-            $table->updated_by = auth()->user()->id;
-        });
+    //     static::updating(function($table)  {
+    //         $table->updated_by = auth()->user()->id;
+    //     });
 
-        static::deleting(function($table) {
-            $table->deleted_by = auth()->user()->id;
-            $table->save();
-        });
+    //     static::deleting(function($table) {
+    //         $table->deleted_by = auth()->user()->id;
+    //         $table->save();
+    //     });
 
-        static::saving(function($table)  {
-            $table->created_by = auth()->user()->id;
-            $table->updated_by = auth()->user()->id;
-        });
-    }
+    //     static::saving(function($table)  {
+    //         $table->created_by = auth()->user()->id;
+    //         $table->updated_by = auth()->user()->id;
+    //     });
+    // }
 
     public function created_by_user()
     {
@@ -69,11 +70,19 @@ class Payment extends Model
 
     public function cash()
     {
-        $this->hasOne(PaymentCash::class);
+        return $this->hasOne(PaymentCash::class);
     }
 
     public function card()
     {
-        $this->hasOne(PaymentCard::class);
+        return $this->hasOne(PaymentCard::class);
+    }
+    public function upload()
+    {
+        return $this->hasMany(PaymentUpload::class, 'payment_id');
+    }
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 }
