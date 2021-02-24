@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bus;
 use App\BusFacility;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Schedule;
 
@@ -11,6 +12,7 @@ class BusDetailController extends Controller
 {
     public function index(Request $request, $id)
     {
+        
         $facility = Bus::all();
         // $facility = BusFacility::with('facility');
         // dd($facility);

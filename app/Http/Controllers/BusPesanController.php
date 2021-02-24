@@ -128,9 +128,11 @@ class BusPesanController extends Controller
                 'total_price' => $schedule->price,
                 'status' => 'Pending',
         ]);
-        return $order;
-        
-        OrderDetail::create([
+        // return $order;
+        // $order1 = Order::with('detail')->findOrFail($id); 
+
+        // dd($order1);
+        $order->detail()->insert([
             [
                 'order_id' => $order->id, 
                 'name' =>  ucwords($request->name), 
@@ -138,18 +140,17 @@ class BusPesanController extends Controller
                 'email' => $request->email
             ]
         ]);
-
-        OrderPassenger::create([
-            [
-                'order_id' => $order->id, 
-                'name' => ucwords($request->phonepassenger_name),
-                'nik' => $request->phonepassenger_nik,
-                'seat_number' => $request->phonepassenger_seat_number,
-                'age' => $request->phonepassenger_age,
-                'pax_price' => $request->phonepassenger_pax_price,
-                'gender' => $request->phonepassenger_gender,
-            ]
-        ]);
+        // OrderPassenger::create([
+        //     [
+        //         'order_id' => $order->id, 
+        //         'name' => ucwords($request->phonepassenger_name),
+        //         'nik' => $request->phonepassenger_nik,
+        //         'seat_number' => $request->phonepassenger_seat_number,
+        //         'age' => $request->phonepassenger_age,
+        //         'pax_price' => $request->phonepassenger_pax_price,
+        //         'gender' => $request->phonepassenger_gender,
+        //     ]
+        // ]);
         $order->save();
 
         

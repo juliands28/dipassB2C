@@ -90,7 +90,7 @@ class Order extends Model
 
     public function detail()
     {
-        return $this->hasOne(OrderDetail::class);
+        return $this->hasOne(OrderDetail::class,'order_id','id');
     }
 
     public function payment()
@@ -100,7 +100,7 @@ class Order extends Model
 
     public function passengers()
     {
-        return $this->hasMany(OrderPassenger::class);
+        return $this->hasMany(OrderPassenger::class,'order_id','id');
     }
 
     public function agents()

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Schedule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+// use Order;
 
 class HomeController extends Controller
 {
@@ -46,6 +48,7 @@ class HomeController extends Controller
 
     public function search()
     {
+        
         $kota = City::all();
 
         

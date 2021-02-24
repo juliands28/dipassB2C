@@ -48,5 +48,5 @@ Route::post('/checkout/{id}', 'BusPesanController@process')
 Route::get('/checkout/{id}', 'BusPesanController@index')
     ->name('checkout');
 
-Route::post('/checkout/confirm/{id}', 'BusPesanController@success')
+Route::get('/checkout/confirm/{id}', 'BusPesanController@success')
     ->name('checkout-success');
