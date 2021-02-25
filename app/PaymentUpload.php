@@ -13,10 +13,18 @@ class PaymentUpload extends Model
     protected $fillable = [
         'payment_id', 
         'photos',
+        'name',
+        'bank',
+        'no_reg',
+        'date',
     ];
 
     protected $hidden = [
         'payment_id'
+    ];
+
+    protected $casts = [
+        'date' => 'datetime: Y-m-d',
     ];
 
     public function payment()

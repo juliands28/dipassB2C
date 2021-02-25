@@ -15,6 +15,10 @@ class CreatePaymentUploadsTable extends Migration
     {
         Schema::create('payment_uploads', function (Blueprint $table) {
             $table->foreignId('payment_id')->references('id')->on('payments')->nullable();
+            $table->string('bank');
+            $table->string('name');
+            $table->string('no_reg');
+            $table->date('date');
             $table->string('photos');
         });
     }

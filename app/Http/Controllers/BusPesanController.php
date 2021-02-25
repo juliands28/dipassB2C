@@ -9,6 +9,7 @@ use App\Helpers\CodeHelper;
 use App\Http\Requests\OrderRequest;
 use App\OrderDetail;
 use App\OrderPassenger;
+use App\OrderProvider;
 use Illuminate\Support\Facades\Validator;
 
 class BusPesanController extends Controller
@@ -110,7 +111,7 @@ class BusPesanController extends Controller
 
     public function process(Request $request, $id)
     {
-        $schedule = Schedule::findOrFail($id); 
+        $schedule = Schedule::with('route')->findOrFail($id); 
 
         $order = Order::create([
                 'schedule_id' => $id,
@@ -152,6 +153,14 @@ class BusPesanController extends Controller
             ]
         ]);
         $order->save();
+
+        $order_provider = new OrderProvider;
+                
+            $order_provider->order_id = $order->id;
+            $order_provider->company_id = $schedule->route->company_id;
+
+            $order_provider->save();
+
             return redirect()->route('checkout-success', $order->id);
     }
 

@@ -24,7 +24,7 @@ class PaymentUploadController extends Controller
             ])
             ->findOrFail($id);
 
-        // dd($payment);
+        // dd($order);
 
         return view('pages.payment',[
             'order' => $order
@@ -47,6 +47,8 @@ class PaymentUploadController extends Controller
 
         $data = $request->all();
 
+        $data['date'] = date('Y-m-d');
+            
         $data['photos'] = $request->file('photos')->store('assets/trasfer', 'public');
 
         PaymentUpload::create($data);

@@ -14,6 +14,9 @@
   <link href="{{ asset('/assets/plugins/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css">
     <!-- Custom Style-->
     <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>
+    <!--Bootstrap Datepicker-->
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+  
 @endpush
 
 @section('content')
@@ -88,6 +91,39 @@
                                       @csrf
                                       <input type="hidden" value="{{ $order->payment->id }}" name="payment_id">
                                       <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                      <div class="card-information">
+                                          <h2>Your Card Information</h2>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-md-5">
+                                                    <label>Nama Bank</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" name="bank">
+                                                            <option value="Mandiri">Mandiri</option>
+                                                            <option value="BCA">BCA</option>
+                                                            <option value="BNI">BNI</option>
+                                                            <option value="BRI">BRI</option>
+                                                            <option value="CIMB">CIMB</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-5">
+                                                    <label>Nama Pengirim</label>
+                                                    <input type="text" class="input-text full-width" value="{{ $order->payment->upload[0]->name }}" name="name" placeholder="" required/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 col-md-5">
+                                                    <label>Nomor Rekening</label>
+                                                    <input type="number" class="input-text full-width" name="no_reg" value="{{ $order->payment->upload[0]->no_reg }}" placeholder="" required/>
+                                                </div>
+                                                <div class="col-sm-6 col-md-5 mb-5">
+                                                    <label>Tanggal Transfer</label>
+                                                    <div class="datepicker-wrap">
+                                                      <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="{{ $order->payment->upload[0]->date->format('F n, Y') }}" required/>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                       <input
                                         type="file"
                                         name="photos"
@@ -101,7 +137,7 @@
                                         class="btn btn-secondary btn-block mt-3"
                                         onclick="thisFileUpload()"
                                       >
-                                        Add Photo
+                                        Simpan & tambah Photo
                                       </button>
                                     </form>
                                   </div>
@@ -173,6 +209,16 @@
 <script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->
 <script type="text/javascript" src="{{ asset('/components/flexslider/jquery.flexslider-min.js') }}"></script>
+ <!--Bootstrap Datepicker Js-->
+ <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+ <script>
+   $('#autoclose-datepicker').datepicker({
+     autoclose: true,
+     todayHighlight: true,
+     format: 'yy/mm/dd'
+     
+   });
+ </script>
 <!-- Dropzone JS  -->
 <script src="{{ asset('/assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script>
@@ -180,4 +226,5 @@
       document.getElementById("file").click();
     }
   </script>
+
 @endpush
