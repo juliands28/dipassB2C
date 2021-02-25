@@ -80,6 +80,6 @@ class Company extends Model
 
     public function setting()
     {
-        return $this->hasOne('App\CompanySetting');
+        return $this->hasOne(CompanySetting::class);
     }
 }

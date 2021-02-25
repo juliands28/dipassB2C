@@ -32,6 +32,7 @@ class BusPesanController extends Controller
             'schedule' => $schedule
         ]);
     }
+
     public function order(OrderRequest $request, $id)
     {
          // $travel_package = TravelPackage::findOrFail($id);
@@ -129,9 +130,7 @@ class BusPesanController extends Controller
                 'status' => 'Pending',
         ]);
         // return $order;
-        // $order1 = Order::with('detail')->findOrFail($id); 
-
-        // dd($order1);
+        
         $order->detail()->insert([
             [
                 'order_id' => $order->id, 
@@ -140,41 +139,20 @@ class BusPesanController extends Controller
                 'email' => $request->email
             ]
         ]);
-        // OrderPassenger::create([
-        //     [
-        //         'order_id' => $order->id, 
-        //         'name' => ucwords($request->phonepassenger_name),
-        //         'nik' => $request->phonepassenger_nik,
-        //         'seat_number' => $request->phonepassenger_seat_number,
-        //         'age' => $request->phonepassenger_age,
-        //         'pax_price' => $request->phonepassenger_pax_price,
-        //         'gender' => $request->phonepassenger_gender,
-        //     ]
-        // ]);
+
+        $order->passengers()->insert([
+            [
+                'order_id' => $order->id, 
+                'name' => ucwords($request->passenger_name),
+                'nik' => $request->passenger_nik,
+                'seat_number' => $request->passenger_seat_number,
+                'age' => $request->passenger_age,
+                'pax_price' => $schedule->price,
+                'gender' => $request->passenger_gender,
+            ]
+        ]);
         $order->save();
-
-        
-        
             return redirect()->route('checkout-success', $order->id);
-        // $travel_package = TravelPackage::findOrFail($id);
-
-        // $transaction = Transaction::create([
-        //     'travel_packages_id' => $id,
-        //     'users_id' => Auth::user()->id,
-        //     'additional_visa' => 0,
-        //     'transaction_total' => $travel_package->price,
-        //     'transaction_status' => 'IN_CART'
-        // ]);
-
-        // TransactionDetail::create([
-        //     'transactions_id' => $transaction->id,
-        //     'username' => Auth::user()->username,
-        //     'nationality' => 'ID',
-        //     'is_visa' => false,
-        //     'doe_passport' => Carbon::now()->addYears(5)
-        // ]);
-
-        // return redirect()->route('checkout', $transaction->id);
     }
 
     public function remove(Request $request, $detail_id)
@@ -189,11 +167,22 @@ class BusPesanController extends Controller
 
     public function success(Request $request, $id)
     {
-        
-        
+        $order = Order::with([
+            'schedule', 
+            'route', 
+            'detail', 
+            'payment', 
+            'payment.upload', 
+            'passengers', 
+            'departureCity', 
+            'departurePoint',
+            'arrivalCity',
+            'arrivalPoint',
+        ])->findOrFail($id);
+        // dd($order);
 
-        return view('pages.pesan_sukses');
-
-
+        return view('pages.pesan_sukses',[
+            'order' => $order
+        ]);
     }
 }

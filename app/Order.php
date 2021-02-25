@@ -100,7 +100,7 @@ class Order extends Model
 
     public function passengers()
     {
-        return $this->hasMany(OrderPassenger::class,'order_id','id');
+        return $this->hasMany(OrderPassenger::class, 'order_id', 'id');
     }
 
     public function agents()

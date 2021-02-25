@@ -50,3 +50,31 @@ Route::get('/checkout/{id}', 'BusPesanController@index')
 
 Route::get('/checkout/confirm/{id}', 'BusPesanController@success')
     ->name('checkout-success');
+
+// Payment
+Route::get('/checkout/payment/{id}', 'PaymentUploadController@index')
+    ->name('payment-checkout');
+
+Route::post('/checkout/payment/{id}', 'PaymentUploadController@process')
+    ->name('payment-process');
+
+// upload gambar
+Route::post('/checkout/payment/transfer/upload', 'PaymentUploadController@uploadGallery')
+    ->name('payment-transfer-upload');
+Route::get('/checkout/payment/transfer/delete/{id}', 'PaymentUploadController@deleteGallery')
+    ->name('payment-transfer-delete');
+
+// Route::post('/checkout/payment/upload/', 'PaymentUploadController@uploadGallery')
+//     ->name('payment-upload');
+// Route::get('/checkout/payment/upload/{id}', 'PaymentUploadController@deleteGallery')
+//     ->name('payment-delete');
+
+// manifest Tiket
+Route::post('/manifest/{id}', 'ManifestController@process')
+    ->name('manifest_process');
+
+Route::get('/manifest/{id}', 'ManifestController@index')
+    ->name('manifest');
+
+Route::get('/manifest/confirm/{id}', 'ManifestController@success')
+    ->name('manifest-success');
