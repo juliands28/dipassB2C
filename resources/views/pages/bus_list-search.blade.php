@@ -97,7 +97,15 @@
                                                     <div>
                                                         <div class="row">
                                                             <div class="col-6 pl-2">
-                                                                <h4 class="box-title">{{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
+                                                                <h4 class="box-title">
+                                                                    @if($schedules->route->company->logo === null)
+                                                                        {{ $schedules->route->company->company_name }}
+                                                                   @else
+                                                                        {{ $schedules->route->company->logo }}
+                                                                   @endif 
+                                                                    <br>
+                                                                    <br>
+                                                                    {{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
                                                                 <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
                                                              </div>
                                                             <div class="col-6">

@@ -101,4 +101,12 @@ class ManifestController extends Controller
             'order' => $order
         ]);
     }
+
+    public function sukses()
+    {
+        
+        return view('pages.sukses',[
+            // 'booking' => $booking
+        ]);
+    }
 }

@@ -58,7 +58,14 @@
                                             <div class="detailed-features booking-details">
                                                 <div class="travelo-box">
                                                     <a href="#" class="button btn-mini yellow pull-right">Kursi: {{ $item->route->bus->seat_count }}</a>
-                                                    <h4 class="box-title">{{ $item->route->title }}<small>One Way</small></h4>
+                                                    <h4 class="box-title">
+                                                        @if($item->route->company->logo === null)
+                                                            {{ $item->route->company->company_name }}
+                                                        @else
+                                                            {{ $item->route->company->logo }}
+                                                        @endif
+                                                        <br><br>
+                                                        {{ $item->route->title }}</h4>
                                                 </div>
                                                 <div class="table-wrapper flights">
                                                     <div class="table-row first-flight">

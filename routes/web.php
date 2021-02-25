@@ -78,3 +78,7 @@ Route::get('/manifest/{id}', 'ManifestController@index')
 
 Route::get('/manifest/confirm/{id}', 'ManifestController@success')
     ->name('manifest-success');
+
+
+Route::get('/sukses', 'ManifestController@sukses')
+    ->name('sukses');

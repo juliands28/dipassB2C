@@ -85,6 +85,8 @@
                                         </a> --}}
                                         </div>
                                     </div>
+
+                                    
                                 @endforeach
                                 <div class="col-12">
                                     <form action="{{ route('payment-transfer-upload') }}" method="POST" enctype="multipart/form-data">
@@ -108,18 +110,18 @@
                                                 </div>
                                                 <div class="col-sm-6 col-md-5">
                                                     <label>Nama Pengirim</label>
-                                                    <input type="text" class="input-text full-width" value="{{ $order->payment->upload[0]->name }}" name="name" placeholder="" required/>
+                                                    <input type="text" class="input-text full-width" value="" name="name" placeholder="" required/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-6 col-md-5">
                                                     <label>Nomor Rekening</label>
-                                                    <input type="number" class="input-text full-width" name="no_reg" value="{{ $order->payment->upload[0]->no_reg }}" placeholder="" required/>
+                                                    <input type="number" class="input-text full-width" name="no_reg" value="" placeholder="" required/>
                                                 </div>
                                                 <div class="col-sm-6 col-md-5 mb-5">
                                                     <label>Tanggal Transfer</label>
                                                     <div class="datepicker-wrap">
-                                                      <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="{{ $order->payment->upload[0]->date->format('F n, Y') }}" required/>
+                                                      <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="" required/>
                                                   </div>
                                                 </div>
                                             </div>
@@ -152,7 +154,10 @@
                           </div>
                         </div>
                       </div>
-                      <form action="{{ route('manifest_process', $order->id) }}" method="POST" enctype="multipart/form-data">
+                      <a href="{{ route('sukses') }}" class="btn btn-success btn-small">
+                        selesai
+                    </a>
+                      {{-- <form action="{{ route('manifest_process', $order->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <button
                           type="submit"
@@ -160,7 +165,7 @@
                         >
                         Konfirmasi Pembayaran
                         </button>
-                      </form>
+                      </form> --}}
                     {{-- <hr />
                     <h2>Lihat Detail Pemesanan</h2>
                     <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>

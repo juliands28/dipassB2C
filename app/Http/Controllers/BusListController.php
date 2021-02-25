@@ -100,7 +100,8 @@ class BusListController extends Controller
             'route.points.city', 
             'route.bus.class', 
             'route.bus.category', 
-            'route.bus.facilities'
+            'route.bus.facilities',
+            'route.company',
         ])
         ->whereHas('route', function(Builder $builder){
             $builder->where('active', '=', 'Y');
@@ -129,6 +130,8 @@ class BusListController extends Controller
         })
         ->where('date', '=', date('Y-m-d', strtotime($request->date)))
         ->get();
+        
+        // dd($schedule);
         
         // dd($schedule);
         // return $schedule;
