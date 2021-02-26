@@ -22,7 +22,7 @@
         </div>
         <ul class="breadcrumbs pull-right">
             <li><a href="{{ route('home') }}">HOME</a></li>
-            <li><a href="{{ route('bus-pesan') }}">Pemesanan Tiket Bus</a></li>
+            <li><a href="{{ url('/checkout/') }}/{{ $order->schedule_id}}">Pemesanan Tiket Bus</a></li>
             <li class="active">Detail Pesanan</li>
         </ul>
     </div>
