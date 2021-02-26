@@ -86,75 +86,78 @@
                                 </ul>
                             </div> --}}
                             <div class="flight-list listing-style3 flight">
-                                 @foreach ($schedule as $schedules)
-                                    <article class="box">
-                                        <figure class="col-xs-3 col-sm-2">
-                                            <span><img alt="" src="http://api-dipass-provider.test/file/bus/{{ $schedules->route->bus->photo }}"></span>
-                                        </figure>
-                                        <div class="details col-xs-9 col-sm-10">
-                                            <div class="details-wrapper">
-                                                <div class="first-row">
-                                                    <div>
-                                                        <div class="row">
-                                                            <div class="col-6 pl-2">
-                                                                <h4 class="box-title">
-                                                                    @if($schedules->route->company->logo === null)
-                                                                        {{ $schedules->route->company->company_name }}
-                                                                   @else
-                                                                        {{ $schedules->route->company->logo }}
-                                                                   @endif 
-                                                                    <br>
-                                                                    <br>
-                                                                    {{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
-                                                                <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
-                                                             </div>
-                                                            <div class="col-6">
-                                                                @foreach ($schedules->route->bus->facilities as $i)
-                                                                <div class="amenities push-right">
-                                                                    <a class="button btn-mini purple text-white mr-1">{{ $i->facility_name }} </a>
-                                                                    {{-- &nbsp -  --}}
-                                                                </div>
-                                                                @endforeach 
-                                                            </div>  
-                                                        </div>                                                      
-                                                    </div>
-                                                    <div>
-                                                        <span class="price"><small>Harga/Orang</small>Rp. {{ number_format($schedules->price) }}</span>
-                                                    </div>
-                                                    
+                                @forelse ($schedule as $schedules)
+                                <article class="box">
+                                    <figure class="col-xs-3 col-sm-2">
+                                        <span><img alt="" src="http://api-dipass-provider.test/file/bus/{{ $schedules->route->bus->photo }}"></span>
+                                    </figure>
+                                    <div class="details col-xs-9 col-sm-10">
+                                        <div class="details-wrapper">
+                                            <div class="first-row">
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-6 pl-2">
+                                                            <h4 class="box-title">
+                                                                @if($schedules->route->company->logo === null)
+                                                                    {{ $schedules->route->company->company_name }}
+                                                               @else
+                                                                    <img width="20%" src="http://api-dipass-provider.test/file/logo/{{ $schedules->route->company->logo }}" alt="logo company">
+                                                                    {{ $schedules->route->company->company_name }}
+                                                               @endif 
+                                                                <br>
+                                                                <br>
+                                                                {{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
+                                                            <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
+                                                         </div>
+                                                        <div class="col-6">
+                                                            @foreach ($schedules->route->bus->facilities as $i)
+                                                            <div class="amenities push-right">
+                                                                <a class="button btn-mini purple text-white mr-1">{{ $i->facility_name }} </a>
+                                                                {{-- &nbsp -  --}}
+                                                            </div>
+                                                            @endforeach 
+                                                        </div>  
+                                                    </div>                                                      
                                                 </div>
-                                                <div class="second-row">
-                                                    <div class="time">
-                                                        <div class="col-sm-4">
-                                                            <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-on-bus.png"/></div>
-                                                            <div>
-                                                                <span class="skin-color">Berangkat <br></span>{{ $schedules->route->points->first()->point_name }}<br />{{ $schedules->date->format('d/m/Y') }} <br>{{ $schedules->route->board_points->first()->time }} - hari ke {{ $schedules->route->board_points->first()->day }} 
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-off-bus.png"/></div>
-                                                            <div>
-                                                                <span class="skin-color">Tiba <br></span>{{ $schedules->route->points ->last()->point_name }}<br />{{ $schedules->date->format('d/m/Y') }} <br>{{ $schedules->route->board_points->last()->time }} - hari ke {{ $schedules->route->board_points->last()->day }} 
-                                                            </div>
-                                                        </div>
-                                                        <div class="total-time col-sm-4">
-                                                            <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
-                                                            <div>
-                                                                <span class="skin-color">total time</span><br />3 Jam, 40 Menit
-                                                            </div>
+                                                <div>
+                                                    <span class="price"><small>Harga/Orang</small>Rp. {{ number_format($schedules->price) }}</span>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="second-row">
+                                                <div class="time">
+                                                    <div class="col-sm-4">
+                                                        <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-on-bus.png"/></div>
+                                                        <div>
+                                                            <span class="skin-color">Berangkat <br></span>{{ $schedules->route->points->first()->point_name }}<br />{{ $schedules->date->format('F j, Y') }} <br>{{ $schedules->route->board_points->first()->time }} - hari ke {{ $schedules->route->board_points->first()->day }} 
                                                         </div>
                                                     </div>
-                                                    <div class="action">
-                                                          <a href="{{ route('bus-detail', $schedules->id) }}" class="btn btn-success btn-small full-width">Pilih Sekarang</a>
+                                                    <div class="col-sm-4">
+                                                        <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-off-bus.png"/></div>
+                                                        <div>
+                                                            <span class="skin-color">Tiba <br></span>{{ $schedules->route->points ->last()->point_name }}<br />{{ $schedules->date->format('F j, Y') }} <br>{{ $schedules->route->board_points->last()->time }} - hari ke {{ $schedules->route->board_points->last()->day }} 
+                                                        </div>
                                                     </div>
+                                                    <div class="total-time col-sm-4">
+                                                        <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
+                                                        <div>
+                                                            <span class="skin-color">total time</span><br />3 Jam, 40 Menit
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="action">
+                                                      <a href="{{ route('bus-detail', $schedules->id) }}" class="btn btn-success btn-small full-width">Pilih Sekarang</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </article>
-                                 @endforeach                             
+                                    </div>
+                                </article>
+                                @empty
+                                <a data-toggle="collapse" href="#modify-search-panel" class="button uppercase full-width btn-large">Data tidak ditemukan, Silakan pilih Route lain</a>
+                                @endforelse                            
                                                                
                             </div>
-                            <a class="button uppercase full-width btn-large">load more listings</a>
+                            
                         </div>
                     </div>
                 </div>

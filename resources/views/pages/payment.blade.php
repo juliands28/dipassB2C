@@ -75,7 +75,7 @@
                                         <div class="">
                                         <img
                                             src="{{ Storage::url($transfer->photos ?? '') }}"
-                                            alt=""
+                                            alt="Bukti Transfer Dipass"
                                             class="w-100"
                                         />
                                         {{-- <a href="
@@ -84,6 +84,14 @@
                                             <img src="{{ asset('/images/delete.png') }}" alt="" />
                                         </a> --}}
                                         </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <dl class="term-description">
+                                        <dt>Nama Bank:</dt><dd>{{ $order->payment->upload[0]->bank }}</dd>
+                                        <dt>Nama Pengirim:</dt><dd>{{ $order->payment->upload[0]->name }}</dd>
+                                        <dt>Nomor Rekening:</dt><dd>{{ $order->payment->upload[0]->no_reg }}</dd>
+                                        <dt>Tanggal Transfer:</dt><dd>{{ $order->payment->upload[0]->date->format('F j, Y') }}</dd>
+                                      </dl>
                                     </div>
 
                                     

@@ -62,7 +62,8 @@
                                                         @if($item->route->company->logo === null)
                                                             {{ $item->route->company->company_name }}
                                                         @else
-                                                            {{ $item->route->company->logo }}
+                                                        <img width="10%" src="http://api-dipass-provider.test/file/logo/{{ $item->route->company->logo }}" alt="logo company">
+                                                        {{ $item->route->company->company_name }}
                                                         @endif
                                                         <br><br>
                                                         {{ $item->route->title }}</h4>
@@ -77,7 +78,7 @@
                                                             <div class="timing">
                                                                 <div class="check-in">
                                                                     <label>Berangkat</label>
-                                                                    <span>{{ $item->date->format('d/m/Y') }} - {{ $item->route->board_points->first()->time }}</span>
+                                                                    <span>{{ $item->date->format('F j, Y') }} - {{ $item->route->board_points->first()->time }}</span>
                                                                 </div>
                                                                 <div class="duration text-center">
                                                                     <i class="soap-icon-clock"></i>
@@ -85,7 +86,7 @@
                                                                 </div>
                                                                 <div class="check-out">
                                                                     <label>Tiba</label>
-                                                                    <span>{{ $item->date->format('d/m/Y') }} - {{ $item->route->board_points->last()->time }}                                                                                                                                           </span>
+                                                                    <span>{{ $item->date->format('F j, Y') }} - {{ $item->route->board_points->last()->time }}                                                                                                                                           </span>
                                                                 </div>
                                                             </div>
                                                         </div>

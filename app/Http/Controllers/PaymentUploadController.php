@@ -24,7 +24,7 @@ class PaymentUploadController extends Controller
             ])
             ->findOrFail($id);
 
-        // dd($order);
+        // dd($order->payment->upload);
 
         return view('pages.payment',[
             'order' => $order
