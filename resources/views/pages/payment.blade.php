@@ -13,9 +13,14 @@
   <!-- Dropzone css -->
   <link href="{{ asset('/assets/plugins/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css">
     <!-- Custom Style-->
-    <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>     <!--multi select-->
+    <link href="{{ asset('assets/plugins/jquery-multi-select/multi-select.css') }}" rel="stylesheet" type="text/css">
+    <!--Select Plugins-->
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <!--inputtags-->
+    <link href="{{ asset('assets/plugins/inputtags/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <!--Bootstrap Datepicker-->
-  <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
   
 @endpush
 
@@ -130,7 +135,7 @@
                                                 <div class="col-sm-6 col-md-5 mb-5">
                                                     <label>Tanggal Transfer</label>
                                                     <div class="datepicker-wrap">
-                                                      <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="" required/>
+                                                      <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
                                                   </div>
                                                 </div>
                                             </div>
@@ -207,6 +212,13 @@
 @endsection
 
 @push('addon-script')
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   <!--Inputtags Js-->
+   <script src="{{ asset('assets/plugins/inputtags/js/bootstrap-tagsinput.js') }}"></script>
+    <!--Select Plugins Js-->
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 {{-- calendar --}}
 <script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->

@@ -111,7 +111,7 @@
                                     <div class="form-group row">
                                         <div class="col-xs-12">
                                             <div class="datepicker-wrap">
-                                                <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" required/>
+                                                <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
                                             </div>
                                         </div>
                                     </div>
