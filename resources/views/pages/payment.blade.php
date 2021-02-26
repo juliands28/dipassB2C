@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Pesanan Sukses - dipass-B2C
+    Upload Transfer Pembayaran - dipass-B2C
 @endsection
 
 @push('prepend-style')
@@ -23,12 +23,13 @@
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
-            <h2 class="entry-title">Terima Kasih</h2>
+            <h2 class="entry-title">Upload Transfer Pembayaran</h2>
         </div>
         <ul class="breadcrumbs pull-right">
             <li><a href="{{ route('home') }}">HOME</a></li>
-            <li><a href="{{ route('bus-pesan') }}">Pemesanan Tiket Bus</a></li>
-            <li class="active">Terima Kasih</li>
+            <li><a href="{{ url('/checkout/') }}/{{ $order->schedule_id}}">Pemesanan Tiket Bus</a></li>
+            <li><a href="{{ url('/checkout/confirm/') }}/{{ $order->id}}">Detail Pesanan</a></li>
+            <li class="active">Pembayaran</li>
         </ul>
     </div>
 </div>
@@ -162,23 +163,11 @@
                           </div>
                         </div>
                       </div>
-                      <a href="{{ route('sukses') }}" class="btn btn-success btn-small">
+                      <a href="{{ route('sukses') }}" class="btn pull-right btn-success btn-small">
                         selesai
                     </a>
-                      {{-- <form action="{{ route('manifest_process', $order->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <button
-                          type="submit"
-                          class="btn print-button btn-success btn-small full-width"
-                        >
-                        Konfirmasi Pembayaran
-                        </button>
-                      </form> --}}
-                    {{-- <hr />
-                    <h2>Lihat Detail Pemesanan</h2>
-                    <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                    <br />
-                    <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a> --}}
+                    <br>
+                    <br>
                 </div>
             </div>
             <div class="sidebar col-sm-4 col-md-3">

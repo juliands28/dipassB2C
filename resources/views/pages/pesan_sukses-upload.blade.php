@@ -131,14 +131,6 @@
                         Konfirmasi Pembayaran
                         </button>
                       </form>
-                    {{-- <div class="action">
-                        <a href="{{ route('payment-process', $order->id) }}" class="btn btn-success btn-small full-width">Konfirmasi Pembayaran</a>
-                  </div>                  --}}
-                    <hr />
-                    <h2>Lihat Detail Pemesanan</h2>
-                    <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                    <br />
-                    <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a>
                 </div>
             </div>
             <div class="sidebar col-sm-4 col-md-3">

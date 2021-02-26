@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Pesanan Sukses - dipass-B2C
+    Detail Pesanan - dipass-B2C
 @endsection
 
 @push('prepend-style')
@@ -18,12 +18,12 @@
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
-            <h2 class="entry-title">Terima Kasih</h2>
+            <h2 class="entry-title">Detail Pesanan</h2>
         </div>
         <ul class="breadcrumbs pull-right">
             <li><a href="{{ route('home') }}">HOME</a></li>
             <li><a href="{{ route('bus-pesan') }}">Pemesanan Tiket Bus</a></li>
-            <li class="active">Terima Kasih</li>
+            <li class="active">Detail Pesanan</li>
         </ul>
     </div>
 </div>
@@ -78,14 +78,6 @@
                         Konfirmasi Pembayaran
                         </button>
                       </form>
-                    {{-- <div class="action">
-                        <a href="{{ route('payment-process', $order->id) }}" class="btn btn-success btn-small full-width">Konfirmasi Pembayaran</a>
-                  </div>                  --}}
-                    <hr />
-                    <h2>Lihat Detail Pemesanan</h2>
-                    <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                    <br />
-                    <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a>
                 </div>
             </div>
             <div class="sidebar col-sm-4 col-md-3">
