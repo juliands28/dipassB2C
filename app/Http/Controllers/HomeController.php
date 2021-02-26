@@ -56,4 +56,14 @@ class HomeController extends Controller
                 'kota' => $kota
             ]);
     }
+    public function laravel()
+    {
+        
+        // $kota = City::all();
+
+        
+        return view('home',[
+                // 'kota' => $kota
+            ]);
+    }
 }

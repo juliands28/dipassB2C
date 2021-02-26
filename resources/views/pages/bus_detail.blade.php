@@ -187,9 +187,16 @@
                                     <span class="pull-right">Rp. {{ number_format($item->price) }}</span>
                                 </span>                                
                                 <p class="text-justify description">{!!  $item->route->description !!}</p>
-                                <div class="action">
-                                    <a href="{{ route('checkout', $item->id) }}" class="btn btn-success btn-small full-width">Pilih Sekarang</a>
-                              </div>                                
+                                @auth
+                                    <div class="action">
+                                        <a href="{{ route('checkout', $item->id) }}" class="btn btn-success btn-small full-width">Pesan Sekarang</a>
+                                    </div>
+                                @else
+                                    <div class="action">
+                                        <a href="{{ route('login') }}" class="btn btn-success btn-small full-width">Login untuk Pesan</a>
+                                    </div>
+                                @endauth
+                                                                
                             </div>
                         </article>
                         <div class="travelo-box contact-box">
