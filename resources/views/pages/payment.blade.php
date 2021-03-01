@@ -85,8 +85,36 @@
                                         </a> --}}
                                         </div>
                                     </div>
+                                    <div class="card-information">
+                                      <h2>Your Card Information</h2>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 col-md-5">
+                                                <label>Nama Bank</label>
+                                                <div class="selector">
+                                                    <select class="full-width" name="bank">
+                                                        <option value="{{ $order->payment->upload[0]->bank }}">{{ $order->payment->upload[0]->bank }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-5">
+                                                <label>Nama Pengirim</label>
+                                                <input type="text" class="input-text full-width" value="{{ $order->payment->upload[0]->name }}" name="name" placeholder="" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 col-md-5">
+                                                <label>Nomor Rekening</label>
+                                                <input type="number" class="input-text full-width" name="no_reg" value="{{ $order->payment->upload[0]->no_reg }}" placeholder="" required/>
+                                            </div>
+                                            <div class="col-sm-6 col-md-5 mb-5">
+                                                <label>Tanggal Transfer</label>
+                                                <div class="datepicker-wrap">
+                                                  <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="{{ $order->payment->upload[0]->date->format('F n, Y') }}" required/>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    
                                 @endforeach
                                 <div class="col-12">
                                     <form action="{{ route('payment-transfer-upload') }}" method="POST" enctype="multipart/form-data">
