@@ -3,7 +3,9 @@
 @section('title')
     Pesanan Sukses - dipass-B2C
 @endsection
-
+@push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
 @push('prepend-style')
     <!-- Theme Styles -->
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
@@ -15,20 +17,64 @@
 @endpush
 
 @section('content')
+@if ($order->status === 'Success')
 <div class="section-success d-flex align-items-center mb-5">
     <div class="col text-center">
         <img class="mt-4" src="{{ asset('/images/header1.jpg') }}" alt="Pesan">
-        <h1 class="mt-5">Yay! Success</h1>
+        <h1 class="mt-5">Yay! Pesanan sudah dikonfirmasi</h1>
         <p>
-            We've Sent Email for trip instruction
+            Silakan untuk menlanjutkan proses cetak tiket 
             <br>
-            Please read it as well
+            klik dibawah ini untuk <span class="text-success">Mencetak Tiket</span> anda.
         </p>
+        {{-- <a href="{{ route('manifest_process', $order->id) }}" class="btn btn-success btn-small">
+            Cetak Tiket
+        </a> --}}
+        <br>
+        @foreach ($bookings as $booking)
+            @if ($booking->order->status === "Success")
+                <a type="hidden" href="{{ route('home') }}" class="btn btn-success btn-small">
+                    {{ $booking->order->first()->status }}
+                </a>
+           @else 
+                
+            @endif
+        @endforeach
+        
+        <form action="{{ route('manifest-proses', $order->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <button
+            type="submit"
+            class="btn btn-success btn-small"
+            >
+            Cetak Tiket
+            </button>
+        </form>
+        <a href="{{ route('home') }}" class="btn btn-success btn-small">
+            {{ $booking->order->first()->status }}
+        </a>
+        
+        
+    </div>
+</div>
+@else
+<div class="section-success d-flex align-items-center mb-5">
+    <div class="col text-center">
+        <img class="mt-4" src="{{ asset('/images/header1.jpg') }}" alt="Pesan">
+        <h1 class="mt-5">Yay! Pesanan sedang di proses</h1>
+        <p>
+            Silakan menunggu, kami sedang mengecek Transaksi anda
+            <br>
+            cek email anda untuk tahap selanjutnya.
+        </p>
+        <br>
         <a href="{{ route('home') }}" class="btn btn-success btn-small">
             Home Page
         </a>
     </div>
 </div>
+@endif
+
 @endsection
 
 @push('addon-script')

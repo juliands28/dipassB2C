@@ -17,14 +17,6 @@ class BusListController extends Controller
         $to = $request->to;
         $date = $request->date;
         $kota = City::all();
-
-        // $search = DB::table('cities')->select()->where([
-        //     ['city_name','=',$from],
-        //     ['city_name','=',$to],
-        // ])->get();
-
-        // dd($search);
-
         $routes = Route::with(['arrival','bus'])->get();
         $schedules = Schedule::with([
             'route',

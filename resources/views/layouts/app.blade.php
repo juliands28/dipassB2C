@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="dipass B2C Bus" />
     <meta name="description" content="dipass | tiket bus antar kota">
-    <meta name="author" content="SoapTheme">
+    <meta name="author" content="Dipass">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     

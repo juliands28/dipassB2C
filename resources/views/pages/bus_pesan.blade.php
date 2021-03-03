@@ -46,12 +46,21 @@
                 <div class="row">
                     <div id="main" class="col-sms-6 col-sm-8 col-md-8 col-lg-9">
                         <div class="booking-section travelo-box">
-                            
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form class="booking-form " 
                             {{-- id="wizard-validation-form"  --}}
                             action="{{ route('checkout_process', $schedule->id) }}" method="POST">
                                 @csrf
                                 <div>
+                                    <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                                     <h3>Data Diri</h3>
                                     <section>
                                         <div class="form-group">
@@ -76,24 +85,32 @@
             
                                         <div class="form-group">
                                             <label for="name2">Nama</label>
-                                                <input id="passenger_name" name="passenger_name" type="text" class="required form-control">
+                                                <input id="passenger_name" name="passenger_name" type="text" class="required form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="surname2">NIK</label>
-                                                <input id="passenger_nik" name="passenger_nik" type="text" class="required form-control">
+                                                <input id="passenger_nik" name="passenger_nik" type="text" class="required form-control" required>
                                         </div>
             
                                         <div class="form-group">
                                             <label for="email2">umur</label>
-                                            <input id="passenger_age" name="passenger_age" type="number" class="required form-control">
+                                            <input id="passenger_age" name="passenger_age" type="number" class="required form-control" required>
                                         </div>
+                                        {{-- <div class="col-md-6 mb-3">
+                                            <label for="validationServer03">City</label>
+                                            <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
+                                            <div class="invalid-feedback">
+                                              Please provide a valid city.
+                                            </div>
+                                          </div> --}}
+                                        
                                         
                                         <div class="form-group">
                                             <label for="seat">Kursi</label>
                                             @foreach ($schedule->route->bus->layout['component'] as $key => $val)
                                             @if($val['type'] === 'seat')
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="passenger_seat_number" id="inlineRadio2" value="{{ $val['seat_number'] }}">
+                                                <input class="form-check-input @error('passenger_seat_number') is-invalid @enderror" type="radio" name="passenger_seat_number" id="inlineRadio2" value="{{ $val['seat_number'] }}">
                                                 <label class="form-check-label" for="inlineRadio2">{{ $val['seat_number'] }}</label>
                                               </div>
                                               @else 
@@ -103,7 +120,6 @@
                                               </div>
                                               @endif
                                               @endforeach 
-
                                         </div>
             
                                         <div class="form-group">

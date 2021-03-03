@@ -14,8 +14,6 @@ class BusDetailController extends Controller
     {
         
         $facility = Bus::all();
-        // $facility = BusFacility::with('facility');
-        // dd($facility);
         $item = Schedule::with([
             'route',
             'route.arrival',
@@ -32,8 +30,6 @@ class BusDetailController extends Controller
             // dd($item);
         return view('pages.bus_detail',[
             'item' => $item,
-            
-            // 'facility' => $facility
         ]);
     }
        

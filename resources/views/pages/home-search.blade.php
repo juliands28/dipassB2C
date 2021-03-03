@@ -4,6 +4,10 @@
     dipass B2C Homepage
 @endsection
 
+@push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
+
 @push('addon-style')
       <!--multi select-->
   <link href="{{ asset('assets/plugins/jquery-multi-select/multi-select.css') }}" rel="stylesheet" type="text/css">
@@ -111,7 +115,7 @@
                                     <div class="form-group row">
                                         <div class="col-xs-12">
                                             <div class="datepicker-wrap">
-                                                <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" required/>
+                                                <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
                                             </div>
                                         </div>
                                     </div>

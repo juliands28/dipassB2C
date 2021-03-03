@@ -83,8 +83,8 @@
     <div class="bottom gray-area">
         <div class="container">
             <div class="pull-left">
-                <a href="index.html" title="Travelo - home">
-                    <img src="{{ asset('/images/logo.png') }}" alt="Travelo HTML5 Template" />
+                <a href="index.html" title="Dipass B2C">
+                    <img src="{{ asset('/images/logo.png') }}" alt="Logo Dipass" />
                 </a>
             </div>
             <div class="pull-right">

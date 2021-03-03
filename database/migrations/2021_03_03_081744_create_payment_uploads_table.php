@@ -14,6 +14,7 @@ class CreatePaymentUploadsTable extends Migration
     public function up()
     {
         Schema::create('payment_uploads', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('payment_id')->references('id')->on('payments')->nullable();
             $table->string('bank');
             $table->string('name');

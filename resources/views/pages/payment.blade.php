@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    Pesanan Sukses - dipass-B2C
+    Upload Transfer Pembayaran - dipass-B2C
 @endsection
+
+@push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
 
 @push('prepend-style')
     <!-- Theme Styles -->
@@ -13,9 +17,14 @@
   <!-- Dropzone css -->
   <link href="{{ asset('/assets/plugins/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css">
     <!-- Custom Style-->
-    <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet"/>     <!--multi select-->
+    <link href="{{ asset('assets/plugins/jquery-multi-select/multi-select.css') }}" rel="stylesheet" type="text/css">
+    <!--Select Plugins-->
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <!--inputtags-->
+    <link href="{{ asset('assets/plugins/inputtags/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <!--Bootstrap Datepicker-->
-  <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
   
 @endpush
 
@@ -23,12 +32,13 @@
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
-            <h2 class="entry-title">Terima Kasih</h2>
+            <h2 class="entry-title">Upload Transfer Pembayaran</h2>
         </div>
         <ul class="breadcrumbs pull-right">
             <li><a href="{{ route('home') }}">HOME</a></li>
-            <li><a href="{{ route('bus-pesan') }}">Pemesanan Tiket Bus</a></li>
-            <li class="active">Terima Kasih</li>
+            <li><a href="{{ url('/checkout/') }}/{{ $order->schedule_id}}">Pemesanan Tiket Bus</a></li>
+            <li><a href="{{ url('/checkout/confirm/') }}/{{ $order->id}}">Detail Pesanan</a></li>
+            <li class="active">Pembayaran</li>
         </ul>
     </div>
 </div>
@@ -65,58 +75,50 @@
                     <p>Pembayaran menggunakan dipass B2C melalui Transfer diwajibkan menyertakan bukti transfer pembayaran. Bukti transfer akan kami proses terlebih dahulu untuk mengecek pembayaran anda.</p>
                     <br />
                     {{-- <p class="red-color">Note: sertakan bukti Transfer anda di bawah ini.</p> --}}
-                    <div class="row" style="height: 450px;">
+                    <div class="row">
                         <div class="col-lg-12">
+                            @foreach ($order->payment->upload as $transfer)
+                            <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="">
+                                <img
+                                    src="{{ Storage::url($transfer->photos ?? '') }}"
+                                    alt="Bukti Transfer Dipass"
+                                    class="" width="100%"
+                                />
+                                <form action="{{ route('payment-transfer-delete', $transfer->id) }}" id="delete" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                <a class="delete-gallery" href="javascript:{}" onclick="document.getElementById('delete').submit();"><img src="{{ asset('/images/delete.png') }}" alt="" /></a>
+                                
+                                </form>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                              <dl class="term-description">
+                                <dt>Nama Bank:</dt><dd>{{ $order->payment->upload[0]->bank }}</dd>
+                                <dt>Nama Pengirim:</dt><dd>{{ $order->payment->upload[0]->name }}</dd>
+                                <dt>Nomor Rekening:</dt><dd>{{ $order->payment->upload[0]->no_reg }}</dd>
+                                <dt>Tanggal Transfer:</dt><dd>{{ $order->payment->upload[0]->date->format('F j, Y') }}</dd>
+                              </dl>
+                            </div>
+                        </div>
+                        @endforeach
+                        </div>
+                        <div class="col-lg-12 mt-3">
                           <div class="card">
                             <div class="card-header text-uppercase">Upload bukti transfer</div>
                             <div class="card-body">
-                                @foreach ($order->payment->upload as $transfer)
-                                    <div class="col-md-4">
-                                        <div class="">
-                                        <img
-                                            src="{{ Storage::url($transfer->photos ?? '') }}"
-                                            alt=""
-                                            class="w-100"
-                                        />
-                                        {{-- <a href="
-                                        {{ route('payment-delete', $transfer->id) }}
-                                        " class="">
-                                            <img src="{{ asset('/images/delete.png') }}" alt="" />
-                                        </a> --}}
-                                        </div>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                    <div class="card-information">
-                                      <h2>Your Card Information</h2>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 col-md-5">
-                                                <label>Nama Bank</label>
-                                                <div class="selector">
-                                                    <select class="full-width" name="bank">
-                                                        <option value="{{ $order->payment->upload[0]->bank }}">{{ $order->payment->upload[0]->bank }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-5">
-                                                <label>Nama Pengirim</label>
-                                                <input type="text" class="input-text full-width" value="{{ $order->payment->upload[0]->name }}" name="name" placeholder="" required/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 col-md-5">
-                                                <label>Nomor Rekening</label>
-                                                <input type="number" class="input-text full-width" name="no_reg" value="{{ $order->payment->upload[0]->no_reg }}" placeholder="" required/>
-                                            </div>
-                                            <div class="col-sm-6 col-md-5 mb-5">
-                                                <label>Tanggal Transfer</label>
-                                                <div class="datepicker-wrap">
-                                                  <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="{{ $order->payment->upload[0]->date->format('F n, Y') }}" required/>
-                                              </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                @endforeach
-                                <div class="col-12">
+                                @endif
+                                <div class="col-12 mt-3">
                                     <form action="{{ route('payment-transfer-upload') }}" method="POST" enctype="multipart/form-data">
                                       @csrf
                                       <input type="hidden" value="{{ $order->payment->id }}" name="payment_id">
@@ -149,7 +151,7 @@
                                                 <div class="col-sm-6 col-md-5 mb-5">
                                                     <label>Tanggal Transfer</label>
                                                     <div class="datepicker-wrap">
-                                                      <input type="text" name="date" id="autoclose-datepicker" class="input-text full-width" placeholder="Pilih Tanggal" value="" required/>
+                                                      <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
                                                   </div>
                                                 </div>
                                             </div>
@@ -170,35 +172,28 @@
                                         Simpan & tambah Photo
                                       </button>
                                     </form>
-                                  </div>
-                              {{-- <form action="{{ route('dashboard-product-gallery-upload') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone">
-                                @csrf 
-                                <div class="fallback">
-                                  <input name="file" type="file" multiple="multiple">
                                 </div>
-                                
-                              </form> --}}
                             </div>
                           </div>
                         </div>
                       </div>
-                      <a href="{{ route('sukses') }}" class="btn btn-success btn-small">
+                      <a href="{{ route('sukses', $order->id) }}" class="btn pull-right btn-success btn-small">
                         selesai
                     </a>
-                      {{-- <form action="{{ route('manifest_process', $order->id) }}" method="POST" enctype="multipart/form-data">
+                      {{-- <a href="{{ route('manifest-tiket', $order->id) }}" class="btn pull-right btn-success btn-small">
+                        selesai
+                    </a> --}}
+                    {{-- <form action="{{ route('manifest-proses', $order->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <button
                           type="submit"
-                          class="btn print-button btn-success btn-small full-width"
+                          class="btn btn-success btn-small full-width"
                         >
-                        Konfirmasi Pembayaran
+                        tiket
                         </button>
                       </form> --}}
-                    {{-- <hr />
-                    <h2>Lihat Detail Pemesanan</h2>
-                    <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                    <br />
-                    <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a> --}}
+                    <br>
+                    <br>
                 </div>
             </div>
             <div class="sidebar col-sm-4 col-md-3">
@@ -211,26 +206,6 @@
                         <p>help@dipass.com</p>
                     </address>
                 </div>
-                {{-- <div class="travelo-box book-with-us-box">
-                    <h4>Why Book with us?</h4>
-                    <ul>
-                        <li>
-                            <i class="soap-icon-hotel-1 circle"></i>
-                            <h5 class="title"><a href="#">135,00+ Hotels</a></h5>
-                            <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                        </li>
-                        <li>
-                            <i class="soap-icon-savings circle"></i>
-                            <h5 class="title"><a href="#">Low Rates &amp; Savings</a></h5>
-                            <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                        </li>
-                        <li>
-                            <i class="soap-icon-support circle"></i>
-                            <h5 class="title"><a href="#">Excellent Support</a></h5>
-                            <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                        </li>
-                    </ul>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -238,6 +213,13 @@
 @endsection
 
 @push('addon-script')
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   <!--Inputtags Js-->
+   <script src="{{ asset('assets/plugins/inputtags/js/bootstrap-tagsinput.js') }}"></script>
+    <!--Select Plugins Js-->
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 {{-- calendar --}}
 <script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BookingOrder;
 use App\City;
 use App\Order;
 use Illuminate\Http\Request;
@@ -30,30 +31,28 @@ class HomeController extends Controller
     public function index()
     {
         $from_id = City::where('id', 189 )->where('city_name', 'Jakarta Barat' )->get();
-        // $from_name = City::where('city_name', 'Jakarta Barat' )->get();
-        
-        
-        // dd($from);
-        // $to = City::where('id', '189' )->get();
         $kota = City::all();
 
-        
-        
         return view('pages.home',[
             'kota' => $kota,
             'from_id' => $from_id,
-            // 'search' => $search,
         ]);
     }
 
     public function search()
     {
-        
         $kota = City::all();
-
-        
         return view('pages.home-search',[
                 'kota' => $kota
+            ]);
+    }
+
+    public function laravel()
+    {
+        $booking = BookingOrder::with(['order','booking'])->get();
+        dd($booking);
+        return view('home',[
+                'booking' => $booking
             ]);
     }
 }

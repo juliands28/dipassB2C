@@ -11,6 +11,7 @@ use App\OrderDetail;
 use App\OrderPassenger;
 use App\OrderProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class BusPesanController extends Controller
 {
@@ -33,85 +34,14 @@ class BusPesanController extends Controller
             'schedule' => $schedule
         ]);
     }
-
-    public function order(OrderRequest $request, $id)
-    {
-         // $travel_package = TravelPackage::findOrFail($id);
-
-        // $transaction = Transaction::create([
-        //     'travel_packages_id' => $id,
-        //     'users_id' => Auth::user()->id,
-        //     'additional_visa' => 0,
-        //     'transaction_total' => $travel_package->price,
-        //     'transaction_status' => 'IN_CART'
-        // ]);
-
-        $schedule = Schedule::findOrFail($id); 
-
-        $order = Order::create([
-                'schedule_id' => $id,
-                'route_id' => $schedule->route_id,
-                'order_no' => CodeHelper::dateCode('ORD', 'orders', 'order_no'),
-                'departure_city' => $schedule->route->departure_id,
-                'departure_point' => $schedule->route->points->first()->point_id,
-                'departure_date' => $schedule->date->format('d/m/Y'),
-                'departure_time' => $schedule->route->board_points->first()->time,
-                'arrival_city' => $schedule->route->arrival_id,
-                'arrival_point' => $schedule->route->points ->last()->point_id,
-                'arrival_date' => $schedule->date->format('d/m/Y'),
-                'arrival_time' => $schedule->route->board_points->last()->time,
-                'date' => date('Y-m-d H:i:s'),
-                'expired_date' => date("Y-m-d H:i:s", strtotime("+2 hours")),
-                'total_price' => $request->total_price,
-                'status' => 'Pending',
-        ]);
-
-        // Order::create($order);
-
-                // $order->detail()->insert([
-                //     [
-                //         'order_id' => $order->id, 
-                //         'name' =>  ucwords($request->name), 
-                //         'phone' => $request->phone, 
-                //         'email' => $request->email
-                //     ]
-                // ]);
-
-                // foreach($request['passenger_name'] as $key => $val) {
-                //     $passengers[] = [
-                //         'order_id' => $order->id,
-                //         'name' => ucwords($request['passenger_name'][$key]),
-                //         'nik' => $request['passenger_nik'][$key],
-                //         'seat_number' => $request['passenger_seat_number'][$key],
-                //         'age' => $request['passenger_age'][$key],
-                //         'pax_price' => $request['passenger_pax_price'][$key],
-                //         'gender' => $request['passenger_gender'][$key],
-                //     ];
-                // }
-
-                // $order->passengers()->insert($passengers);
-                    return $order;
-                // return redirect()->route('pesan-sukses', $order->id);
-                // return redirect()->route('checkout', $order->id);
-    }
     
-    public function sukses()
-    {
-        return view('pages.pesan_sukses');
-    }
 
-    public function index1(Request $request, $id)
-    {
-        // $item = Transaction::with(['details','travel_package','user'])->findOrFail($id);
-
-        // return view('pages.checkout',[
-        //     'item' => $item
-        // ]);
-    }
-
-    public function process(Request $request, $id)
+    public function process(OrderRequest $request, $id)
     {
         $schedule = Schedule::with('route')->findOrFail($id); 
+        $user = $request->created_by;
+
+        // dd($user);
 
         $order = Order::create([
                 'schedule_id' => $id,
@@ -129,7 +59,10 @@ class BusPesanController extends Controller
                 'expired_date' => date("Y-m-d H:i:s", strtotime("+2 hours")),
                 'total_price' => $schedule->price,
                 'status' => 'Pending',
+                'created_by' => $user,
         ]);
+
+        // dd($order);
         // return $order;
         
         $order->detail()->insert([
@@ -164,15 +97,6 @@ class BusPesanController extends Controller
             return redirect()->route('checkout-success', $order->id);
     }
 
-    public function remove(Request $request, $detail_id)
-    {
-        //
-    }
-
-    public function create(Request $request, $id)
-    {
-        //
-    }
 
     public function success(Request $request, $id)
     {
@@ -194,4 +118,10 @@ class BusPesanController extends Controller
             'order' => $order
         ]);
     }
+
+    public function sukses()
+    {
+        return view('pages.pesan_sukses');
+    }
+
 }

@@ -18,67 +18,76 @@ Route::get('/', function () {
 });
 
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@laravel')->name('laravel-home');
 
+// Home
 Route::get('/', 'HomeController@search')->name('home');
-// Route::get('/search', 'HomeController@search')->name('search-home');
 
+// view bus
 Route::get('/bus-list', 'BusListController@index')->name('bus-list');
-// Route::post('/bus-list', 'BusListController@search')->name('search');
 Route::get('/view-bus', 'BusDetailController@index')->name('view-bus');
-// Route::post('/view-bus/search1', 'BusListController@search')->name('view-bus-search');
-Route::post('/list-bus/search', 'BusListController@search')->name('search-bus');
-Route::get('/view-bus/{id}', 'BusDetailController@index')->name('bus-detail');
-Route::get('/view-bus/pesanan/{id}', 'BusPesanController@index')->name('bus-pesanan');
-Route::post('/view-bus/pesanan/order', 'BusPesanController@search')->name('order');
 
-// Route::get('/bus-detail/{$id}', 'BusListController@detail')->name('bus-details');
+// bus search
+Route::post('/list-bus/search', 'BusListController@search')->name('search-bus');
+
+// bus detail
+Route::get('/view-bus/{id}', 'BusDetailController@index')->name('bus-detail');
+
+Route::group(['middleware' => ['auth']], function () {
+    // bus Pesanan
+    Route::post('/checkout/{id}', 'BusPesanController@process')
+        ->name('checkout_process');
+
+    Route::get('/checkout/{id}', 'BusPesanController@index')
+        ->name('checkout');
+
+    // bus pesanan order dibuat 
+    Route::get('/checkout/confirm/{id}', 'BusPesanController@success')
+        ->name('checkout-success');
+
+    // Payment dan upload transaksi
+    Route::get('/checkout/payment/{id}', 'PaymentUploadController@index')
+        ->name('payment-checkout');
+
+    Route::post('/checkout/payment/{id}', 'PaymentUploadController@process')
+        ->name('payment-process');
+
+    // upload gambar
+    Route::post('/checkout/payment/transfer/upload', 'PaymentUploadController@uploadGallery')
+        ->name('payment-transfer-upload');
+    Route::post('/checkout/payment/transfer/delete/{id}', 'PaymentUploadController@deleteGallery')
+        ->name('payment-transfer-delete');
+
+    // manifest Tiket
+
+    Route::get('/manifest/{id}', 'ManifestController@index')
+        ->name('manifest');
+    Route::post('/manifest/proses/{id}', 'ManifestController@process')
+        ->name('manifest-proses');
+    Route::get('/manifest/sukses/{id}', 'ManifestController@success')
+        ->name('manifest-sukses');
+
+    // tampilan sukses
+    Route::get('/sukses/{id}', 'ManifestController@sukses')
+        ->name('sukses');
+    // tampilan cart
+    Route::get('/cart', 'CartController@index')
+        ->name('cart');
+
+});
+
+
+
+// Route::get('/view-bus/pesanan/{id}', 'BusPesanController@index')->name('bus-pesanan');
+// Route::post('/view-bus/pesanan/order', 'BusPesanController@search')->name('order');
 
 
 
 Route::get('/bus-pesan', 'BusPesanController@index')->name('bus-pesan');
 Route::get('/pesan-sukses', 'BusPesanController@sukses')->name('pesan-sukses');
 
-// Auth::routes();
+Auth::routes();
 
 // test checout
-Route::post('/checkout/{id}', 'BusPesanController@process')
-    ->name('checkout_process');
-
-Route::get('/checkout/{id}', 'BusPesanController@index')
-    ->name('checkout');
-
-Route::get('/checkout/confirm/{id}', 'BusPesanController@success')
-    ->name('checkout-success');
-
-// Payment
-Route::get('/checkout/payment/{id}', 'PaymentUploadController@index')
-    ->name('payment-checkout');
-
-Route::post('/checkout/payment/{id}', 'PaymentUploadController@process')
-    ->name('payment-process');
-
-// upload gambar
-Route::post('/checkout/payment/transfer/upload', 'PaymentUploadController@uploadGallery')
-    ->name('payment-transfer-upload');
-Route::get('/checkout/payment/transfer/delete/{id}', 'PaymentUploadController@deleteGallery')
-    ->name('payment-transfer-delete');
-
-// Route::post('/checkout/payment/upload/', 'PaymentUploadController@uploadGallery')
-//     ->name('payment-upload');
-// Route::get('/checkout/payment/upload/{id}', 'PaymentUploadController@deleteGallery')
-//     ->name('payment-delete');
-
-// manifest Tiket
-Route::post('/manifest/{id}', 'ManifestController@process')
-    ->name('manifest_process');
-
-Route::get('/manifest/{id}', 'ManifestController@index')
-    ->name('manifest');
-
-Route::get('/manifest/confirm/{id}', 'ManifestController@success')
-    ->name('manifest-success');
 
 
-Route::get('/sukses', 'ManifestController@sukses')
-    ->name('sukses');

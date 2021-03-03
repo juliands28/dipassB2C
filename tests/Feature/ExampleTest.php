@@ -14,7 +14,7 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $response = $this->get(RouteServiceProvider::HOME);
 
         $response->assertStatus(200);
     }
