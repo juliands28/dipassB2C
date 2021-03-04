@@ -5,6 +5,10 @@
 @endsection
 
 @push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
+
+@push('prepend-style')
     <!-- Theme Styles -->
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
@@ -51,111 +55,134 @@
                             <h4 class="main-message">Order No: {{ $order->order_no }}</h4>
                             <p>Pembayaran menggunakan Transfer</p>
                         </div>
-                        <h2 class="print-button text-success">Total Harga : {{ $order->total_price }}</h2>\
+                        <h2 class="print-button text-success">Total Harga : {{ $order->total_price }}</h2>
                     </div>
                     <hr />
-                        <h2>Upload bukti transfer Pembayaran</h2>
-                            <p>Pembayaran menggunakan dipass B2C melalui Transfer diwajibkan menyertakan bukti transfer pembayaran. Bukti transfer akan kami proses terlebih dahulu untuk mengecek pembayaran anda.</p>
-                            <br />    
-                    <hr />
-                     <div class="row" style="height: 450px;">
+                    <h2>Upload bukti transfer Pembayaran</h2>
+                    <p>Pembayaran menggunakan dipass B2C melalui Transfer diwajibkan menyertakan bukti transfer pembayaran. Bukti transfer akan kami proses terlebih dahulu untuk mengecek pembayaran anda.</p>
+                    <br />
+                    {{-- <p class="red-color">Note: sertakan bukti Transfer anda di bawah ini.</p> --}}
+                    <div class="row">
                         <div class="col-lg-12">
-                          <div class="card">
-                            <div class="card-header text-uppercase">Upload bukti transfer</div>
-                            <div class="card-body">
-                                @foreach ($order->payment->upload as $transfer)
+                            @foreach ($order->payment->upload as $transfer)
+                                <div class="row align-items-center">
                                     <div class="col-md-4">
                                         <div class="">
                                         <img
                                             src="{{ Storage::url($transfer->photos ?? '') }}"
                                             alt="Bukti Transfer Dipass"
-                                            class="w-100"
+                                            class="" width="100%"
                                         />
-                                        {{-- <a href="
-                                        {{ route('payment-delete', $transfer->id) }}
-                                        " class="">
-                                            <img src="{{ asset('/images/delete.png') }}" alt="" />
-                                        </a> --}}
+                                        <form action="{{ route('payment-transfer-delete', $transfer->id) }}" id="delete" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                        <a class="delete-gallery" href="javascript:{}" onclick="document.getElementById('delete').submit();"><img src="{{ asset('/images/delete.png') }}" alt="" /></a>
+                                        
+                                        </form>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                      <dl class="term-description">
+                                    <dl class="term-description">
                                         <dt>Nama Bank:</dt><dd>{{ $order->payment->upload[0]->bank }}</dd>
                                         <dt>Nama Pengirim:</dt><dd>{{ $order->payment->upload[0]->name }}</dd>
                                         <dt>Nomor Rekening:</dt><dd>{{ $order->payment->upload[0]->no_reg }}</dd>
                                         <dt>Tanggal Transfer:</dt><dd>{{ $order->payment->upload[0]->date->format('F j, Y') }}</dd>
-                                      </dl>
+                                    </dl>
                                     </div>
-
-                                    
-                                @endforeach
-                                <div class="col-12">
-                                    <form action="{{ route('payment-transfer-upload') }}" method="POST" enctype="multipart/form-data">
-                                      @csrf
-                                      <input type="hidden" value="{{ $order->payment->id }}" name="payment_id">
-                                      <input type="hidden" value="{{ $order->id }}" name="order_id">
-                                      <div class="card-information">
-                                          <h2>Your Card Information</h2>
-                                            <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5">
-                                                    <label>Nama Bank</label>
-                                                    <div class="selector">
-                                                        <select class="full-width" name="bank">
-                                                            <option value="Mandiri">Mandiri</option>
-                                                            <option value="BCA">BCA</option>
-                                                            <option value="BNI">BNI</option>
-                                                            <option value="BRI">BRI</option>
-                                                            <option value="CIMB">CIMB</option>
-                                                        </select>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="col-lg-12 mt-3">
+                            <div class="card">
+                                <div class="card-header text-uppercase">Upload bukti transfer</div>
+                                <div class="card-body">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <div class="col-12 mt-3">
+                                        <form action="{{ route('payment-transfer-upload') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" value="{{ $order->payment->id }}" name="payment_id">
+                                        <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                        <div class="card-information">
+                                            <h2>Your Card Information</h2>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6 col-md-5">
+                                                        <label>Nama Bank</label>
+                                                        <div class="selector">
+                                                            <select class="full-width" name="bank">
+                                                                <option value="Mandiri">Mandiri</option>
+                                                                <option value="BCA">BCA</option>
+                                                                <option value="BNI">BNI</option>
+                                                                <option value="BRI">BRI</option>
+                                                                <option value="CIMB">CIMB</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-5">
+                                                        <label>Nama Pengirim</label>
+                                                        <input type="text" class="input-text full-width" value="" name="name" placeholder="" required/>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5">
-                                                    <label>Nama Pengirim</label>
-                                                    <input type="text" class="input-text full-width" value="" name="name" placeholder="" required/>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6 col-md-5">
+                                                        <label>Nomor Rekening</label>
+                                                        <input type="number" class="input-text full-width" name="no_reg" value="" placeholder="" required/>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-5 mb-5">
+                                                        <label>Tanggal Transfer</label>
+                                                        <div class="datepicker-wrap">
+                                                        <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5">
-                                                    <label>Nomor Rekening</label>
-                                                    <input type="number" class="input-text full-width" name="no_reg" value="" placeholder="" required/>
-                                                </div>
-                                                <div class="col-sm-6 col-md-5 mb-5">
-                                                    <label>Tanggal Transfer</label>
-                                                    <div class="datepicker-wrap">
-                                                      <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" required/>
-                                                  </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                      <input
-                                        type="file"
-                                        name="photos"
-                                        id="file"
-                                        style="display: none;"
-                                        multiple
-                                        onchange="form.submit()"
-                                      />
-                                      <button
-                                        type="button"
-                                        class="btn btn-secondary btn-block mt-3"
-                                        onclick="thisFileUpload()"
-                                      >
-                                        Simpan & tambah Photo
-                                      </button>
-                                    </form>
-                                  </div>
+                                        <input
+                                            type="file"
+                                            name="photos"
+                                            id="file"
+                                            style="display: none;"
+                                            multiple
+                                            onchange="form.submit()"
+                                        />
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary btn-block mt-3"
+                                            onclick="thisFileUpload()"
+                                        >
+                                            Simpan & tambah Photo
+                                        </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="text-right">
+                            <a href="{{ route('sukses', $order->id) }}" class="btn float-right btn-success btn-small">
+                                selesai
+                            </a>
+                        </div>
+                        {{-- <a href="{{ route('manifest-tiket', $order->id) }}" class="btn pull-right btn-success btn-small">
+                            selesai
+                        </a> --}}
+                        {{-- <form action="{{ route('manifest-proses', $order->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <button
+                            type="submit"
+                            class="btn btn-success btn-small full-width"
+                            >
+                            tiket
+                            </button>
+                        </form> --}}
+                        <br>
+                        <br>
                     </div>
-                    <h2>Lihat Detail Pemesanan</h2>
-                        <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
-                    <br />
-                        <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a>
-                    <br>
-                    <a href="{{ route('sukses') }}" class="btn btn-success btn-small">
-                        selesai
-                    </a>
                 </div>
             </div>
             <div class="sidebar col-sm-4 col-md-3">
@@ -168,26 +195,6 @@
                         <p>help@dipass.com</p>
                     </address>
                 </div>
-                {{-- <div class="travelo-box book-with-us-box">
-                    <h4>Why Book with us?</h4>
-                    <ul>
-                        <li>
-                            <i class="soap-icon-hotel-1 circle"></i>
-                            <h5 class="title"><a href="#">135,00+ Hotels</a></h5>
-                            <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                        </li>
-                        <li>
-                            <i class="soap-icon-savings circle"></i>
-                            <h5 class="title"><a href="#">Low Rates &amp; Savings</a></h5>
-                            <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                        </li>
-                        <li>
-                            <i class="soap-icon-support circle"></i>
-                            <h5 class="title"><a href="#">Excellent Support</a></h5>
-                            <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                        </li>
-                    </ul>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -198,10 +205,10 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-   <!--Inputtags Js-->
-   <script src="{{ asset('assets/plugins/inputtags/js/bootstrap-tagsinput.js') }}"></script>
-    <!--Select Plugins Js-->
-    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+<!--Inputtags Js-->
+<script src="{{ asset('assets/plugins/inputtags/js/bootstrap-tagsinput.js') }}"></script>
+<!--Select Plugins Js-->
+<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 {{-- calendar --}}
 <script type="text/javascript" src="{{ asset('/js/calendar.js') }}"></script>
 <!-- load FlexSlider scripts -->

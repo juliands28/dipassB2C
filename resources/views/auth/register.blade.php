@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
+
 @push('addon-style')
   <!-- animate CSS-->
   <link href="{{ asset('/assets/css/animate.css') }}" rel="stylesheet" type="text/css"/>

@@ -42,6 +42,9 @@
                     @endguest
                     @auth
                         <li>
+                            <a href="{{ route('cart') }}">Order</a>
+                        </li>
+                        <li>
                             <a>Hi, {{ Auth::user()->name }}</a>
                         </li>
                         <li>
@@ -77,7 +80,10 @@
                 @endguest
                 @auth
                     <li>
-                        <a>Hi, Dini</a>
+                        <a href="{{ route('cart') }}">Order</a>
+                    </li>
+                    <li>
+                        <a>Hi, {{ Auth::user()->name }}</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}"

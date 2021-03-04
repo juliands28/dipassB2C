@@ -21,11 +21,11 @@ class BookingOrder extends Model
 
     public function booking()
     {
-        $this->belongsTo(Booking::class, 'booking_id', 'id');
+        return $this->belongsTo(Booking::class, 'booking_id', 'id');
     }
 
     public function order()
     {
-        $this->belongsTo(Order::class, 'order_id', 'id');
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 }

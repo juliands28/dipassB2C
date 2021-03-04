@@ -1,4 +1,4 @@
-<footer id="footer">
+<footer id="footer" class="fixed-bottom">
     {{-- <div class="footer-wrapper">
         <div class="container">
             <div class="row">

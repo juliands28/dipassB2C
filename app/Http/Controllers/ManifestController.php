@@ -9,6 +9,7 @@ use App\Order;
 use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ManifestController extends Controller
 {
@@ -20,9 +21,6 @@ class ManifestController extends Controller
             'busNumber.bus',
         ])->findOrFail($id);
 
-        // dd($booking->orders);
-
-
         return view('pages.mainfest',[
             'booking' => $booking
         ]);
@@ -30,7 +28,7 @@ class ManifestController extends Controller
 
     public function process(Request $request, $id)
     {
-        $order = Order::with('route')->where('status', '=', 'Pending')
+        $order = Order::with('route')->where('status', '=', 'Success')
         ->findOrFail($id);
 
             $booking = Booking::create([
@@ -68,15 +66,6 @@ class ManifestController extends Controller
 
             $booking->passengers()->insert($passengers);
 
-    // $payment_upload = new PaymentUpload;
-                
-    //             $payment_upload->'payment_id' = $payment->id;
-    //             $payment_upload->'photo' = $request->file('photo')->store('assets/upload-transfer', 'public');
-
-    //             $payment_upload->save();
-
-    //     dd($payment);
-
         return redirect()->route('manifest', $booking->id);
 
             
@@ -102,11 +91,35 @@ class ManifestController extends Controller
         ]);
     }
 
-    public function sukses()
+    public function sukses(Request $request, $id)
     {
+        $bookings = BookingOrder::with([
+            'booking',
+            'order',
+            'order.route', 
+            'order.schedule', 
+            'order.detail', 
+            'order.payment', 
+            'order.payment.upload', 
+            'order.passengers', 
+            'order.companies',
+            'order.departureCity', 
+            'order.departurePoint',
+            'order.arrivalCity',
+            'order.arrivalPoint',
+            ])
+            ->whereHas('order', function($order){
+                $order->where('created_by', Auth::user()->id);
+            })->take(1)->get();
+            // dd($bookings);
+            
+        $order = Order::with('route')
+        // ->where('status', '=', 'Success')
+        ->findOrFail($id);
         
         return view('pages.sukses',[
-            // 'booking' => $booking
+            'order' => $order,
+            'bookings' => $bookings,
         ]);
     }
 }

@@ -39,7 +39,14 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('checkout_process');
 
     Route::get('/checkout/{id}', 'BusPesanController@index')
-        ->name('checkout');
+    ->name('checkout');
+
+    // bus pesan penumpang
+    Route::post('/checkout/penumpang/{id}', 'BusPesanController@processpassenger')
+        ->name('checkout_process_passenger');
+
+    Route::get('/checkout/penumpang/{id}', 'BusPesanController@indexpassenger')
+    ->name('checkout_passenger');
 
     // bus pesanan order dibuat 
     Route::get('/checkout/confirm/{id}', 'BusPesanController@success')
@@ -55,22 +62,28 @@ Route::group(['middleware' => ['auth']], function () {
     // upload gambar
     Route::post('/checkout/payment/transfer/upload', 'PaymentUploadController@uploadGallery')
         ->name('payment-transfer-upload');
-    Route::get('/checkout/payment/transfer/delete/{id}', 'PaymentUploadController@deleteGallery')
+    Route::post('/checkout/payment/transfer/delete/{id}', 'PaymentUploadController@deleteGallery')
         ->name('payment-transfer-delete');
 
     // manifest Tiket
-    Route::post('/manifest/{id}', 'ManifestController@process')
-        ->name('manifest_process');
 
     Route::get('/manifest/{id}', 'ManifestController@index')
         ->name('manifest');
+    Route::post('/manifest/proses/{id}', 'ManifestController@process')
+        ->name('manifest-proses');
+    Route::get('/manifest/sukses/{id}', 'ManifestController@success')
+        ->name('manifest-sukses');
 
-    Route::get('/manifest/confirm/{id}', 'ManifestController@success')
-        ->name('manifest-success');
+    // Route::get('/tiket/{id}', 'ManifestController@index')->name('tiket');
+    // Route::post('/tiket/proses/{id}', 'ManifestController@process')->name('tiket-proses');
+    // // Route::get('/tiket/sukses/{id}', 'ManifestController@success')->name('tiket-sukses');
 
     // tampilan sukses
-    Route::get('/sukses', 'ManifestController@sukses')
+    Route::get('/sukses/{id}', 'ManifestController@sukses')
         ->name('sukses');
+    // tampilan cart
+    Route::get('/cart', 'CartController@index')
+        ->name('cart');
 
 });
 

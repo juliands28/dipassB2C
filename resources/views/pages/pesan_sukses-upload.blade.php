@@ -124,6 +124,7 @@
                       </div>
                     <form action="{{ route('payment-process', $order->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                         <button
                           type="submit"
                           class="btn btn-success btn-small full-width"

@@ -4416,8 +4416,8 @@ table.grid td {
 }
 
 .bg-signup2{
-	background-color: rgb(0, 140, 255);
-    background-image: url('/images/authentication-img.png');
+	background-color: #301D6E;
+    background-image: url(../../images/authentication-img.png);
     height: 100%;
 	border-radius: 0;
     border-top-left-radius: .25rem;
@@ -4426,15 +4426,15 @@ table.grid td {
 
 .bg-signin2{
 	background-color: #301D6E;
-    background-image: url('/images/authentication-img.png');
+    background-image: url(../../images/authentication-img.png);
     height: 100%;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem;
 }
 
 .bg-reset-password2{
-	background-color: rgb(0, 140, 255);
-    background-image: url('/images/authentication-img.png');
+	background-color: #301D6E;
+    background-image: url(../../images/authentication-img.png);
     height: 100%;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem;

@@ -5,6 +5,9 @@
 @endsection
 
 @push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
+@push('prepend-style')
     <!-- Theme Styles -->
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
@@ -126,7 +129,7 @@
                     <div class="col-lg-3 payment-icons">
                       <p class="lead">Booking Code(PNR):</p>
                       <div class="text-center">
-                        <img src="{{ asset('/images/qr.png') }}" alt="qr">
+                        {!! QrCode::size(100)->generate($booking->PNR); !!}
                       </div>
                       <p class="text-muted text-center p-2 mt-3 border rounded">
                         {{ $booking->PNR }}
@@ -135,9 +138,6 @@
                     <div class="col-lg-3 payment-icons">
                       <p class="lead">Payment Methods:</p>
                       <img src="{{ asset('/images/bank-dki.png') }}" alt="Bank DKI">
-                      {{-- <p class="text-muted bg-light p-2 mt-3 border rounded">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                      </p> --}}
                     </div><!-- /.col -->
                     <div class="col-lg-6">
                       {{-- <p class="lead">Amount Due 2/22/2014</p> --}}
@@ -155,8 +155,8 @@
                   </div><!-- /.row -->
                   
                   
+                  <hr>
                   <div class="row">
-                    <hr>
                     <!-- accepted payments column -->
                     
                     <div class="col-lg-12 payment-icons">
@@ -180,12 +180,12 @@
                   <div class="row no-print">
                     <div class="col-lg-3">
                       <a href="javascript:window.print();" target="_blank" class="btn btn-outline-secondary m-1"><i class="fa fa-print"></i> Print</a>
-          </div>
-          <div class="col-lg-9">
-          <div class="float-sm-right">
-                       <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                       <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button>
-          </div>
+                        </div>
+                        <div class="col-lg-9">
+                        <div class="float-sm-right">
+                          <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                          <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button>
+                        </div>
                     </div>
                   </div>
                 </section><!-- /.content -->

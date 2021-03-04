@@ -17,6 +17,7 @@ class Payment extends Model
         'payment_number', 
         'payment_amount', 
         'method',
+        'created_by',
     ];
 
     protected $hidden = [

@@ -11,6 +11,7 @@ use App\OrderDetail;
 use App\OrderPassenger;
 use App\OrderProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class BusPesanController extends Controller
 {
@@ -33,11 +34,33 @@ class BusPesanController extends Controller
             'schedule' => $schedule
         ]);
     }
+    public function indexpassenger(Request $request, $id)
+    {
+        $schedule = Schedule::with([
+            'services',
+            'services.pickup.city', 
+            'services.dropping.city', 
+            'route.departure', 
+            'route.arrival', 
+            'route.points.city', 
+            'route.bus.class', 
+            'route.bus.category', 
+            'route.bus.facilities'
+        ])->findOrFail($id);
+
+
+        return view('pages.bus_pesan-passenger',[
+            'schedule' => $schedule
+        ]);
+    }
     
 
-    public function process(Request $request, $id)
+    public function process(OrderRequest $request, $id)
     {
         $schedule = Schedule::with('route')->findOrFail($id); 
+        $user = $request->created_by;
+
+        // dd($user);
 
         $order = Order::create([
                 'schedule_id' => $id,
@@ -55,7 +78,10 @@ class BusPesanController extends Controller
                 'expired_date' => date("Y-m-d H:i:s", strtotime("+2 hours")),
                 'total_price' => $schedule->price,
                 'status' => 'Pending',
+                'created_by' => $user,
         ]);
+
+        // dd($order);
         // return $order;
         
         $order->detail()->insert([
@@ -86,6 +112,31 @@ class BusPesanController extends Controller
             $order_provider->company_id = $schedule->route->company_id;
 
             $order_provider->save();
+
+            return redirect()->route('checkout-success', $order->id);
+    }
+    public function processpassenger(OrderRequest $request, $id)
+    {
+        $schedule = Schedule::with('route')->findOrFail($id); 
+        $user = $request->created_by;
+
+        // dd($user);
+
+        // dd($order);
+        // return $order;
+
+        $order->passengers()->insert([
+            [
+                'order_id' => $order->id, 
+                'name' => ucwords($request->passenger_name),
+                'nik' => $request->passenger_nik,
+                'seat_number' => $request->passenger_seat_number,
+                'age' => $request->passenger_age,
+                'pax_price' => $schedule->price,
+                'gender' => $request->passenger_gender,
+            ]
+        ]);
+        $order->save();
 
             return redirect()->route('checkout-success', $order->id);
     }
