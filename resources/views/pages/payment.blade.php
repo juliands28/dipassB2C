@@ -51,27 +51,14 @@
                             <h4 class="main-message">Order No: {{ $order->order_no }}</h4>
                             <p>Pembayaran menggunakan Transfer</p>
                         </div>
-                        <h2 class="print-button text-success">Total Harga : {{ $order->total_price }}</h2>
-                        {{-- <a href="#" class="print-button button btn-small">PRINT DETAILS</a> --}}
+                        <h2 class="print-button text-success">Total Harga : {{ $order->total_price }}</h2>\
                     </div>
-                    {{-- <hr /> --}}
-                    {{-- <h2 class="text-success">Total Harga : {{ $payment->order->total_price }}</h2> --}}
-                    {{-- <dl class="term-description">
-                        <dt>Booking number:</dt><dd>{{ $order->order_no }}</dd>
-                        <dt>Nama Penumpang:</dt><dd>{{ $order->passengers[0]->name }}</dd>
-                        <dt>NIK:</dt><dd>{{ $order->passengers[0]->nik }}</dd>
-                        <dt>Usia:</dt><dd>{{ $order->passengers[0]->age }}, ({{ $order->passengers[0]->gender }})</dd>
-                        <dt>Kursi:</dt><dd>{{ $order->passengers[0]->seat_number }}</dd>
-                        <dt>Berangkat:</dt><dd>{{ $order->departurePoint->point_name }}, {{ $order->departureCity->city_name }} <br>{{ $order->departure_date }}, {{ $order->departure_time }}</dd>
-                        <dt>Tiba:</dt><dd>{{ $order->arrivalPoint->point_name }}, {{ $order->arrivalCity->city_name }} <br>{{ $order->arrival_date }}, {{ $order->arrival_time }}</dd>
-                        <dt>Total Harga:</dt><dd><h3 class="text-success">Rp. {{ number_format($order->total_price) }}</h3></dd>
-                    </dl> --}}
                     <hr />
-                    <h2>Upload bukti transfer Pembayaran</h2>
-                    <p>Pembayaran menggunakan dipass B2C melalui Transfer diwajibkan menyertakan bukti transfer pembayaran. Bukti transfer akan kami proses terlebih dahulu untuk mengecek pembayaran anda.</p>
-                    <br />
-                    {{-- <p class="red-color">Note: sertakan bukti Transfer anda di bawah ini.</p> --}}
-                    <div class="row" style="height: 450px;">
+                        <h2>Upload bukti transfer Pembayaran</h2>
+                            <p>Pembayaran menggunakan dipass B2C melalui Transfer diwajibkan menyertakan bukti transfer pembayaran. Bukti transfer akan kami proses terlebih dahulu untuk mengecek pembayaran anda.</p>
+                            <br />    
+                    <hr />
+                     <div class="row" style="height: 450px;">
                         <div class="col-lg-12">
                           <div class="card">
                             <div class="card-header text-uppercase">Upload bukti transfer</div>
@@ -157,22 +144,18 @@
                                       </button>
                                     </form>
                                   </div>
-                              {{-- <form action="{{ route('dashboard-product-gallery-upload') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone">
-                                @csrf 
-                                <div class="fallback">
-                                  <input name="file" type="file" multiple="multiple">
                                 </div>
-                                
-                              </form> --}}
                             </div>
-                          </div>
                         </div>
-                      </div>
-                      <a href="{{ route('sukses') }}" class="btn pull-right btn-success btn-small">
+                    </div>
+                    <h2>Lihat Detail Pemesanan</h2>
+                        <p>Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.</p>
+                    <br />
+                        <a href="#" class="red-color underline view-link">https://www.travelo.com/booking-details/?=f4acb19f-9542-4a5c-b8ee</a>
+                    <br>
+                    <a href="{{ route('sukses') }}" class="btn btn-success btn-small">
                         selesai
                     </a>
-                    <br>
-                    <br>
                 </div>
             </div>
             <div class="sidebar col-sm-4 col-md-3">
