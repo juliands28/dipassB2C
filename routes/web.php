@@ -66,6 +66,11 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('manifest-proses');
     Route::get('/manifest/sukses/{id}', 'ManifestController@success')
         ->name('manifest-sukses');
+    Route::get('/manifest/pdf/{id}', 'ManifestController@pdf')
+        ->name('manifest-pdf');
+    Route::get('/manifest/test', 'ManifestController@print')
+        ->name('manifest-test');
+
 
     // tampilan sukses
     Route::get('/sukses/{id}', 'ManifestController@sukses')

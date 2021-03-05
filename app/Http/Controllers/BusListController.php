@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BoardPoint;
 use App\Route;
 use App\Schedule;
 use App\City;
@@ -67,7 +68,6 @@ class BusListController extends Controller
         $departure_city = $request->departure_city;
         $arrival_city = $request->arrival_city;
         $date = $request->date;
-
         $kota = City::all();
         $schedule = Schedule::with([
             'services' => function($query) use($request) {

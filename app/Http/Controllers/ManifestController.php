@@ -10,6 +10,7 @@ use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ManifestController extends Controller
 {
@@ -28,7 +29,7 @@ class ManifestController extends Controller
 
     public function process(Request $request, $id)
     {
-        $order = Order::with('route')->where('status', '=', 'Pending')
+        $order = Order::with('route')->where('status', '=', 'Success')
         ->findOrFail($id);
 
             $booking = Booking::create([
@@ -110,7 +111,7 @@ class ManifestController extends Controller
             ])
             ->whereHas('order', function($order){
                 $order->where('created_by', Auth::user()->id);
-            })->get();
+            })->take(1)->get();
             // dd($bookings);
             
         $order = Order::with('route')
@@ -120,6 +121,39 @@ class ManifestController extends Controller
         return view('pages.sukses',[
             'order' => $order,
             'bookings' => $bookings,
+        ]);
+    }
+
+    public function pdf(Request $request, $id)
+    {
+        $booking = Booking::with([
+            'orders',
+            'busNumber',
+            'busNumber.bus',
+        ])->findOrFail($id);
+
+        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.mainfest-print',['booking'=>$booking])->stream();
+
+        $pdf = PDF::loadview('pages.mainfest-print',['booking'=>$booking])->setPaper('a4');
+
+        return $pdf->download('mainfest-tiket.pdf');
+
+        // return view('pages.mainfest-print',compact('booking'));
+    }
+
+    public function print()
+    {
+        // $booking = Booking::with([
+        //     'orders',
+        //     'busNumber',
+        //     'busNumber.bus',
+        // ])->findOrFail($id);
+
+        // $pdf = PDF::loadview('pages.mainfest-print')->setPaper('A4','potrait');
+
+        return view('pages.mainfest-print',[
+            // 'order' => $order,
+            // 'bookings' => $bookings,
         ]);
     }
 }

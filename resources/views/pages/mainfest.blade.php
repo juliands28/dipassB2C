@@ -3,7 +3,9 @@
 @section('title')
     Pesanan Sukses - dipass-B2C
 @endsection
-
+@push('prepend-style')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@endpush
 @push('prepend-style')
     <!-- Theme Styles -->
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
@@ -134,7 +136,7 @@
                     </div><!-- /.col -->
                     <div class="col-lg-3 payment-icons">
                       <p class="lead">Payment Methods:</p>
-                      <img src="{{ asset('/images/bank-dki.png') }}" alt="Bank DKI">
+                      <img src="/images/bank-dki.png" alt="Bank DKI">
                     </div><!-- /.col -->
                     <div class="col-lg-6">
                       {{-- <p class="lead">Amount Due 2/22/2014</p> --}}
@@ -176,7 +178,7 @@
                   <hr>
                   <div class="row no-print">
                     <div class="col-lg-3">
-                      <a href="javascript:window.print();" target="_blank" class="btn btn-outline-secondary m-1"><i class="fa fa-print"></i> Print</a>
+                      <a href="{{ route('manifest-pdf', $booking->id) }}" target="_blank" class="btn btn-outline-secondary m-1"><i class="fa fa-print"></i> Print</a>
                         </div>
                         <div class="col-lg-9">
                         <div class="float-sm-right">
