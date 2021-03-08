@@ -68,15 +68,15 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('manifest-sukses');
     Route::get('/manifest/pdf/{id}', 'ManifestController@pdf')
         ->name('manifest-pdf');
-    Route::get('/manifest/test', 'ManifestController@print')
-        ->name('manifest-test');
+    Route::get('/manifest/print/{id}', 'ManifestController@print')
+        ->name('manifest-print');
 
 
     // tampilan sukses
     Route::get('/sukses/{id}', 'ManifestController@sukses')
         ->name('sukses');
     // tampilan cart
-    Route::get('/cart', 'CartController@index')
+    Route::get('/order', 'CartController@index')
         ->name('cart');
 
 });

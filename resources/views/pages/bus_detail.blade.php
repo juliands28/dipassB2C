@@ -183,7 +183,6 @@ span.seatCharts-legendDescription {
                             <ul class="tabs">
                                 <li class="active"><a href="#flight-details" data-toggle="tab">bus details</a></li>
                                 <li><a href="#inflight-features" data-toggle="tab">fasilitas bus</a></li>
-                                <li><a href="#flgiht-seat-selection" data-toggle="tab">Seat Selection</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="flight-details">
@@ -222,15 +221,18 @@ span.seatCharts-legendDescription {
                                                             <div class="timing">
                                                                 <div class="check-in">
                                                                     <label>Berangkat</label>
-                                                                    <span>{{ $item->date->format('F j, Y') }} - {{ $item->route->board_points->first()->time }}</span>
+                                                                    <span>{{ $item->date->format('F j, Y') }} - {{\Carbon\Carbon::createFromFormat('H:i:s',$item->route->board_points->first()->time)->format('H:i')}}</span>
                                                                 </div>
                                                                 <div class="duration text-center">
                                                                     <i class="soap-icon-clock"></i>
                                                                     <span>time</span>
                                                                 </div>
+                                                                @php
+                                                                    $fdate = \carbon\carbon::create($item->date->toDateTimeString())
+                                                                @endphp
                                                                 <div class="check-out">
                                                                     <label>Tiba</label>
-                                                                    <span>{{ $item->date->format('F j, Y') }} - {{ $item->route->board_points->last()->time }}</span> 
+                                                                    <span> {{ $fdate->addDays($item->route->board_points->last()->day)->format('F j, Y') }} - {{\Carbon\Carbon::createFromFormat('H:i:s',$item->route->board_points->last()->time)->format('H:i')}}</span> 
                                                                 </div>
                                                             </div>
                                                             {{-- <label class="layover">Layover : 3h 50m</label> --}}
@@ -250,40 +252,6 @@ span.seatCharts-legendDescription {
                                             </li>
                                         @endforeach
                                     </ul>
-                                    <div class="col-md-12 mb-2">
-                                        <p>
-                                            @php $totalPrice = 0 @endphp
-                                            <input type="hidden" name="route_id" id="route_id" value="{{ $item->route_id }}">
-                                            <input type="hidden" name="schedule_id" id="schedule_id" value="{{ $item->id }}">
-                                            <input type="hidden" name="departure_city" id="departure_city" value="{{ $item->route->departure_id }}">
-                                            <input type="hidden" name="departure_point" id="departure_point" value="{{$item->route->points->first()->id}}">
-                                            <input type="hidden" name="departure_date" id="departure_date" value="{{ $item->date->format('d/m/Y') }}">
-                                            <input type="hidden" name="departure_time" id="departure_time" value="{{ $item->route->board_points->first()->time }}">
-                                            <input type="hidden" name="arrival_city" id="arrival_city" value="{{ $item->route->arrival_id }}">
-                                            <input type="hidden" name="arrival_point" id="arrival_point" value="{{ $item->route->points ->last()->id }}">
-                                            <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $item->date->format('d/m/Y') }}">
-                                            <input type="hidden" name="arrival_time" id="arrival_time" value="{{ $item->route->board_points->last()->time }}">
-                                            @php $totalPrice += $item->price @endphp
-                                            <input type="hidden" name="total_price" id="total_price" value="{{ $item->price }}">                                        
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="flgiht-seat-selection">
-                                    <h2>Select your Seats</h2>
-                                    <p>Would you like a window seat or treat yourself to more comfort? Select your seats online in advance with our easy-to-use seat map.  You can choose and change your seat until 48 hours before departure, when booking on Travelo.com. Also you can choose and change your seats at a self-service machine at the airport.</p>
-                                    <hr>
-                                    <div id="seat-map">
-                                        <div class="front-indicator">Front</div>
-                                      </div>
-                                    <div class="booking-details">
-                                        <h2>Booking Details</h2>
-                                        <h3> Selected Seats (<span id="counter">0</span>):</h3>
-                                        <ul id="selected-seats">
-                                        </ul>
-                                        Total: <b>$<span id="total">0</span></b>
-                                        <button class="checkout-button">Checkout &raquo;</button>
-                                        <div id="legend"></div>
-                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -305,6 +273,24 @@ span.seatCharts-legendDescription {
                                 @auth
                                     <div class="action">
                                         <a href="{{ route('checkout', $item->id) }}" class="btn btn-success btn-small full-width">Pesan Sekarang</a>
+                                    </div>
+                                    
+                                    <div class="col-md-12 mb-2">
+                                        <p>
+                                            @php $totalPrice = 0 @endphp
+                                            <input type="hidden" name="route_id" id="route_id" value="{{ $item->route_id }}">
+                                            <input type="hidden" name="schedule_id" id="schedule_id" value="{{ $item->id }}">
+                                            <input type="hidden" name="departure_city" id="departure_city" value="{{ $item->route->departure_id }}">
+                                            <input type="hidden" name="departure_point" id="departure_point" value="{{$item->route->points->first()->id}}">
+                                            <input type="hidden" name="departure_date" id="departure_date" value="{{ $item->date->format('d/m/Y') }}">
+                                            <input type="hidden" name="departure_time" id="departure_time" value="{{ $item->route->board_points->first()->time }}">
+                                            <input type="hidden" name="arrival_city" id="arrival_city" value="{{ $item->route->arrival_id }}">
+                                            <input type="hidden" name="arrival_point" id="arrival_point" value="{{ $item->route->points ->last()->id }}">
+                                            <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $item->date->format('d/m/Y') }}">
+                                            <input type="hidden" name="arrival_time" id="arrival_time" value="{{ $item->route->board_points->last()->time }}">
+                                            @php $totalPrice += $item->price @endphp
+                                            <input type="hidden" name="total_price" id="total_price" value="{{ $item->price }}">                                        
+                                        </p>
                                     </div>
                                 @else
                                     <div class="action">

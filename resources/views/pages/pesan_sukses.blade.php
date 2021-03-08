@@ -50,8 +50,18 @@
                         <dt>NIK:</dt><dd>{{ $order->passengers[0]->nik }}</dd>
                         <dt>Usia:</dt><dd>{{ $order->passengers[0]->age }}, ({{ $order->passengers[0]->gender }})</dd>
                         <dt>Kursi:</dt><dd>{{ $order->passengers[0]->seat_number }}</dd>
-                        <dt>Berangkat:</dt><dd>{{ $order->departurePoint->point_name }}, {{ $order->departureCity->city_name }} <br>{{ $order->departure_date }}, {{ $order->departure_time }}</dd>
-                        <dt>Tiba:</dt><dd>{{ $order->arrivalPoint->point_name }}, {{ $order->arrivalCity->city_name }} <br>{{ $order->arrival_date }}, {{ $order->arrival_time }}</dd>
+                        <dt>Berangkat:</dt><dd>
+                            {{ $order->departurePoint->point_name }}, 
+                            {{ $order->departureCity->city_name }} <br>
+                            {{\Carbon\Carbon::createFromFormat('H:i:s',$order->departure_time)->format('H:i')}} - 
+                            {{ \carbon\carbon::create($order->departure_date)->format('F n, Y') }}
+                        </dd>
+                        <dt>Tiba:</dt><dd>
+                            {{ $order->arrivalPoint->point_name }}, 
+                            {{ $order->arrivalCity->city_name }} <br>
+                            {{\Carbon\Carbon::createFromFormat('H:i:s',$order->arrival_time)->format('H:i')}} - 
+                            {{ \carbon\carbon::create($order->arrival_date)->format('F n, Y') }}
+                        </dd>
                         <dt>Total Harga:</dt><dd><h3 class="text-success">Rp. {{ number_format($order->total_price) }}</h3></dd>
                     </dl>
                     <hr />

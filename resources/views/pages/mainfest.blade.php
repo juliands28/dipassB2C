@@ -128,7 +128,7 @@
                     <div class="col-lg-3 payment-icons">
                       <p class="lead">Booking Code(PNR):</p>
                       <div class="text-center">
-                        {!! QrCode::size(100)->generate($booking->PNR); !!}
+                         <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($booking->PNR)) !!} ">
                       </div>
                       <p class="text-muted text-center p-2 mt-3 border rounded">
                         {{ $booking->PNR }}
@@ -136,7 +136,7 @@
                     </div><!-- /.col -->
                     <div class="col-lg-3 payment-icons">
                       <p class="lead">Payment Methods:</p>
-                      <img src="/images/bank-dki.png" alt="Bank DKI">
+                      <img src="{{ asset('/images/bank-dki.png') }}" alt="Bank DKI">
                     </div><!-- /.col -->
                     <div class="col-lg-6">
                       {{-- <p class="lead">Amount Due 2/22/2014</p> --}}
@@ -178,12 +178,12 @@
                   <hr>
                   <div class="row no-print">
                     <div class="col-lg-3">
-                      <a href="{{ route('manifest-pdf', $booking->id) }}" target="_blank" class="btn btn-outline-secondary m-1"><i class="fa fa-print"></i> Print</a>
+                      <a href="{{ route('manifest-print', $booking->id) }}" target="_blank" class="btn btn-outline-secondary m-1"><i class="fa fa-print"></i> Print</a>
                         </div>
                         <div class="col-lg-9">
                         <div class="float-sm-right">
                           <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                          <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button>
+                          <button class="btn btn-primary m-1"><i class="fa fa-download"></i><a href="{{ route('manifest-pdf', $booking->id) }}">Generate PDF</a> </button>
                         </div>
                     </div>
                   </div>

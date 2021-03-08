@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
 
 class ManifestController extends Controller
 {
@@ -124,7 +129,7 @@ class ManifestController extends Controller
         ]);
     }
 
-    public function pdf(Request $request, $id)
+    public function print(Request $request, $id)
     {
         $booking = Booking::with([
             'orders',
@@ -134,26 +139,26 @@ class ManifestController extends Controller
 
         // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.mainfest-print',['booking'=>$booking])->stream();
 
+        // $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'));
         $pdf = PDF::loadview('pages.mainfest-print',['booking'=>$booking])->setPaper('a4');
 
-        return $pdf->download('mainfest-tiket.pdf');
+        return $pdf->stream();
+        // return $pdf->download('mainfest-tiket.pdf');
+
+        // return view('pages.mainfest-print',compact('booking'));
+    }
+    public function pdf(Request $request, $id)
+    {
+        $booking = Booking::with([
+            'orders',
+            'busNumber',
+            'busNumber.bus',
+        ])->findOrFail($id);
+        $pdf = PDF::loadview('pages.mainfest-print',['booking'=>$booking])->setPaper('a4');
+        return $pdf->download("mainfest-tiket-".$booking->PNR.".pdf");
 
         // return view('pages.mainfest-print',compact('booking'));
     }
 
-    public function print()
-    {
-        // $booking = Booking::with([
-        //     'orders',
-        //     'busNumber',
-        //     'busNumber.bus',
-        // ])->findOrFail($id);
-
-        // $pdf = PDF::loadview('pages.mainfest-print')->setPaper('A4','potrait');
-
-        return view('pages.mainfest-print',[
-            // 'order' => $order,
-            // 'bookings' => $bookings,
-        ]);
-    }
+    
 }

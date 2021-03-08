@@ -29,9 +29,6 @@
                     <li class="menu-item-has-children">
                         <a href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="menu-item-has-children">
-                        <a href="{{ route('bus-list') }}">Bus Kategori</a>
-                    </li>
                     @guest  
                         <li>
                             <a href="{{ route('login') }}">LOGIN</a>
@@ -66,10 +63,7 @@
             <ul id="mobile-primary-menu" class="menu">
                 <li class="">
                     <a href="{{ route('home') }}">Home</a>                    
-                </li>
-                <li class="">
-                    <a href="{{ route('bus-list') }}">Bus Kategori</a>                    
-                </li>    
+                </li>   
                 @guest  
                     <li>
                         <a href="{{ route('login') }}">LOGIN</a>

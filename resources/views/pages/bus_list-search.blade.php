@@ -133,19 +133,27 @@
                                                     <div class="col-sm-4">
                                                         <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-on-bus.png"/></div>
                                                         <div>
-                                                            <span class="skin-color">Berangkat <br></span>{{ $schedules->route->points->first()->point_name }}<br />{{ $schedules->date->format('F j, Y') }} <br>{{ $schedules->route->board_points->first()->time }} - hari ke {{ $schedules->route->board_points->first()->day }} 
+                                                            <span class="skin-color">Berangkat <br></span>{{ $schedules->route->points->first()->point_name }}<br />{{ $schedules->date->format('F j, Y') }} <br>{{\Carbon\Carbon::createFromFormat('H:i:s',$schedules->route->board_points->first()->time)->format('H:i')}}
                                                         </div>
                                                     </div>
+                                                    @php
+                                                        $fdate = \carbon\carbon::create($schedules->date->toDateTimeString())
+                                                    @endphp
                                                     <div class="col-sm-4">
                                                         <div class="icon"><img src="https://img.icons8.com/dotty/20/350b40/get-off-bus.png"/></div>
                                                         <div>
-                                                            <span class="skin-color">Tiba <br></span>{{ $schedules->route->points ->last()->point_name }}<br />{{ $schedules->date->format('F j, Y') }} <br>{{ $schedules->route->board_points->last()->time }} - hari ke {{ $schedules->route->board_points->last()->day }} 
+                                                            <span class="skin-color">Tiba <br></span>{{ $schedules->route->points ->last()->point_name }}<br />{{ $fdate->addDays($schedules->route->board_points->last()->day)->format('F j, Y') }} <br>{{\Carbon\Carbon::createFromFormat('H:i:s',$schedules->route->board_points->last()->time)->format('H:i')}}
                                                         </div>
                                                     </div>
+                                                    @php
+                                                        $firsttime = \carbon\carbon::create($schedules->route->board_points->first()->time);
+                                                        $lasttime = \carbon\carbon::create($schedules->route->board_points->last()->time);
+                                                        $interval = $firsttime->diff($lasttime);
+                                                    @endphp
                                                     <div class="total-time col-sm-4">
                                                         <div class="icon"><i class="soap-icon-clock yellow-color"></i></div>
                                                         <div>
-                                                            <span class="skin-color">total time</span><br />3 Jam, 40 Menit
+                                                            <span class="skin-color">total time</span><br />{{ $interval->h }} Jam, {{ $interval->i }} Menit
                                                         </div>
                                                     </div>
                                                 </div>

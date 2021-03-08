@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
     <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <title>Tiket - dipass</title>
     <style>
         @font-face {
             font-family: Wingdings;
@@ -87,13 +88,13 @@
     <div class=WordSection1>
 
         <p class=MsoNormal><b><span style='font-size:14.0pt;line-height:107%'>Invoice </span></b><span style='font-size:9.0pt;line-height:107%;font-family:"Arial",sans-serif;
-  color:#999999;letter-spacing:.75pt'>#7wMJe4sqn3</span></p>
+  color:#999999;letter-spacing:.75pt'>#{{ $booking->PNR }}</span></p>
 
         <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
             <tr>
                 <td width=312 valign=top style='width:233.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><img width=152 height=67
-                            id="Picture 4" src="https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587515358_10512.png"></p>
+                            id="Picture 4" src="{{ asset('/images/logo.png') }}"></p>
                 </td>
                 <td width=312 valign=top style='width:233.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <h2 align=right style='margin-top:0cm;text-align:right;line-height:15.0pt;
@@ -109,7 +110,7 @@
                 </td>
                 <td width=312 valign=top style='width:233.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal align=right style='margin-bottom:0cm;text-align:right;
-    line-height:normal'>Tanggal: 2021-03-05 03:14:37</p>
+    line-height:normal'>Tanggal: {{ $booking->booking_date }}</p>
                 </td>
             </tr>
         </table>
@@ -130,17 +131,17 @@
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:150%'><b><span style='font-size:9.0pt;line-height:150%;font-family:"Arial",sans-serif;
-    color:#838383;letter-spacing:.75pt;background:white'>Invoice #7wMJe4sqn3</span></b></p>
+    color:#838383;letter-spacing:.75pt;background:white'>Invoice #{{ $booking->PNR }}</span></b></p>
                 </td>
             </tr>
             <tr>
                 <td width=208 valign=top style='width:155.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><strong><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>Jakarta Selatan</span></strong></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->departureCity->city_name }}</span></strong></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><strong><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>Yogyakarta</span></strong></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->arrivalCity->city_name }}</span></strong></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>&nbsp;</p>
@@ -149,43 +150,43 @@
             <tr>
                 <td width=208 valign=top style='width:155.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>Terminal Blok M</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->departurePoint->point_name }}</span></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>Terminal Giwangan</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->arrivalPoint->point_name }}</span></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>Order ID: <span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>ORD-21-03-026</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->orders[0]->order_no }}</span></p>
                 </td>
             </tr>
             <tr>
                 <td width=208 valign=top style='width:155.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>2021-03-04</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->departure_date }}</span></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>2021-03-04</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->arrival_date }}</span></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>Nama Bus: <span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>Agra Mas</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->busNumber->bus->bus_name }}</span></p>
                 </td>
             </tr>
             <tr>
                 <td width=208 valign=top style='width:155.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>07:30:00</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->departure_time }}</span></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>22:30:00</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->arrival_time }}</span></p>
                 </td>
                 <td width=208 valign=top style='width:155.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>Plat Nomor: <span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#838383;
-    letter-spacing:.75pt;background:white'>B 1234 EDG</span></p>
+    letter-spacing:.75pt;background:white'>{{ $booking->busNumber->bus_number }}</span></p>
                 </td>
             </tr>
         </table>
@@ -215,32 +216,34 @@
                                 NUMBER</span></b></p>
                 </td>
             </tr>
+            @foreach ($booking->passengers as $penumpang)
             <tr>
                 <td width=210 valign=top style='width:157.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
-    0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
-    font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
-    #F9F9F9'>20210305-7wMJe4sqn3-NbgkC</span></p>
+                    0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
+                    font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
+                    #F9F9F9'>{{ $penumpang->ticket_number }}</span></p>
                 </td>
                 <td width=174 valign=top style='width:130.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
-    0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
-    font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
-    #F9F9F9'>Dini</span></p>
+                        0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
+                        font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
+                        #F9F9F9'>{{ $penumpang->name }}</span></p>
                 </td>
                 <td width=126 valign=top style='width:94.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
-    0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
-    font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
-    #F9F9F9'>54856867452</span></p>
+                        0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
+                        font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
+                        #F9F9F9'>{{ $penumpang->nik }}</span></p>
                 </td>
                 <td width=114 valign=top style='width:85.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
-    0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
-    font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
-    #F9F9F9'>B3</span></p>
+                        0cm;margin-left:0cm;line-height:normal'><span style='font-size:9.0pt;
+                        font-family:"Arial",sans-serif;color:#838383;letter-spacing:.75pt;background:
+                        #F9F9F9'>{{ $penumpang->seat_number }}</span></p>
                 </td>
             </tr>
+            @endforeach
         </table>
 
         <p class=MsoNormal>&nbsp;</p>
@@ -273,7 +276,7 @@
                     <p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
     0cm;margin-left:0cm;line-height:115%'><span style='font-size:9.0pt;
     line-height:115%;font-family:"Arial",sans-serif;color:#838383;letter-spacing:
-    .75pt;background:white'>Rp. 315,000</span></p>
+    .75pt;background:white'>Rp. {{ number_format($booking->orders[0]->total_price) }}</span></p>
                 </td>
             </tr>
             <tr>
@@ -282,7 +285,9 @@
     line-height:normal'><span style='font-size:16.0pt;font-family:"Arial",sans-serif;
     color:#838383;letter-spacing:.75pt;background:white'>&nbsp;</span></p>
                     <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-    line-height:normal'><img width=74 height=74 id="Picture 2" src="Invoice_files/image002.png"></p>
+    line-height:normal'>
+    {{-- {!! QrCode::size(100)->generate($booking->PNR); !!}  --}}
+    <img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(100)->generate($booking->PNR)) }} "></p>
                     <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
     line-height:normal'><span style='font-size:16.0pt;font-family:"Arial",sans-serif;
     color:#838383;letter-spacing:.75pt;background:white'>&nbsp;</span></p>
@@ -290,7 +295,7 @@
                 <td width=198 valign=top style='width:148.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'><span style='font-size:9.5pt;font-family:"Arial",sans-serif;color:#6C757D;
     letter-spacing:.75pt;background:white'><img width=87 height=73 id="Picture 3"
-                                src="Invoice_files/image003.png"></span></p>
+                                src="{{ asset('/images/bank-dki.png') }}"></span></p>
                 </td>
                 <td width=162 valign=top style='width:121.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>&nbsp;</p>
@@ -303,7 +308,7 @@
                 <td width=156 valign=top style='width:117.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
     line-height:normal'><span style='font-size:9.5pt;font-family:"Arial",sans-serif;
-    color:#6C757D;letter-spacing:.75pt;background:white'>7wMJe4sqn3</span></p>
+    color:#6C757D;letter-spacing:.75pt;background:white'>{{ $booking->PNR }}</span></p>
                 </td>
                 <td width=198 valign=top style='width:148.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
                     <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>&nbsp;</p>

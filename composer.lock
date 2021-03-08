@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fb35d747126f078d5386b64994daa25",
+    "content-hash": "f1ec50734bcb2ac08f28d832d25ce016",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1990,6 +1990,67 @@
                 "source": "https://github.com/opis/closure/tree/3.6.1"
             },
             "time": "2020-11-07T02:01:34+00:00"
+        },
+        {
+            "name": "orbitale/imagemagick-php",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Orbitale/ImageMagickPHP.git",
+                "reference": "b09d5ecaabf774b1ad2c56aa89b34393fcb45686"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Orbitale/ImageMagickPHP/zipball/b09d5ecaabf774b1ad2c56aa89b34393fcb45686",
+                "reference": "b09d5ecaabf774b1ad2c56aa89b34393fcb45686",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.2|^8.0",
+                "symfony/process": "^4.0|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5|^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Orbitale\\Component\\ImageMagick\\": "src/",
+                    "Orbitale\\Component\\ImageMagick\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Rock Ancelet",
+                    "email": "alex@orbitale.io",
+                    "homepage": "http://www.orbitale.io/"
+                }
+            ],
+            "description": "A system that allows creating commands to send to the exec() function to use ImageMagick's powerful features.",
+            "homepage": "https://github.com/Orbitale/ImageMagickPHP",
+            "keywords": [
+                "ImageMagick",
+                "converter",
+                "gd",
+                "image",
+                "imagick"
+            ],
+            "support": {
+                "issues": "https://github.com/Orbitale/ImageMagickPHP/issues",
+                "source": "https://github.com/Orbitale/ImageMagickPHP/tree/v3.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/pierstoval",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-02-01T13:43:13+00:00"
         },
         {
             "name": "phenx/php-font-lib",

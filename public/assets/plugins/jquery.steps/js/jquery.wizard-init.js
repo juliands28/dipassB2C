@@ -22,7 +22,7 @@
         $form_container.validate({
             errorPlacement: function errorPlacement(error, element) {
                 element.after(error);
-            }
+            },
         });
         $form_container.children("div").steps({
             headerTag: "h3",
@@ -37,7 +37,7 @@
                 return $form_container.valid();
             },
             onFinished: function (event, currentIndex) {
-                alert("Submitted!");
+                $form_container.submit()
             }
         });
 

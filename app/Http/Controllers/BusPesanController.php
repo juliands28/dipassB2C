@@ -53,7 +53,7 @@ class BusPesanController extends Controller
                 'departure_time' => $schedule->route->board_points->first()->time,
                 'arrival_city' => $schedule->route->arrival_id,
                 'arrival_point' => $schedule->route->points->last()->id,
-                'arrival_date' => $schedule->date,
+                'arrival_date' => $request->arrival_date,
                 'arrival_time' => $schedule->route->board_points->last()->time,
                 'date' => date('Y-m-d H:i:s'),
                 'expired_date' => date("Y-m-d H:i:s", strtotime("+2 hours")),

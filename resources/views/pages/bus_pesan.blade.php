@@ -45,7 +45,12 @@
             <div class="container">
                 <div class="row">
                     <div id="main" class="col-sms-6 col-sm-8 col-md-8 col-lg-9">
-                        <div class="booking-section travelo-box">
+                        <div class="clearfix"></div>
+                        <div class="card">
+                            <div class="card-header text-uppercase">
+                            Validation Form Wizard
+                            </div>
+                            <div class="card-body">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -55,116 +60,108 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form class="booking-form " 
-                            {{-- id="wizard-validation-form"  --}}
-                            action="{{ route('checkout_process', $schedule->id) }}" method="POST">
+                            <form id="wizard-validation-form" action="{{ route('checkout_process', $schedule->id) }}" method="POST">
                                 @csrf
-                                <div>
-                                    <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
-                                    <h3>Data Diri</h3>
-                                    <section>
-                                        <div class="form-group">
-                                            <label for="userName2">Nama</label>
-                                            <input class="required form-control" id="name" name="name" type="text" value="dini">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password2">phone</label>
-                                            <input id="phone" name="phone" type="text" class="required form-control" value="06442353464">
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="confirm2">Email</label>
-                                            <input id="email" name="email" type="email" class=" email required form-control" value="dini@gmail.com">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-12 control-label"><span class="text-danger">(*)NOTE</span> <br> Nama : Isilah sesuai nama KTP <br> Email : Isilah dengan email anda yang aktif <br> Nomor Telepon: Isilah dengan nomor telpon anda yang aktif</label>
-                                        </div>
-                                    </section>
-                                    <h3>Data Penumpang</h3>
-                                    <section>
-            
-                                        <div class="form-group">
-                                            <label for="name2">Nama</label>
-                                                <input id="passenger_name" name="passenger_name" type="text" class="required form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="surname2">NIK</label>
-                                                <input id="passenger_nik" name="passenger_nik" type="text" class="required form-control" required>
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="email2">umur</label>
-                                            <input id="passenger_age" name="passenger_age" type="number" class="required form-control" required>
-                                        </div>
-                                        {{-- <div class="col-md-6 mb-3">
-                                            <label for="validationServer03">City</label>
-                                            <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
-                                            <div class="invalid-feedback">
-                                              Please provide a valid city.
-                                            </div>
-                                          </div> --}}
-                                        
-                                        
-                                        <div class="form-group">
-                                            <label for="seat">Kursi</label>
-                                            @foreach ($schedule->route->bus->layout['component'] as $key => $val)
-                                            @if($val['type'] === 'seat')
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input @error('passenger_seat_number') is-invalid @enderror" type="radio" name="passenger_seat_number" id="inlineRadio2" value="{{ $val['seat_number'] }}">
-                                                <label class="form-check-label" for="inlineRadio2">{{ $val['seat_number'] }}</label>
-                                              </div>
-                                              @else 
-                                              <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="hidden" name="inlineRadioOptions" id="inlineRadio3" value="{{ $val['type'] }}" disabled>
-                                                <label class="form-check-label" for="inlineRadio3">{{ $val['type'] }}</label>
-                                              </div>
-                                              @endif
-                                              @endforeach 
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="address2">Jenis Kelamin </label>
-                                            <div class="selector">
-                                                <select name="passenger_gender" class="full-width">
-                                                    <option value="Male">Laki-Laki</option>
-                                                    <option value="Female">Perempuan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label class="col-lg-12 control-label">(*) Mandatory</label>
-                                        </div>
-                                    </section>
-                                    <h3>Pickup & Drop Point</h3>
-                                    <section>
-                                        <div class="col-md-6 col-sm-4 col-xs-6 demo-col">
-                                            <div class="icheck-primary">
-                                                <input type="radio" id="primary2" name="primary" required />
-                                                <label for="primary2">{{ $schedule->route->points->first()->point_name }}</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-4 col-xs-6 demo-col">
-                                            <div class="icheck-success">
-                                                <input type="radio" id="success1" name="success" required/>
-                                                <label for="success1">{{ $schedule->route->points ->last()->point_name }}</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="icheck-primary">
-                                                    <input type="checkbox" class="required" id="primary"  required/>
-                                                    <label for="primary">Dengan memilih Lanjut ke Pembayaran, Anda menyetujui Syarat & Ketentuan serta Kebijakan Privasi DIPASS Provider. </label>
+                                @php
+                                    $fdate = \carbon\carbon::create($schedule->date->toDateTimeString())
+                                @endphp
+                                <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $fdate->addDays($schedule->route->board_points->last()->day)}}">
+                                    <div>
+                                        <h3>Pickup & Drop Point</h3>
+                                            <section>
+                                                <div class="col-md-6 col-sm-4 col-xs-6 demo-col">
+                                                    <div class="icheck-primary">
+                                                        <input type="radio" id="primary2" name="primary" required />
+                                                        <label for="primary2">{{ $schedule->route->points->first()->point_name }}</label>
+                                                    </div>
                                                 </div>
+                                                <div class="col-md-6 col-sm-4 col-xs-6 demo-col">
+                                                    <div class="icheck-success">
+                                                        <input type="radio" id="success1" name="success" required/>
+                                                        <label for="success1">{{ $schedule->route->points ->last()->point_name }}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-12 control-label"><span class="text-danger">(*)NOTE: </span> <br> <span class="text-info">Biru adalah nama terminal keberangkatan</span><br> <span class="text-success">Hijau adalah nama terminal tiba</span></label>
+                                                </div>
+                                            </section>
+                                        <h3>Pilih kursi</h3>
+                                            <section>
+                                                <div class="form-group">
+                                                    <div class="col-lg-12">
+                                                    <label for="seat">Kursi</label><br>
+                                                        @foreach ($schedule->route->bus->layout['component'] as $key => $val)
+                                                        @if($val['type'] === 'seat')
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input @error('passenger_seat_number') is-invalid @enderror" type="radio" name="passenger_seat_number" id="inlineRadio2" value="{{ $val['seat_number'] }}">
+                                                            <label class="form-check-label" for="inlineRadio2">{{ $val['seat_number'] }}</label>
+                                                        </div>
+                                                        @else 
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="hidden" name="inlineRadioOptions" id="inlineRadio3" value="{{ $val['type'] }}" disabled>
+                                                            <label class="form-check-label" for="inlineRadio3">{{ $val['type'] }}</label>
+                                                        </div>
+                                                        @endif
+                                                        @endforeach 
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        <h3>Data Penumpang</h3>
+                                            <section>
+                                                <div class="form-group">
+                                                    <label for="name2">Nama</label>
+                                                        <input id="passenger_name" name="passenger_name" type="text" class="required form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="surname2">NIK (Nomor Induk Kependudukan)</label>
+                                                        <input id="passenger_nik" name="passenger_nik" type="text" class="required form-control" required>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="email2">umur</label>
+                                                            <input id="passenger_age" name="passenger_age" type="number" class="required form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="address2">Jenis Kelamin </label>
+                                                            <div class="selector">
+                                                                <select name="passenger_gender" class="full-width">
+                                                                    <option value="Male">Laki-Laki</option>
+                                                                    <option value="Female">Perempuan</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="">(*)NOTE</span> <br> Nama : Isilah sesuai nama KTP penumpang <br> NIK : Isilah dengan NIK pada KTP Penumpang <br>Umur: Isilah umur penumpang <br>Jenis Kelamin: Isilah Jenis Kelamin penumpang <br>Kursi: Pilihlah kursi berdasarkan penumpang </label>
+                                                </div>
+                                            </section>
+                                        <h3>Data Diri</h3>
+                                        <section>
+                                            <div class="form-group">
+                                                <label for="userName2">Nama</label>
+                                                <input class="required form-control" id="name" name="name" type="text" value="dini">
                                             </div>
-                                        </div>
-                                    </section>
-                                </div>
-                                <br>
-                            <button class="btn btn-block btn-join-now mt-3 py-2" type="submit">
-                                Pesan Sekarang
-                            </button>
-                            </form>
+                                            <div class="form-group">
+                                                <label for="password2">phone</label>
+                                                <input id="phone" name="phone" type="text" class="required form-control" value="06442353464">
+                                            </div>
+                
+                                            <div class="form-group">
+                                                <label for="confirm2">Email</label>
+                                                <input id="email" name="email" type="email" class=" email required form-control" value="dini@gmail.com">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-12 control-label"><span class="text-danger">(*)NOTE</span> <br> Nama : Isilah sesuai nama KTP <br> Email : Isilah dengan email anda yang aktif <br> Nomor Telepon: Isilah dengan nomor telpon anda yang aktif</label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="sidebar col-sms-6 col-sm-4 col-md-4 col-lg-3">
@@ -182,15 +179,21 @@
                                     <div class="constant-column-3 timing clearfix">
                                         <div class="check-in">
                                             <label>Berangkat</label>
-                                            <span>{{ $schedule->route->points->first()->point_name }} <br><br />{{ $schedule->date->format('d/m/Y') }} <br>{{ $schedule->route->board_points->first()->time }} - hari ke {{ $schedule->route->board_points->first()->day }} </span>
+                                            <span>{{ $schedule->route->points->first()->point_name }} <br><br />{{ $schedule->date->format('F j, Y') }} <br>{{\Carbon\Carbon::createFromFormat('H:i:s',$schedule->route->board_points->first()->time)->format('H:i')}}</span>
                                         </div>
+                                        @php
+                                            $firsttime = \carbon\carbon::create($schedule->route->board_points->first()->time);
+                                            $lasttime = \carbon\carbon::create($schedule->route->board_points->last()->time);
+                                            $interval = $firsttime->diff($lasttime);
+                                        @endphp
                                         <div class="duration text-center">
                                             <i class="soap-icon-clock"></i>
-                                            <span>3h, 40m</span>
+                                            <span>{{ $interval->h }}j, {{ $interval->i }}m</span>
                                         </div>
+                                        
                                         <div class="check-out">
                                             <label>Tiba</label>
-                                            <span>{{ $schedule->route->points ->last()->point_name }} <br><br />{{ $schedule->date->format('d/m/Y') }} <br>{{ $schedule->route->board_points->last()->time }} - hari ke {{ $schedule->route->board_points->last()->day }} </span>
+                                            <span>{{ $schedule->route->points ->last()->point_name }} <br><br />{{ $fdate->addDays($schedule->route->board_points->last()->day)->format('F j, Y') }}<br>{{\Carbon\Carbon::createFromFormat('H:i:s',$schedule->route->board_points->last()->time)->format('H:i')}}</span>
                                         </div>
                                     </div>
                                 </div>
