@@ -92,18 +92,35 @@
                                                     <div class="col-lg-12">
                                                     <label for="seat">Kursi</label><br>
                                                         @foreach ($schedule->route->bus->layout['component'] as $key => $val)
-                                                        @if($val['type'] === 'seat')
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input @error('passenger_seat_number') is-invalid @enderror" type="radio" name="passenger_seat_number" id="inlineRadio2" value="{{ $val['seat_number'] }}">
-                                                            <label class="form-check-label" for="inlineRadio2">{{ $val['seat_number'] }}</label>
-                                                        </div>
-                                                        @else 
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="hidden" name="inlineRadioOptions" id="inlineRadio3" value="{{ $val['type'] }}" disabled>
-                                                            <label class="form-check-label" for="inlineRadio3">{{ $val['type'] }}</label>
-                                                        </div>
-                                                        @endif
+                                                            @if($val['type'] === 'seat')
+                                                            <td class="bus_seat_container" style="border-top: 0px solid #dee2e6; height: 50px; width: 50px; padding: 0;">
+                                                                {{-- <button class="btn btn-md " name="passenger_seat_number" value="{{ $val['seat_number'] }}">{{ $val['seat_number'] }}</button> --}}
+
+                                                                <div class="btn-group-toggle" data-toggle="buttons">
+                                                                    <label class="btn {{ $val['seat_number'] === 'seat_number' ? 'btn-danger' : 'btn-outline-info' }}">{{ $val['seat_number']}}
+                                                                        <input type="checkbox" name="seat_number[]"  value="{{ $val['seat_number'] }}" class="check-seat" style="box-sizing:border-box;"/>
+                                                                    </label>
+                                                                </div>
+                                                            </td>
+                                                            {{-- <div class="form-check form-check-inline">
+                                                                <input class="form-check-input @error('passenger_seat_number') is-invalid @enderror" type="radio"  id="inlineRadio2" value="{{ $val['seat_number'] }}">
+                                                                <label class="form-check-label" for="inlineRadio2">{{ $val['seat_number'] }}</label>
+                                                            </div> --}}
+                                                            {{-- @else 
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="hidden" name="inlineRadioOptions" id="inlineRadio3" value="{{ $val['type'] }}" disabled>
+                                                                <label class="form-check-label" for="inlineRadio3">{{ $val['type'] }}</label>
+                                                            </div> --}}
+                                                            @endif
                                                         @endforeach 
+
+                                                        {{-- <table style="border: 2px solid #dee2e6;" class="table t_layout">
+                                                            <tr>
+                                                                @foreach ($schedule->route->bus->layout['component'] as $key => $val)
+                                                                    <td></td>
+                                                                @endforeach
+                                                            </tr>
+                                                        </table> --}}
                                                     </div>
                                                 </div>
                                             </section>
