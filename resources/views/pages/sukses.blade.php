@@ -51,13 +51,13 @@
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title"><i class="fa fa-star"></i>Cetak Tiket</h5>
+                  <h5 class="modal-title"><i class="soap-icon-stories"></i>&nbsp; Cetak Tiket</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Selangkah lagi Tiket kamu selesai. Kamu bisa berpergian kemana saja dengan menggunakan dipass. Selalu gunakan dipass disaat berpergian dengan bus antar kota</p>
+                  <p>Selangkah lagi Tiket kamu selesai. Kamu bisa berpergian kemana saja dengan menggunakan dipass. Selalu gunakan dipass disaat berpergian dengan bus antar kota.</p>
                 </div>
                 <div class="modal-footer">
                   {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button> --}}
