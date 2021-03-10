@@ -202,7 +202,7 @@ span.seatCharts-legendDescription {
                                                     <a href="#" class="button btn-mini yellow pull-right">Kursi: {{ $item->route->bus->seat_count }}</a>
                                                     <h4 class="box-title">
                                                         @if($item->route->company->logo === null)
-                                                            {{ $item->route->company->company_name }}
+                                                            {{ $item->route->company->alias }}
                                                         @else
                                                         <img width="10%" src="http://api-dipass-provider.test/file/logo/{{ $item->route->company->logo }}" alt="logo company">
                                                         {{ $item->route->company->company_name }}

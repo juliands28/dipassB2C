@@ -103,7 +103,7 @@
                                                         <div class="col-6 pl-2">
                                                             <h4 class="box-title">
                                                                 @if($schedules->route->company->logo === null)
-                                                                    {{ $schedules->route->company->company_name }}
+                                                                    {{ $schedules->route->company->alias }}
                                                                @else
                                                                     <img width="20%" src="http://api-dipass-provider.test/file/logo/{{ $schedules->route->company->logo }}" alt="logo company">
                                                                     {{ $schedules->route->company->company_name }}
@@ -111,7 +111,7 @@
                                                                 <br>
                                                                 <br>
                                                                 {{ $schedules->route->title }}<small>{{ $schedules->route->bus->bus_name }} - {{ $schedules->bus_number }}</small></h4>
-                                                            <a class="button btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
+                                                            <a class="button yellow btn-mini stop">Kursi: {{ $schedules->route->bus->seat_count }}</a> 
                                                          </div>
                                                         <div class="col-6">
                                                             @foreach ($schedules->route->bus->facilities as $i)
