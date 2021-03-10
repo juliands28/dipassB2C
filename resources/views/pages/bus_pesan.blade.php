@@ -63,10 +63,10 @@
                             <form id="wizard-validation-form" action="{{ route('checkout_process', $schedule->id) }}" method="POST">
                                 @csrf
                                 @php
-                                    $fdate = \carbon\carbon::create($schedule->date->toDateTimeString())
+                                    $fdatedb = \carbon\carbon::create($schedule->date->toDateTimeString())
                                 @endphp
                                 <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $fdate->addDays($schedule->route->board_points->last()->day)}}">
+                                <input type="hidden" name="arrival_date" id="arrival_date" value="{{ $fdatedb->addDays($schedule->route->board_points->last()->day)}}">
                                     <div>
                                         <h3>Pickup & Drop Point</h3>
                                             <section>
@@ -190,7 +190,9 @@
                                             <i class="soap-icon-clock"></i>
                                             <span>{{ $interval->h }}j, {{ $interval->i }}m</span>
                                         </div>
-                                        
+                                        @php
+                                            $fdate = \carbon\carbon::create($schedule->date->toDateTimeString())
+                                        @endphp
                                         <div class="check-out">
                                             <label>Tiba</label>
                                             <span>{{ $schedule->route->points ->last()->point_name }} <br><br />{{ $fdate->addDays($schedule->route->board_points->last()->day)->format('F j, Y') }}<br>{{\Carbon\Carbon::createFromFormat('H:i:s',$schedule->route->board_points->last()->time)->format('H:i')}}</span>

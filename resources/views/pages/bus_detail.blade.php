@@ -221,23 +221,41 @@ span.seatCharts-legendDescription {
                                                             <div class="timing">
                                                                 <div class="check-in">
                                                                     <label>Berangkat</label>
-                                                                    <span>{{ $item->date->format('F j, Y') }} - {{\Carbon\Carbon::createFromFormat('H:i:s',$item->route->board_points->first()->time)->format('H:i')}}</span>
+                                                                    <span>{{ $item->date->format('F j, Y') }}</span>
                                                                 </div>
                                                                 <div class="duration text-center">
-                                                                    <i class="soap-icon-clock"></i>
-                                                                    <span>time</span>
+                                                                    <i class="soap-icon-chevron-right"></i>
                                                                 </div>
                                                                 @php
                                                                     $fdate = \carbon\carbon::create($item->date->toDateTimeString())
                                                                 @endphp
                                                                 <div class="check-out">
                                                                     <label>Tiba</label>
-                                                                    <span> {{ $fdate->addDays($item->route->board_points->last()->day)->format('F j, Y') }} - {{\Carbon\Carbon::createFromFormat('H:i:s',$item->route->board_points->last()->time)->format('H:i')}}</span> 
+                                                                    <span> {{ $fdate->addDays($item->route->board_points->last()->day)->format('F j, Y') }} </span> 
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    @foreach ($item->route->board_points as $jadwal)
+                                                    <div class="table-row first-flight">
+                                                        <div class="table-cell logo">
+                                                        </div>
+                                                        <div class="table-cell timing-detail">
+                                                            <div class="timing">
+                                                                <div class="check-in">
+                                                                    <label>Jadwal</label>
+                                                                    <span>{{ $jadwal->point->point_name }}</span>
+                                                                </div>
+                                                                <div class="duration text-center">
+                                                                    <i class="soap-icon-clock"></i>
+                                                                    <span>{{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->time)->format('H:i')}}</span>
                                                                 </div>
                                                             </div>
                                                             {{-- <label class="layover">Layover : 3h 50m</label> --}}
                                                         </div>
                                                     </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
