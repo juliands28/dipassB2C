@@ -28,7 +28,7 @@ class BusDetailController extends Controller
             ->findOrFail($id);
 
             // return $item;
-            // dd($item);
+            // return($item->route->bus->layout);
         return view('pages.bus_detail',[
             'item' => $item,
         ]);

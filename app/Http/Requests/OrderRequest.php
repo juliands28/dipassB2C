@@ -44,7 +44,7 @@ class OrderRequest extends FormRequest
             // 'passenger_name.*' => 'required|string|max:50',
             // 'passenger_nik' => 'required|array',
             // 'passenger_nik.*' => 'required|string|max:20',
-            // 'passenger_seat_number' => 'required|array',
+            'passenger_seat_number*' => 'required|array',
             'passenger_seat_number' => 'required|string|max:10',
             // 'passenger_age' => 'required|array',
             // 'passenger_age.*' => 'required|numeric',

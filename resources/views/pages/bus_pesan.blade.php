@@ -98,7 +98,7 @@
 
                                                                 <div class="btn-group-toggle" data-toggle="buttons">
                                                                     <label class="btn {{ $val['seat_number'] === 'seat_number' ? 'btn-danger' : 'btn-outline-info' }}">{{ $val['seat_number']}}
-                                                                        <input type="checkbox" name="seat_number[]"  value="{{ $val['seat_number'] }}" class="check-seat" style="box-sizing:border-box;"/>
+                                                                        <input type="checkbox" name="passenger_seat_number"  value="{{ $val['seat_number'] }}" class="check-seat" style="box-sizing:border-box;"/>
                                                                     </label>
                                                                 </div>
                                                             </td>
