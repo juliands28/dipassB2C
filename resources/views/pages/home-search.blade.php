@@ -89,18 +89,23 @@
                         <form action="{{ route('search-bus') }}" method="POST">
                             @csrf
                             <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h1 class="title font-weight-bold text-uppercase mb-5">Selamat Datang</h1>
+                                </div>
                                 <div class="col-md-4">
-                                    <h4 class="title">Mau Kemana?</h4>
                                     <div class="form-group">
-                                        <label>Dari</label>
+                                        <label>Asal</label>
                                         <select class="form-control single-select" data-placeholder="Pilih Asal Keberangkatan " name='departure_city' data-init-plugin="select2" required>
                                             @foreach ($kota as $item)
                                                 <option value="{{$item->id}}">{{$item->city_name}}</option>
                                             @endforeach
                                       </select>
                                     </div>
+                                    
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Pergi ke</label>
+                                        <label>Tujuan</label>
                                         <select class="form-control single-select" data-placeholder="Pilih tujuan Keberangkatan " name='arrival_city' data-init-plugin="select2" required>
                                             @foreach ($kota as $item)
                                                 <option value="{{$item->id}}">{{$item->city_name}}</option>
@@ -108,28 +113,21 @@
                                       </select>
                                     </div>
                                 </div>
-                                
                                 <div class="col-md-4">
-                                    <h4 class="title">Mau Berangkat Kapan?</h4>
+                                    {{-- <h4 class="title">Mau Berangkat Kapan?</h4> --}}
                                     <label>Tanggal Pergi</label>
                                     <div class="form-group row">
                                         <div class="col-xs-12">
                                             <div class="datepicker-wrap">
-                                                <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" autocomplete="off" required/>
+                                                <input type="text" name="date" class="input-text full-width" placeholder="Pilih Tanggal" autocomplete="off"  required/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <h4 class="title"> </h4>
-                                    <div class="form-group row">
-                                        <div class="col-xs-6 pull-right">
-                                            <label>&nbsp;</label>
-                                            <button type="submit" 
-                                            {{-- onclick="window.location.href='{{ route('bus-list') }}'"  --}}
-                                            class="purple full-width">Cari Sekarang</button>
-                                        </div>                                        
-                                    </div>
+                                <div class="col-md-12">
+                                    <button type="submit" 
+                                    {{-- onclick="window.location.href='{{ route('bus-list') }}'"  --}}
+                                    class="btn btn-block btn-xl btn-info text-uppercase font-weight-bold" style="height:50px;">Cari Sekarang</button>
                                 </div>
                                 
                             </div>

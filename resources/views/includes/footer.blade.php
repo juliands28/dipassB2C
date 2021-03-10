@@ -80,7 +80,7 @@
             </div>
         </div>
     </div> --}}
-    <div class="bottom gray-area">
+    <div class="bottom gray-area fixed-bottom">
         <div class="container">
             <div class="pull-left">
                 <a href="index.html" title="Dipass B2C">

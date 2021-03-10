@@ -165,9 +165,9 @@
                                     </div>
                                 </article>
                                 @empty
-                                <img src="{{ asset('/images/nodata.png') }}" width="50%" class="rounded mx-auto d-block" alt="data tidak ditemukan">
+                                <img src="{{ asset('/images/no_data_table.png') }}" width="50%" class="rounded mx-auto d-block mb-5" alt="data tidak ditemukan">
                                 
-                                <a data-toggle="collapse" href="#modify-search-panel" class="button uppercase full-width btn-large">Data tidak ditemukan, Silakan pilih Route lain</a>
+                                <a data-toggle="collapse" href="#modify-search-panel" class="button uppercase full-width btn-large">Data tidak ditemukan, Silakan pilih Rute lain</a>
                                 
                                 @endforelse                            
                                                                
