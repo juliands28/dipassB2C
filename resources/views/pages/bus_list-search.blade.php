@@ -42,6 +42,7 @@
                                     <div id="modify-search-panel" class="panel-collapse collapse">
                                         <div class="panel-content">
                                             <form action="{{ route('search-bus') }}" method="POST">
+                                            @csrf
                                                 <div class="form-group">
                                                     <label>Berangkat dari</label>
                                                     <select class="full-width" data-placeholder="Pilih Asal Keberangkatan " name='departure_city' data-init-plugin="select2" required>
